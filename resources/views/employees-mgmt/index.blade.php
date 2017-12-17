@@ -21,8 +21,8 @@
       </div>
       <form method="POST" action="{{ route('employee-management.search') }}">
          {{ csrf_field() }}
-         @component('layouts.search', ['title' => 'Search'])
-          @component('layouts.two-cols-search-row', ['items' => ['First Name', 'Department_Name'], 
+         @component('layouts._partials.search', ['title' => 'Search'])
+          @component('layouts._partials.two-cols-search-row', ['items' => ['First Name', 'Department_Name'],
           'oldVals' => [isset($searchingVals) ? $searchingVals['firstname'] : '', isset($searchingVals) ? $searchingVals['department_name'] : '']])
           @endcomponent
         @endcomponent

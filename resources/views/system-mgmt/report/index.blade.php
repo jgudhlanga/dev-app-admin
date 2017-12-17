@@ -38,8 +38,8 @@
       </div>
       <form method="POST" action="{{ route('report.search') }}">
          {{ csrf_field() }}
-         @component('layouts.search', ['title' => 'Search'])
-          @component('layouts.two-cols-date-search-row', ['items' => ['From', 'To'], 
+         @component('layouts._partials.search', ['title' => 'Search'])
+          @component('layouts._partials.two-cols-date-search-row', ['items' => ['From', 'To'],
           'oldVals' => [isset($searchingVals) ? $searchingVals['from'] : '', isset($searchingVals) ? $searchingVals['to'] : '']])
           @endcomponent
          @endcomponent

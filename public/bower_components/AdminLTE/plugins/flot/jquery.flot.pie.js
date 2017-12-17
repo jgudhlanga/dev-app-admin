@@ -797,7 +797,7 @@ More detail and specific examples can be found in the included HTML file.
 				combine: {
 					threshold: -1,	// percentage at which to combine little slices into one larger slice
 					color: null,	// color to give the new slice (auto-generated if null)
-					label: "Other"	// label to give the new slice
+					label: "Common"	// label to give the new slice
 				},
 				highlight: {
 					//color: "#fff",		// will add this functionality once parseColor is available

@@ -11,13 +11,34 @@
 |
 */
 
+Route::get('/home', function () {
+    return view('home.index');
+})->middleware('auth');
+
 Route::get('/', function () {
-    return view('dashboard');
+    return view('home.index');
 })->middleware('auth');
 
 Auth::routes();
 
-Route::get('/dashboard', 'DashboardController@index');
+/*System Admin  Routes*/
+Route::resource('admin', 'Admin\Index\AdminController');
+
+/*Chms  Routes*/
+Route::post('chms/search', 'Chms\Index\ChmsController@search');
+Route::resource('chms', 'Chms\Index\ChmsController');
+
+/*Hms Routes*/
+Route::resource('hms', 'Hms\Index\HmsController');
+
+/*Modules Routes*/
+Route::get('modules/get-modules', 'Admin\Modules\ModulesController@getModules');
+Route::resource('modules', 'Admin\Modules\ModulesController');
+
+/*Procurement Routes*/
+Route::resource('procurement', 'Procurement\Index\ProcurementController');
+
+/*
 // Route::get('/system-management/{option}', 'SystemMgmtController@index');
 Route::get('/profile', 'ProfileController@index');
 
@@ -47,4 +68,4 @@ Route::post('system-management/report/search', 'ReportController@search')->name(
 Route::post('system-management/report/excel', 'ReportController@exportExcel')->name('report.excel');
 Route::post('system-management/report/pdf', 'ReportController@exportPDF')->name('report.pdf');
 
-Route::get('avatars/{name}', 'EmployeeManagementController@load');
+Route::get('avatars/{name}', 'EmployeeManagementController@load');*/

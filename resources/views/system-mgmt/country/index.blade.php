@@ -21,8 +21,8 @@
       </div>
       <form method="POST" action="{{ route('country.search') }}">
          {{ csrf_field() }}
-         @component('layouts.search', ['title' => 'Search'])
-          @component('layouts.two-cols-search-row', ['items' => ['Country_Code', 'Name'], 
+         @component('layouts._partials.search', ['title' => 'Search'])
+          @component('layouts._partials.two-cols-search-row', ['items' => ['Country_Code', 'Name'],
           'oldVals' => [isset($searchingVals) ? $searchingVals['country_code'] : '', isset($searchingVals) ? $searchingVals['name'] : '']])
           @endcomponent
         @endcomponent

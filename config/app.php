@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Employee management',
+    'name' => 'J-PORTAL',
 
     /*
     |--------------------------------------------------------------------------
@@ -178,6 +178,12 @@ return [
         App\Providers\RouteServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        
+        /* Collective Annotation for Routing */
+       // App\Providers\AnnotationsServiceProvider::class
+        
+        /* DATA TABLES */
+        Yajra\DataTables\DataTablesServiceProvider::class,
     ],
 
     /*
@@ -228,6 +234,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 
 ];

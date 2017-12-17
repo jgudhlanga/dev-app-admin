@@ -26,3 +26,5 @@ Route::group(['prefix' => 'cities'], function()
 {
     Route::get('/{stateId}', 'CityController@loadCities');
 });
+
+

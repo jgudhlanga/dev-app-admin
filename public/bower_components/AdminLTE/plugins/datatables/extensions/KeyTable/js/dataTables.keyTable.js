@@ -746,7 +746,7 @@ KeyTable = function ( oInit )
 				}
 				break;
 
-			case 36: /* home */
+			case 36: /* Home */
 				x = _iOldX;
 				y = 0;
 				break;

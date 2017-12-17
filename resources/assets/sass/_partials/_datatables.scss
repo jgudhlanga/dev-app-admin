@@ -1,0 +1,23 @@
+.dt-buttons{
+  display: inline-block;
+  float: right !important;
+}
+.dataTables_length{
+  float: left;
+}
+.dataTables_filter {
+  label{
+    font-weight: bold !important;
+     margin-right: 0.625em !important;
+     padding: 0.375em !important;
+  }
+}
+.dataTable{
+  tr > th {
+    text-align: center !important;
+    input{
+      padding: 0.313em !important;
+      color: lighten($text-color, 10%) !important;
+    }
+  }
+}

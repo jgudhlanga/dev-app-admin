@@ -21,12 +21,12 @@
       </div>
       <form method="POST" action="{{ route('user-management.search') }}">
          {{ csrf_field() }}
-         @component('layouts.search', ['title' => 'Search'])
-          @component('layouts.two-cols-search-row', ['items' => ['User Name', 'First Name'], 
+         @component('layouts._partials.search', ['title' => 'Search'])
+          @component('layouts._partials.two-cols-search-row', ['items' => ['User Name', 'First Name'],
           'oldVals' => [isset($searchingVals) ? $searchingVals['username'] : '', isset($searchingVals) ? $searchingVals['firstname'] : '']])
           @endcomponent
           </br>
-          @component('layouts.two-cols-search-row', ['items' => ['Last Name', 'Department'],
+          @component('layouts._partials.two-cols-search-row', ['items' => ['Last Name', 'Department'],
           'oldVals' => [isset($searchingVals) ? $searchingVals['lastname'] : '', isset($searchingVals) ? $searchingVals['department'] : '']])
           @endcomponent
         @endcomponent

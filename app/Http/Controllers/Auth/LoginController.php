@@ -12,7 +12,7 @@ class LoginController extends Controller
     |--------------------------------------------------------------------------
     |
     | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
+    | redirecting them to your Home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
     */
@@ -24,12 +24,10 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
-
-     /**
-     * Determine if the user has too many failed login attempts.
-     *
-     * @param  \Illuminate\Http\Request  $request
+    protected $redirectTo = '/home';
+    
+    /**
+     * @param $request
      * @return bool
      */
     protected function hasTooManyLoginAttempts ($request) {
@@ -39,10 +37,9 @@ class LoginController extends Controller
             $this->throttleKey($request), $maxLoginAttempts, $lockoutTime
         );
     }
+    
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * LoginController constructor.
      */
     public function __construct()
     {
