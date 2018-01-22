@@ -3,19 +3,17 @@
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        CHMS Dashboard
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-      </ol>
+        <h1 class="h1">{{trans('chms.dashboard')}}</h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ url('home') }}"><i class="fa fa-home"></i>{{trans('general.home')}}</a></li>
+        </ol>
     </section>
-
     <!-- Main content -->
     <section class="content">
 
-      <!-- Your Page Content Here -->
+        <div class="row">
+
+        </div>
 
     </section>
 @endsection
-

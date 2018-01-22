@@ -6,9 +6,13 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "albertcht/invisible-recaptcha": "^1.8",
         "barryvdh/laravel-dompdf": "^0.8.0",
+        "codecourse/notify": "^1.1",
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
+        "laravel/passport": "^4.0",
+        "laravel/scout": "^3.0",
         "laravel/tinker": "~1.0",
         "maatwebsite/excel": "^2.1",
         "yajra/laravel-datatables-oracle": "~8.0"

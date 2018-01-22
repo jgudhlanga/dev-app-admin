@@ -6,12 +6,15 @@
  * Time: 08:05 PM
  */
 return [
-    'add_new'                    => 'Add New',
-    'edit'                       => 'Edit',
-    'delete'                     => 'Delete',
-    'update'                     => 'Update',
-    'deactivate'                 => 'Deactivate',
-    'activate'                   => 'Activate',
-    'save'                       => 'Save',
-    'close'                      => 'Close',
+	'add_new' => 'Add New',
+	'edit' => 'Edit',
+	'delete' => 'Delete',
+	'update' => 'Update',
+	'deactivate' => 'Deactivate',
+	'reactivate' => 'Reactivate',
+	'save' => 'Save',
+	'close' => 'Close',
+	'view' => 'View',
+	'up' => 'Up',
+	'down' => 'Down',
 ];

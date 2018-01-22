@@ -12,19 +12,31 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+/*MODULES ROUTES*/
+Route::group(['prefix' => 'modules'], function () {
+	Route::get('/get-modules', 'Admin\Modules\ModuleController@getModules');
+	Route::put('/change-status', 'Admin\Modules\ModuleController@changeStatus');
+});
+
+/*COMMON ROUTES*/
+Route::group(['prefix' => 'icons'], function () {
+	Route::put('/change-status', 'Admin\Common\Icon\IconController@changeStatus');
+});
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'states'], function()
-{
-    Route::get('/{countryId}', 'StateController@loadStates');
+/*PRODUCTS ROUTE*/
+Route::apiResource('/products', 'Products\Api\ProductController');
+
+/*PRODUCT REVIEW ROUTES*/
+Route::group(['prefix' => 'products'], function (){
+	Route::apiResource('/{product}/reviews', 'Reviews\Api\ReviewController');
 });
 
-Route::group(['prefix' => 'cities'], function()
-{
-    Route::get('/{stateId}', 'CityController@loadCities');
-});
+/*USER ROUTES*/
+Route::apiResource('/users', 'Users\Api\UserController');
+
 
 

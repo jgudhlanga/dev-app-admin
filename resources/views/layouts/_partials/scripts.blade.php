@@ -15,5 +15,9 @@
 <script src="{{ asset('js/site.js') }}"></script>
 <script src="{{ asset('js/datatables/datatables.min.js') }}"></script>
 <script src="{{ asset('js/datatables/datatables_extra.js') }}"></script>
+<script src="{{ asset('js/sweetalerts/sweetalerts.js') }}"></script>
+<script src="{{ asset('js/validation/validator.min.js') }}"></script>
+<script src="{{ asset('js/waitme/waitme.min.js') }}"></script>
+<script src="{{ asset('js/jdev.js') }}"></script>
 
 @stack('scripts')

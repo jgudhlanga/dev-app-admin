@@ -1,0 +1,12 @@
+.h1 {
+	font-weight: bold;
+	color: darken($brand-primary, 10%);
+	font-size: 18px !important;
+}
+.caption-title-div {
+	border-bottom: 2px lighten($text-color, 50%) solid;
+	margin-bottom: 5px !important;
+	.caption-title {
+		font-weight: bold; color: darken($text-color, 100%); font-size: 18px !important;
+	}
+}

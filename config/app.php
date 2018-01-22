@@ -184,6 +184,9 @@ return [
         
         /* DATA TABLES */
         Yajra\DataTables\DataTablesServiceProvider::class,
+	    
+	    /*codecourse notify package*/
+	    Codecourse\Notify\NotifyServiceProvider::class,
     ],
 
     /*
@@ -235,6 +238,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+	    'Notify' => Codecourse\Notify\Facades\Notify::class,
     ],
 
 ];

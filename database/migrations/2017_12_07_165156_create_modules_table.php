@@ -20,13 +20,13 @@ class CreateModulesTable extends Migration
             $table->string('icon')->nullable();
             $table->string('module_url')->nullable()->unique();
             $table->integer('status_id')->unsigned()->default(1)->nullable();
+            $table->integer('position')->nullable()->unique();
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();
             $table->foreign('status_id')->references('id')->on('statuses');
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('updated_by')->references('id')->on('users');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

@@ -11,10 +11,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Module extends Model
 {
-    protected $fillable = ['title', 'description', 'icon', 'module_url', 'status_id','created_by', 'updated_by'];
-    
+	
+    protected $fillable = ['title', 'description', 'icon', 'module_url', 'status_id','position','created_by', 'updated_by'];
+	
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
     public function status()
     {
         return $this->belongsTo('App\Models\Common\Status');
     }
+	
+	/**
+	 * @return array
+	 */
+    public function getTableColumns() {
+        return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
+    }
+    
 }

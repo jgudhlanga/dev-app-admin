@@ -4,9 +4,25 @@ namespace App\Http\Controllers\Admin\Index;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\Modules\ModulesService;
+
 
 class AdminController extends Controller
 {
+    /**
+     * @var ModulesService
+     */
+    protected $moduleService;
+    
+    /**
+     * AdminController constructor.
+     * @param ModulesService $modulesService
+     */
+    public function __construct(ModulesService $modulesService)
+    {
+        $this->moduleService = $modulesService;
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +30,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.index.index');
+        $modules = $this->moduleService->findAll();
+    
+        return view('admin.index.index', compact('modules'));
     }
 
     /**

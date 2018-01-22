@@ -12,7 +12,14 @@ use Illuminate\Database\Eloquent\Model;
 class Status extends Model
 {
     const ACTIVE = 1;
+    const INACTIVE = 2;
     
     protected $fillable = ['title', 'description'];
-    
+	
+	/**
+	 * @return array
+	 */
+	public function getTableColumns() {
+		return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
+	}
 }

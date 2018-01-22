@@ -3,9 +3,10 @@
   <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>EM | Empployee Management</title>
+      <title>{{trans('jdev.app-title')}}</title>
       <!--Styles-->
       @include('layouts._partials.styles')
+      <link rel="icon" href="{{ URL::asset('images/favicon.png') }}" type="image/png">
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
       <div class="wrapper">
@@ -20,6 +21,7 @@
           @include('layouts._partials.footer')
           <!--Scripts-->
           @include('layouts._partials.scripts')
+          @include('layouts._assets.js.notifications')
       </div>
   </body>
 </html>
