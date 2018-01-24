@@ -28,7 +28,7 @@
             </div>
             <div class="box-body">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div id="table-responsive">
+                    <div class="table-responsive" id="tblStatuses">
                         <table class="table table-striped" cellspacing="0" width="100%">
                             <thead>
                             <tr>

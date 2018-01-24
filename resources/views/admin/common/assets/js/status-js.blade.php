@@ -15,6 +15,7 @@
 			else {
 				e.preventDefault();
 				var url = '{{ route("status.store") }}';
+				waitBusy('app_wrapper', 'win8_linear', "{{trans('waitme.saving')}}", "{{config('waitme.success')}}");
 				$.ajax({
 					url: url,
 					type: "POST",
@@ -22,6 +23,7 @@
 				})
 					.success(function (data) {
 						if (data.data.id) {
+							$('#app_wrapper').waitMe('hide');
 							swal("{{ trans('alerts.created') }}",
 								data.message,
 								"success"
@@ -31,6 +33,7 @@
 						}
 					})
 					.error(function (data) {
+						$('#app_wrapper').waitMe('hide');
 						var arr = Object.entries(data.responseJSON.errors);
 						var message = '';
 						for (i = 0; i < arr.length; i++) {
@@ -43,6 +46,7 @@
 	});
 	/* EDIT BUTTON CLICK */
 	function editStatus(id) {
+		waitBusy('app_wrapper', 'win8_linear', "{{trans('waitme.loading')}}", "{{config('waitme.info')}}");
 		var url = '{{ route("status.edit", [':status_id']) }}';
 		url = url.replace(':status_id', id);
 		var data = {'status_id': id};
@@ -52,6 +56,7 @@
 			data: data
 		})
 			.success(function (res) {
+				$('#app_wrapper').waitMe('hide');
 				//show update button
 				$('#btnUpdate').removeClass('hide');
 				$('#btnSave').addClass('hide');
@@ -67,6 +72,7 @@
 
 	/* UPDATE STATUS */
 	$('#btnUpdate').click(function () {
+		waitBusy('app_wrapper', 'win8_linear', "{{trans('waitme.updating')}}", "{{config('waitme.success')}}");
 		var url = '{{ route("status.update",  [':status_id']) }}';
 		url = url.replace(':status_id', $('#edit_id').val());
 		$.ajax({
@@ -75,6 +81,7 @@
 			data: $('#addEditStatusForm').serialize()
 		})
 			.success(function (data) {
+				$('#app_wrapper').waitMe('hide');
 				location.reload(true);
 			})
 	});
@@ -92,6 +99,7 @@
 			confirmButtonText: "{{ trans('alerts.confirm_button_text') }}"
 		})
 			.then(function (result) {
+				waitBusy('app_wrapper', 'win8_linear', "{{trans('waitme.deleting')}}", "{{config('waitme.danger')}}");
 				if (result.value) {
 					var url = '{{ route("status.destroy", [':status_id']) }}';
 					url = url.replace(':status_id', id);
@@ -102,6 +110,7 @@
 						data: data
 					})
 						.success(function (data) {
+							$('#app_wrapper').waitMe('hide');
 							location.reload(true);
 						})
 

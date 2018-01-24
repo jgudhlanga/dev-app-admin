@@ -9,7 +9,7 @@
       <link rel="icon" href="{{ URL::asset('images/favicon.png') }}" type="image/png">
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
-      <div class="wrapper">
+      <div class="wrapper" id="app_wrapper">
           <!-- Main Header -->
           @include('layouts._partials.header')
           <!-- Sidebar -->

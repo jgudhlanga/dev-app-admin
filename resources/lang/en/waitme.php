@@ -1,9 +1,10 @@
 <?php
 return [
-	'saving' => 'Saving please wait...',
-	'updating' => 'Updating please wait...',
-	'deleting' => 'Deleting please wait...',
-	'reactivating' => 'Activating please wait...',
-	'deactivating' => 'Activating please wait...',
-	'busy' => 'Busy please wait...'
+	'saving' => 'saving please wait...',
+	'updating' => 'updating please wait...',
+	'deleting' => 'deleting please wait...',
+	'reactivating' => 'reactivating please wait...',
+	'deactivating' => 'deactivating please wait...',
+	'busy' => 'busy please wait...',
+	'loading' => 'loading please wait...',
 ];

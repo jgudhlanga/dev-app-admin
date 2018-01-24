@@ -46,17 +46,7 @@ class IconController extends Controller
 	    $statusInActive = $this->statusService->statusInActive();
 	    return view('admin.common.icons', compact('classes', 'statusActive', 'statusInActive'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-	
+    
 	/**
 	 * @param IconRequest $request
 	 * @return \Illuminate\Http\JsonResponse
@@ -88,51 +78,35 @@ class IconController extends Controller
 		    throw new \Exception($e->getMessage());
 	    }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+	
+	
+	/**
+	 * @param Icon $icon
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
+    public function edit(Icon $icon)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-	    $class = $this->iconService->find($id);
-	    if($class instanceof Icon){
+	    if($icon instanceof Icon){
 		    return response([
-			    'data' => $class
+			    'data' => $icon
 		    ], Response::HTTP_CREATED);
 	    }
 	    else{
 		    notify()->flash(trans('icons.not_found'), 'error');
 	    }
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+	
+	/**
+	 * @param Request $request
+	 * @param Icon $icon
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
+    public function update(Request $request, Icon $icon)
     {
 	    try{
-		    $class = $this->iconService->find($id);
-		    if($class instanceof Icon)
+		    if($icon instanceof Icon)
 		    {
-			    if($class->update($request->all())){
+			    if($icon->update($request->all())){
 				    notify()->flash(trans('icons.alerts.updated'), 'success', ['title' => trans('alerts.updated')]);
 			    }
 		    }
@@ -140,7 +114,7 @@ class IconController extends Controller
 			    notify()->flash(trans('icons.not_found'), 'error', ['title' => trans('alerts.not_found')]);
 		    }
 		    return response([
-			    'data' => $class
+			    'data' => $icon
 		    ], Response::HTTP_OK);
 	    }
 	    catch (\Exception $e)
@@ -148,46 +122,19 @@ class IconController extends Controller
 		    notify()->flash($e->getMessage(), 'error', ['title'=>trans('alerts.error'), 'timer' => 600000]);
 	    }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+	
+	/**
+	 * @param Icon $icon
+	 */
+    public function destroy(Icon $icon)
     {
 	    try{
-		    $this->iconService->delete($id);
+		    $this->iconService->delete($icon);
 		    notify()->flash(trans('icons.alerts.deleted'), 'success', ['title'=>trans('alerts.deleted')]);
 	    }
 	    catch (\Exception $e) {
 		    notify()->flash($e->getMessage(), 'error', ['title'=>trans('alerts.error'), 'timer' => 600000]);
 	    }
     }
-	
-	/**
-	 * @param Request $request
-	 * @return \Illuminate\Http\JsonResponse
-	 */
-	public function changeStatus(Request $request)
-	{
-		try
-		{
-			//DB::beginTransaction();
-			$status = $request->status_id;
-			$id = $request->class_id;
-			$class = $this->iconService->changeStatus($id, $status);
-			DB::commit();
-			$message = ($class->status_id == $this->statusService->statusActive()) ? 'icons.alerts.reactivated' : 'icons.alerts.deactivated';
-			$title = ($class->status_id == $this->statusService->statusActive()) ? 'alerts.reactivated' : 'alerts.deactivated';
-			return response()->json(['class' => $class, 'message' => trans($message), 'title' => trans($title)], Response::HTTP_OK);
-			
-		}
-		catch (\Exception $e)
-		{
-			DB:rollback();
-			notify()->flash(trans($e->getMessage()), 'error', ['title'=>trans('alerts.error')]);
-		}
-	}
+    
 }

@@ -10,18 +10,13 @@
     </section>
     <section class="content">
         <div class="box">
-            <div class="box-header">
-                <div class="row">
-                    <div class="col-sm-6 text-left"></div>
-                    <div class="col-sm-6 text-right">
+            <div class="box-body">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="pull-right margin-bottom-5 margin-left-5">
                         <button class="btn btn-primary" data-toggle="modal" data-target="#addModuleModal">
                             <i class="fa fa-plus-circle"></i> {{ trans('buttons.add_new') }}
                         </button>
                     </div>
-                </div>
-            </div>
-            <div class="box-body">
-                <div class="col-md-12 col-sm-12 col-xs-12">
                     <div id="tableGridLayout">
                         <table id="modulesMainTable" class="table table-striped table-bordered" cellspacing="0"
                                width="100%">
@@ -56,6 +51,6 @@
             </div>
         </div>
     </section>
-    @include('admin.modules._partials.modals.add')
+    @include('admin.modules._partials.modals.add-module')
     @include('admin.modules.assets.js.modules-js')
 @endsection

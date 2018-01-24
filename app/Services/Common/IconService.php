@@ -44,6 +44,18 @@ class IconService
 	 * @param null $orderBy
 	 * @return mixed
 	 */
+	public function findBy($args=[], $paginate=null, $limit=null, $orderBy=null)
+	{
+		return $this->iconRepository->findBy($args, $paginate, $limit, $orderBy);
+	}
+	
+	/**
+	 * @param array $args
+	 * @param null $paginate
+	 * @param null $limit
+	 * @param null $orderBy
+	 * @return mixed
+	 */
 	public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=null )
 	{
 		return $this->iconRepository->findAll($args, $paginate, $limit, $orderBy);
@@ -60,21 +72,22 @@ class IconService
 	}
 	
 	/**
-	 * @param $id
+	 * @param $icon
+	 * @param $data
 	 * @return mixed
 	 */
-	public function delete($id)
+	public function update($icon, $data)
 	{
-		return $this->iconRepository->delete($id);
+		return $this->iconRepository->update($icon, $data);
 	}
 	
 	/**
-	 * @param $id
-	 * @param $status
+	 * @param $icon
 	 * @return mixed
 	 */
-	public function changeStatus($id, $status)
+	public function delete($icon)
 	{
-		return $this->iconRepository->changeStatus($id, $status);
+		return $this->iconRepository->delete($icon);
 	}
+	
 }

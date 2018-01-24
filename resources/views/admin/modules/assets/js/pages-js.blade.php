@@ -2,29 +2,27 @@
 	$(document).ready(function () {
 		/*
          |--------------------------------------------------------------------------
-         | Modules Main List Grid
+         | Pages Grid
          |--------------------------------------------------------------------------
-         | Standard grid to list modules
          */
-		if ($('#modulesMainTable').length) {
+		if ($('#pagesMainTable').length) {
 
-			var modulesMainTable = $('#modulesMainTable').DataTable({
+			var pagesMainTable = $('#pagesMainTable').DataTable({
 				processing: true,
 				serverSide: true,
 				responsive: true,
 				pageLength: 25,
 				dom: "Blfrtip",
-				ajax: '{{ url('api/modules/get-modules') }}',
+				ajax: '{{ url('api/modules/get-pages') }}/'+ "@isset($module->id){{$module->id}}@endisset",
 				buttons: getDatatableButtons(),
 				initComplete: function () {
-					initComplete(modulesMainTable)
+					initComplete(pagesMainTable)
 				},
 				columns: [
 					{data: 'position', name: 'position'},
 					{data: 'title', name: 'title'},
-					{data: 'description', name: 'description'},
 					{data: 'class', name: 'class'},
-					{data: 'module_url', name: 'module_url'},
+					{data: 'page_url', name: 'page_url'},
 					{data: 'status', name: 'status'},
 					{
 						data: 'id',
@@ -39,15 +37,15 @@
 								changeStatusBtnTitle = "{{trans('buttons.reactivate')}}";
 								changeStatusBtnClass = "btn-success";
 							}
-							return '<a class="btn btn-xs btn-info" href="{{ url()->current() }}/' + data + '">' +
-                                '<i class="fa fa-eye"></i>&nbsp;{{ trans("buttons.view") }}</a>&nbsp;' +
+							return '<a class="btn btn-xs btn-info" href="pages/'+data+'/edit">' +
+								'<i class="fa fa-edit"></i>&nbsp;{{ trans("buttons.edit") }}</a>&nbsp;' +
 								'<a class="btn btn-xs ' + changeStatusBtnClass + '" onclick="changeStatus(' + data + ')">' +
 								'<i class="fa fa-toggle-off"></i>&nbsp;' + changeStatusBtnTitle + '</a>&nbsp;' +
-								'<a class="btn btn-xs btn-danger" onclick="deleteModule(' + data + ')">' +
-								'<i class="fa fa-trash"></i>&nbsp;{{ trans("buttons.delete") }}</a>&nbsp;'+
-								'<a class="btn btn-xs btn-default" onclick="orderModuleUp(' + data +')">' +
-								'<i class="fa fa-arrow-circle-o-up text-success"></i>&nbsp;{{ trans("buttons.up") }}</a>&nbsp;'+
-								'<a class="btn btn-xs btn-default" onclick="orderModuleDown(' + data +')">' +
+								'<a class="btn btn-xs btn-danger" onclick="deletePage(' + data + ')">' +
+								'<i class="fa fa-trash"></i>&nbsp;{{ trans("buttons.delete") }}</a>&nbsp;' +
+								'<a class="btn btn-xs btn-default" onclick="orderPageUp(' + data + ')">' +
+								'<i class="fa fa-arrow-circle-o-up text-success"></i>&nbsp;{{ trans("buttons.up") }}</a>&nbsp;' +
+								'<a class="btn btn-xs btn-default" onclick="orderPageDown(' + data + ')">' +
 								'<i class="fa fa-arrow-circle-o-down text-danger"></i>&nbsp;{{ trans("buttons.down") }}</a>';
 						}
 					}
@@ -56,9 +54,9 @@
 		}
 
 		/*
-        * SAVE MODULE
+        * SAVE PAGE
         * */
-		$('#addModuleForm').validator().on('submit', function (e) {
+		$('#addPageForm').validator().on('submit', function (e) {
 			if (e.isDefaultPrevented()) {
 				swal({
 					title: "{{ trans('alerts.error') }}",
@@ -70,15 +68,15 @@
 			else {
 				e.preventDefault();
 				waitBusy('app_wrapper', 'win8_linear', "{{trans('waitme.saving')}}", "{{config('waitme.success')}}");
-				var url = '{{ route("modules.store") }}';
+				var url = '{{ route("pages.store") }}';
 				$.ajax({
 					url: url,
 					type: "POST",
-					data: $('#addModuleForm').serialize()
+					data: $('#addPageForm').serialize()
 				})
 					.success(function (data) {
-						if (data.module.id) {
-							$('#addModuleModal').modal('hide');
+						if (data.page.id) {
+							$('#addPageModal').modal('hide');
 							swal("{{ trans('alerts.created') }}",
 								data.message,
 								"success"
@@ -101,9 +99,9 @@
 		});
 
 		/*
-        * UPDATE MODULE
+        * UPDATE PAGE
         * */
-		$('#editModuleForm').validator().on('submit', function (e) {
+		$('#editPageForm').validator().on('submit', function (e) {
 			if (e.isDefaultPrevented()) {
 				swal({
 					title: "{{ trans('alerts.error') }}",
@@ -115,15 +113,15 @@
 			else {
 				e.preventDefault();
 				waitBusy('app_wrapper', 'win8_linear', "{{trans('waitme.updating')}}", "{{config('waitme.success')}}");
-				var url = '{{ route("modules.update", [':module_id']) }}';
-				url = url.replace(':module_id', $('#edit_id').val());
+				var url = '{{ route("pages.update", [':page_id']) }}';
+				url = url.replace(':page_id', $('#edit_id').val());
 				$.ajax({
 					url: url,
 					type: "PUT",
-					data: $('#editModuleForm').serialize()
+					data: $('#editPageForm').serialize()
 				})
 					.success(function (data) {
-						if (data.module.id) {
+						if (data.page.id) {
 							swal("{{ trans('alerts.updated') }}",
 								data.message,
 								"success"
@@ -147,10 +145,10 @@
 	});
 
 	/**
-     * DELETE MODULE
-     * @param id
-     */
-	function deleteModule(id) {
+	 * DELETE PAGE
+	 * @param id
+	 */
+	function deletePage(id) {
 		swal({
 			title: "{{ trans('alerts.confirm') }}",
 			text: "{{ trans('alerts.delete_text') }}",
@@ -165,9 +163,9 @@
 
 					waitBusy('app_wrapper', 'win8_linear', "{{trans('waitme.deleting')}}", "{{config('waitme.danger')}}");
 
-					var url = '{{ route("modules.destroy", [':module_id']) }}';
-					url = url.replace(':module_id', id);
-					var data = {'module_id': id, '_token': "{{ csrf_token() }}"};
+					var url = '{{ route("pages.destroy", [':page_id']) }}';
+					url = url.replace(':page_id', id);
+					var data = {'page_id': id, '_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,
 						type: "DELETE",
@@ -191,9 +189,9 @@
 	}
 
 	/**
-     * CHANGE MODULE STATUS
-     * @param id
-     */
+	 * CHANGE PAGE STATUS
+	 * @param id
+	 */
 	function changeStatus(id) {
 		swal({
 			title: "{{ trans('alerts.confirm') }}",
@@ -209,7 +207,7 @@
 
 					waitBusy('app_wrapper', 'win8_linear', "{{trans('waitme.busy')}}", "{{config('waitme.info')}}");
 
-					var url = '{{ url('api/modules/change-module-status') }}/' + id;
+					var url = '{{ url("api/modules/change-page-status") }}/'+ id;
 					var data = {'_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,
@@ -238,13 +236,13 @@
 	}
 
 	/**
-     * ORDER MODULE UP
+	 * ORDER PAGE UP
 	 * @param id
 	 */
-	function orderModuleUp(id) {
+	function orderPageUp(id) {
 		swal({
 			title: "{{ trans('alerts.confirm') }}",
-			text: "{{ trans('modules.alerts.order_up') }}",
+			text: "{{ trans('modules.pages.alerts.order_up') }}",
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonClass: "{{ config('sweetalerts.confirm_button_class') }}",
@@ -256,14 +254,15 @@
 
 					waitBusy('app_wrapper', 'win8_linear', "{{trans('waitme.busy')}}", "{{config('waitme.info')}}");
 
-					var url = '{{ url('api/modules/order-modules') }}/' + id;
-					var data = {'direction':'up', '_token': "{{ csrf_token() }}"};
+					var url = '{{ url("api/modules/order-pages") }}/' + id;
+					var data = {'page_id': id, 'direction':'up', '_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,
 						type: "PUT",
 						data: data
 					})
 						.success(function (data) {
+							console.log(data);
 							$('#app_wrapper').waitMe('hide');
 
 							swal("{{ trans('alerts.success') }}",
@@ -284,13 +283,13 @@
 	}
 
 	/**
-	 * ORDER MODULE DOWN
+	 * ORDER PAGES DOWN
 	 * @param id
 	 */
-	function orderModuleDown(id) {
+	function orderPageDown(id) {
 		swal({
 			title: "{{ trans('alerts.confirm') }}",
-			text: "{{ trans('modules.alerts.order_down') }}",
+			text: "{{ trans('modules.pages.alerts.order_down') }}",
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonClass: "{{ config('sweetalerts.confirm_button_class') }}",
@@ -302,8 +301,8 @@
 
 					waitBusy('app_wrapper', 'win8_linear', "{{trans('waitme.busy')}}", "{{config('waitme.info')}}");
 
-					var url = '{{ url("api/modules/order-modules") }}/' + id;
-					var data = {'module_id': id, 'direction':'down', '_token': "{{ csrf_token() }}"};
+					var url = '{{ url("api/modules/order-pages") }}/' + id;
+					var data = {'direction':'down', '_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,
 						type: "PUT",

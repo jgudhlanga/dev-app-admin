@@ -37,12 +37,45 @@ class IconRepository implements RepositoryInterface
 	/**
 	 * @param array $args
 	 * @param null $paginate
-	 * @param bool $single
-	 * @return Status
+	 * @param null $limit
+	 * @param null $orderBy
+	 * @return mixed
 	 */
-	public function findBy($args=[], $paginate=null, $single=false )
+	public function findBy( $args=[], $paginate=null, $limit=null, $orderBy=null )
 	{
-		return $this->icon;
+		$query =  DB::table('icons AS i')
+			->leftJoin('statuses AS s', 's.id', '=', 'i.status_id' )
+			->select('i.*', 's.title as status')
+			->where('i.id', '>', 0);
+		
+		if(!empty($args) && is_array($args))
+		{
+			for ($i=0; $i<count($args); $i++)
+			{
+				if(is_array(array_values($args)[$i])){
+					$query->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				}
+				else{
+					$query->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+				}
+			}
+		}
+		
+		if($orderBy != '')
+		{
+			if(is_array($orderBy)){
+				$query->orderBy(array_keys($orderBy)[0], array_values($orderBy)[0]);
+			}
+		}
+		else{
+			$query->orderBy('class', 'asc')->take($limit);
+		}
+		
+		// Paginate if we need to
+		if (!is_null($paginate)) {
+			$query->paginate($paginate);
+		}
+		return $query->get();
 	}
 	
 	/**
@@ -87,12 +120,11 @@ class IconRepository implements RepositoryInterface
 	}
 	
 	/**
-	 * @param $id
+	 * @param $icon
 	 * @return mixed
 	 */
-	public function delete($id)
+	public function delete($icon)
 	{
-		$icon = $this->find($id);
 		return $icon->delete();
 	}
 	
@@ -125,14 +157,14 @@ class IconRepository implements RepositoryInterface
 	}
 	
 	/**
-	 * @param $id
-	 * @param $status
+	 * @param $icon
+	 * @param $data
 	 * @return mixed
 	 */
-	public function changeStatus($id, $status)
+	public function update($icon, $data)
 	{
-		$class = $this->find($id);
-		$class->update(['status_id' => $status]);
-		return $class;
+		$icon->update($data);
+		return $icon;
 	}
+	
 }

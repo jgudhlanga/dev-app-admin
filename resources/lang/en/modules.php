@@ -16,18 +16,9 @@ return [
 	'created_by' => 'Created By',
 	'updated_by' => 'Updated By',
 	'module_list' => 'Modules List',
-	'view' => 'Modules View',
+	'view' => 'Module View',
 	'create_module' => 'Create Module',
 	'edit' => 'Edit Module',
-	'pages' => [
-		'position' => 'Order',
-		'heading' => 'Module Pages',
-		'title' => 'Title',
-		'description' => 'Description',
-		'icon' => 'Icon',
-		'url' => 'URL',
-		'status' => 'Status',
-	],
 	'placeholders' => [
 		'title' => 'enter your module title here',
 		'description' => 'enter your module description',
@@ -41,5 +32,32 @@ return [
 		'deactivated' => 'Module has been deactivated',
 		'order_up' => 'Module will be moved one level up in position',
 		'order_down' => 'Module will be moved one level down in position',
-	]
+	],
+	'pages' => [
+		'position' => 'Order',
+		'heading' => 'Module Pages',
+		'title' => 'Title',
+		'module' => 'Module',
+		'description' => 'Description',
+		'icon' => 'Icon',
+		'url' => 'URL',
+		'status' => 'Status',
+		'create_page' => 'Create Page',
+		'edit' => 'Edit Page',
+		'view' => 'Page View',
+		'placeholders' => [
+			'title' => 'enter your page title here',
+			'description' => 'enter your page description',
+			'url' => 'enter your page url here',
+		],
+		'alerts' => [
+			'created' => 'Page Successfully Created',
+			'updated' => 'Page Successfully Updated',
+			'error' => 'Page not Created',
+			'reactivated' => 'Page has been reactivated',
+			'deactivated' => 'Page has been deactivated',
+			'order_up' => 'Page will be moved one level up in position',
+			'order_down' => 'Page will be moved one level down in position',
+		]
+	],
 ];

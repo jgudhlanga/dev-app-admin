@@ -18,7 +18,7 @@ return [
 		'updated' => 'Icon Class Successfully Updated',
 		'error' => 'Icon Class not Created',
 		'deleted' => 'Icon Class has been deleted',
-		'reactivated' => 'Module has been reactivated',
-		'deactivated' => 'Module has been deactivated',
+		'reactivated' => 'Icon Class has been reactivated',
+		'deactivated' => 'Icon Class has been deactivated',
 	]
 ];

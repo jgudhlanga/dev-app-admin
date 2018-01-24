@@ -12,7 +12,7 @@ use App\Contracts\RepositoryInterface;
 use App\Models\Modules\Module;
 use Illuminate\Support\Facades\DB;
 
-class ModulesRepository implements RepositoryInterface
+class ModuleRepository implements RepositoryInterface
 {
     /**
      * @var $module
@@ -20,7 +20,7 @@ class ModulesRepository implements RepositoryInterface
     protected $module;
     
     /**
-     * ModulesRepository constructor.
+     * ModuleRepository constructor.
      * @param Module $module
      */
     public function __construct(Module $module)
@@ -40,26 +40,15 @@ class ModulesRepository implements RepositoryInterface
 	/**
 	 * @param array $args
 	 * @param null $paginate
-	 * @param bool $single
-	 * @return Module
-	 */
-    public function findBy($args=[], $paginate=null, $single=false )
-    {
-        return $this->module;
-    }
-	
-	/**
-	 * @param array $args
-	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-    public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=null )
+    public function findBy($args=[], $paginate=null, $limit=null, $orderBy=null )
     {
 	    $query =  DB::table('modules AS m')
 		    ->leftJoin('statuses AS s', 's.id', '=', 'm.status_id' )
-		    ->leftJoin('icons AS i', 'i.id', '=', 'm.icon' )
+		    ->leftJoin('icons AS i', 'i.id', '=', 'm.icon_id' )
 		    ->select('m.*', 's.title as status', 'i.class as class')
 		    ->where('m.id', '>', 0);
 	
@@ -94,27 +83,56 @@ class ModulesRepository implements RepositoryInterface
     }
 	
 	/**
-	 * @param $id
+	 * @param array $args
+	 * @param null $paginate
+	 * @param null $limit
+	 * @param null $orderBy
 	 * @return mixed
 	 */
-    public function delete($id)
+	public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	{
+		$modules = $this->module->where('id', '>', 0);
+		if(!empty($args) && is_array($args))
+		{
+			for ($i=0; $i<count($args); $i++)
+			{
+				if(is_array(array_values($args)[$i])){
+					$modules->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				}
+				else{
+					$modules->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+				}
+			}
+		}
+		
+		if($orderBy != '')
+		{
+			if(is_array($orderBy)){
+				$modules->orderBy(array_keys($orderBy)[0], array_values($orderBy)[0]);
+			}
+		}
+		else{
+			$modules->orderBy('position', 'asc')->take($limit);
+		}
+		
+		// Paginate if we need to
+		if (!is_null($paginate)) {
+			$modules->paginate($paginate);
+		}
+		
+		return $modules->get();
+	}
+	
+	/**
+	 * @param $module
+	 * @return mixed
+	 */
+    public function delete($module)
     {
-	    $module = $this->find($id);
 	    return $module->delete();
     }
 	
-	/**
-	 * @param $id
-	 * @param $status
-	 * @return mixed
-	 */
-    public function changeStatus($id, $status)
-    {
-	    $module = $this->find($id);
-	    $module->update(['status_id' => $status]);
-	    return $module;
-    }
-	
+    
 	/**
 	 * @return array
 	 */
@@ -148,19 +166,54 @@ class ModulesRepository implements RepositoryInterface
 	 */
 	public function update($module, $data)
 	{
-		$module = $this->find($module);
 		$module->update($data);
 		return $module;
 	}
+	
 	/**
 	 * @param $module
 	 * @return mixed
 	 */
 	public function positionModule($module)
 	{
-		$module = $this->find($module);
-		$maxPos = DB::table('modules')->max('position');
+		$maxPos = $module->max('position');
 		$module->update(['position' => $maxPos + 1]);
 		return $module;
+	}
+	
+	/**
+	 * @param $module
+	 * @param string $direction
+	 * @return mixed
+	 */
+	public function orderModules($module, $direction = "up")
+	{
+		//refresh the order to avoid gaps
+		$modules = $this->findAll(null, null, null, ['position' => 'asc']);
+		$count = 0;
+		foreach ($modules as $row)
+		{
+			$count++;
+			$row->update(['position' => $count]);
+		}
+		
+		
+		if(isset($module->position) && $module->position > 0)
+		{
+			$modulePosition = $module->position;
+			
+			//get the next module and position
+			$position = (strtolower($direction) == "up") ? ($module->position - 1) : ($module->position + 1);
+			$currentModule = $this->module->where('position', $position)->first();
+			
+			if(isset($currentModule->position) && $currentModule->position > 0)
+			{
+				//swap the modules
+				$module->update(['position' => $currentModule->position]);
+				$currentModule->update(['position' => $modulePosition]);
+			}
+		}
+		
+		return $this->find($module->id);
 	}
 }

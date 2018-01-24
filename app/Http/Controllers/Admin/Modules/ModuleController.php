@@ -3,15 +3,13 @@
 namespace App\Http\Controllers\Admin\Modules;
 
 use App\Http\Requests\Admin\Modules\ModuleRequest;
-use App\Models\Common\Status;
 use App\Services\Common\IconService;
 use App\Services\Common\StatusService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\Modules\ModulesService;
+use App\Services\Modules\ModuleService;
 use App\Models\Modules\Module;
 use Illuminate\Support\Facades\Auth;
-use Yajra\DataTables\Facades\DataTables;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,11 +35,11 @@ class ModuleController extends Controller
     
 	/**
 	 * ModuleController constructor.
-	 * @param ModulesService $modulesService
+	 * @param ModuleService $modulesService
 	 * @param IconService $iconService
 	 * @param StatusService $statusService
 	 */
-    public function __construct(ModulesService $modulesService, IconService $iconService, StatusService $statusService)
+    public function __construct(ModuleService $modulesService, IconService $iconService, StatusService $statusService)
     {
         $this->moduleService = $modulesService;
         $this->iconService = $iconService;
@@ -100,23 +98,25 @@ class ModuleController extends Controller
         }
     	
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+	
+	/**
+	 * @param Module $module
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+    public function show(Module $module)
     {
-    	$module = $this->moduleService->find($id);
 	    $icons = $this->iconService->findAll();
         return view('admin.modules.edit', compact('module', 'icons'));
     }
 	
 	
-	
-    public function update(Request $request, $id)
+	/**
+	 * @param Request $request
+	 * @param Module $module
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws Exception
+	 */
+    public function update(Request $request, Module $module)
     {
      
 	    try{
@@ -124,7 +124,7 @@ class ModuleController extends Controller
 		    DB::beginTransaction();
 		    $data = $request->all();
 		    $data['updated_by'] = Auth::id();
-		    $module = $this->moduleService->update($id, $data);
+		    $module = $this->moduleService->update($module, $data);
 		    if($module instanceof Module) {
 			    $updated = $module;
 			    $status = Response::HTTP_CREATED;
@@ -146,53 +146,17 @@ class ModuleController extends Controller
     }
 	
 	/**
-	 * @param $id
+	 * @param $module
 	 * @throws Exception
 	 */
-    public function destroy($id)
+    public function destroy(Module $module)
     {
     	try{
-		    $this->moduleService->delete($id);
+		    $this->moduleService->delete($module);
 	    }
 	    catch (\Exception $e) {
 	    	throw new \Exception($e->getMessage());
 	    }
     }
-	
-	/**
-	 * @return mixed
-	 * @throws Exception
-	 */
-    public function getModules()
-    {
-        $modules = $this->moduleService->findAll(null, null, null, ['position' => 'asc']);
-        return Datatables::of($modules)->make(true);
-    }
-	
-	/**
-	 * @param Request $request
-	 * @return \Illuminate\Http\JsonResponse
-	 * @throws Exception
-	 */
-    public function changeStatus(Request $request)
-    {
-    	try
-	    {
-    		DB::beginTransaction();
-		    $id = $request->module_id;
-		    $module = $this->moduleService->find($id);
-		    $status = ($module->status_id == Status::ACTIVE) ? Status::INACTIVE : Status::ACTIVE;
-		    $this->moduleService->changeStatus($id, $status);
-		    DB::commit();
-		    $module = $this->moduleService->find($id);
-		    $message = ($module->status_id == Status::ACTIVE) ? 'modules.alerts.reactivated' : 'modules.alerts.deactivated';
-		    return response()->json(['module' => $module, 'message' => trans($message)], Response::HTTP_OK);
-		
-	    }
-	    catch (\Exception $e)
-	    {
-	    	DB:rollback();
-		    throw new \Exception($e->getMessage());
-	    }
-    }
+    
 }

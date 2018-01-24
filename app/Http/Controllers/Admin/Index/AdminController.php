@@ -4,21 +4,21 @@ namespace App\Http\Controllers\Admin\Index;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\Modules\ModulesService;
+use App\Services\Modules\ModuleService;
 
 
 class AdminController extends Controller
 {
     /**
-     * @var ModulesService
+     * @var ModuleService
      */
     protected $moduleService;
     
     /**
      * AdminController constructor.
-     * @param ModulesService $modulesService
+     * @param ModuleService $modulesService
      */
-    public function __construct(ModulesService $modulesService)
+    public function __construct(ModuleService $modulesService)
     {
         $this->moduleService = $modulesService;
     }

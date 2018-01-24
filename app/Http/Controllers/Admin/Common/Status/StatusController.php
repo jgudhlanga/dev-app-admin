@@ -37,17 +37,7 @@ class StatusController extends Controller
 	    return view('admin.common.status', compact('statuses'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-   
+  
     public function store(StatusRequest $request)
     {
 	    try{
@@ -73,27 +63,21 @@ class StatusController extends Controller
 		    throw new \Exception($e->getMessage());
 	    }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+	
+	/**
+	 * @param Status $status
+	 */
+    public function show(Status $status)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+	
+	/**
+	 * @param Status $status
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
+    public function edit(Status $status)
     {
-        $status = $this->statusService->find($id);
         if($status instanceof Status){
 	        return response([
 		        'data' => $status
@@ -103,21 +87,18 @@ class StatusController extends Controller
         	notify()->flash(trans('status.not_found'), 'error');
         }
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+	
+	/**
+	 * @param Request $request
+	 * @param Status $status
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
+    public function update(Request $request, Status $status)
     {
     	try{
-		    $status = $this->statusService->find($id);
 		    if($status instanceof Status)
 		    {
-			    if($status->update($request->all())){
+			    if($this->statusService->update($status, $request->all())){
 				    notify()->flash(trans('status.alerts.updated'), 'success', ['title' => trans('alerts.updated')]);
 			    }
 		    }
@@ -135,12 +116,12 @@ class StatusController extends Controller
     }
 	
 	/**
-	 * @param $id
+	 * @param Status $status
 	 */
-    public function destroy($id)
+    public function destroy(Status $status)
     {
 	    try{
-		    $this->statusService->delete($id);
+		    $this->statusService->delete($status);
 		    notify()->flash(trans('status.alerts.deleted'), 'success', ['title'=>trans('alerts.deleted')]);
 	    }
 	    catch (\Exception $e) {

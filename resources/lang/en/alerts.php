@@ -4,6 +4,7 @@ return [
 	'created' => 'Created',
 	'updated' => 'Updated',
 	'deleted' => 'Deleted',
+	'success' => 'Success',
 	'reactivated' => 'Reactivated',
 	'deactivated' => 'Deactivated',
 	'status_changed' => 'Status Changed',
@@ -18,4 +19,5 @@ return [
 	'after_deactivate_text' => 'Model has been deactivated',
 	'form_error' => 'Please fill the form as required',
 	'change_status_text' => 'The Model status will be changed',
+	'operation_successful' => 'The operation was successful',
 ];

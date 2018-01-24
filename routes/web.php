@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/home', function () {
     return view('home.index');
 })->middleware('auth');
@@ -33,6 +22,10 @@ Route::resource('hms', 'Hms\Index\HmsController');
 
 /*Modules Routes*/
 Route::resource('modules', 'Admin\Modules\ModuleController');
+Route::group(['prefix' => 'modules'], function(){
+	Route::resource('pages', 'Admin\Modules\PageController');
+});
+
 
 /*Procurement Routes*/
 Route::resource('procurement', 'Procurement\Index\ProcurementController');
@@ -42,9 +35,8 @@ Route::group(['prefix' => 'common'], function () {
 	Route::resource('status', 'Admin\Common\Status\StatusController');
 	Route::resource('icons', 'Admin\Common\Icon\IconController');
 });
-
+Route::resource('common', 'Admin\Common\CommonController');
 
 /*USERS ROUTES*/
 Route::resource('users', 'Users\UserController');
 
-Route::resource('common', 'Admin\Common\CommonController');

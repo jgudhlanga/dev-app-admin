@@ -59,6 +59,16 @@ class StatusService
 	}
 	
 	/**
+	 * @param $status
+	 * @param $data
+	 * @return mixed
+	 */
+	public function update($status, $data)
+	{
+		return $this->statusRepository->update($status, $data);
+	}
+	
+	/**
 	 * @param $id
 	 * @return mixed
 	 */

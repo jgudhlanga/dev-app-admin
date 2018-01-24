@@ -40,12 +40,44 @@ class StatusRepository implements RepositoryInterface
 	/**
 	 * @param array $args
 	 * @param null $paginate
-	 * @param bool $single
-	 * @return Status
+	 * @param null $limit
+	 * @param null $orderBy
+	 * @return mixed
 	 */
-	public function findBy($args=[], $paginate=null, $single=false )
+	public function findBy( $args=[], $paginate=null, $limit=null, $orderBy=null )
 	{
-		return $this->status;
+		$query =  DB::table('statuses AS s')
+			->select('s.*')
+			->where('i.id', '>', 0);
+		
+		if(!empty($args) && is_array($args))
+		{
+			for ($i=0; $i<count($args); $i++)
+			{
+				if(is_array(array_values($args)[$i])){
+					$query->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				}
+				else{
+					$query->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+				}
+			}
+		}
+		
+		if($orderBy != '')
+		{
+			if(is_array($orderBy)){
+				$query->orderBy(array_keys($orderBy)[0], array_values($orderBy)[0]);
+			}
+		}
+		else{
+			$query->orderBy('class', 'asc')->take($limit);
+		}
+		
+		// Paginate if we need to
+		if (!is_null($paginate)) {
+			$query->paginate($paginate);
+		}
+		return $query->get();
 	}
 	
 	/**
@@ -90,15 +122,13 @@ class StatusRepository implements RepositoryInterface
 	}
 	
 	/**
-	 * @param $id
+	 * @param $status
 	 * @return mixed
 	 */
-	public function delete($id)
+	public function delete($status)
 	{
-		$status = $this->find($id);
 		return $status->delete();
 	}
-	
 	
 	
 	/**
@@ -128,12 +158,23 @@ class StatusRepository implements RepositoryInterface
 	}
 	
 	/**
+	 * @param $status
+	 * @param $data
+	 * @return mixed
+	 */
+	public function update($status, $data)
+	{
+		return $status->update($data);
+	}
+	
+	/**
 	 * @return int
 	 */
 	public function statusActive()
 	{
 		return Status::ACTIVE;
 	}
+	
 	/**
 	 * @return int
 	 */

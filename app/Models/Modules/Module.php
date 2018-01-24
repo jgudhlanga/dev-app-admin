@@ -7,26 +7,37 @@
  */
 namespace App\Models\Modules;
 
+use App\Models\Common\Status;
 use Illuminate\Database\Eloquent\Model;
 
 class Module extends Model
 {
 	
-    protected $fillable = ['title', 'description', 'icon', 'module_url', 'status_id','position','created_by', 'updated_by'];
+    protected $fillable = ['title', 'description', 'icon_id', 'module_url', 'status_id','position','created_by', 'updated_by'];
 	
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
     public function status()
     {
-        return $this->belongsTo('App\Models\Common\Status');
+        return $this->belongsTo(Status::class);
     }
+	
+    
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function pages()
+    {
+    	return $this->hasMany(Page::class);
+    }
+	
 	
 	/**
 	 * @return array
 	 */
-    public function getTableColumns() {
-        return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
-    }
-    
+	public function getTableColumns() {
+		return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
+	}
+	
 }

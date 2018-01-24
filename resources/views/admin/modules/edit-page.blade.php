@@ -3,9 +3,13 @@
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1 class="h1">{{trans('modules.view')}}</h1>
+        <h1 class="h1">{{trans('modules.pages.view')}}</h1>
         <ol class="breadcrumb">
-            <li><a href="{{ url('modules') }}"><i class="fa fa-chevron-circle-left"></i>{{trans('admin.modules')}}</a>
+            <li>
+                <a href="{{ route('modules.show', [$page->module_id]) }}">
+                    <i class="fa fa-chevron-circle-left"></i>
+                    {{trans('modules.pages.heading')}}
+                </a>
             </li>
         </ol>
     </section>
@@ -14,34 +18,30 @@
             <div class="box-body">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="col-md-8 col-xs-12">
-                        <form id="editModuleForm" role="form" data-toggle="validator" method="PUT">
+                        <form id="editPageForm" role="form" data-toggle="validator">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                             <input type="hidden" name="edit_id" id="edit_id"
-                                   @isset($module->id) value="{{ $module->id }}" @endisset/>
+                                   @isset($page->id) value="{{ $page->id }}" @endisset/>
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h2 class="panel-title">{{trans('modules.edit')}}</h2>
+                                    <h2 class="panel-title">{{trans('modules.pages.edit')}}</h2>
                                 </div>
                                 <div class="panel-body">
 
-                                    @include('admin.modules._partials.forms.module-fields')
+                                    @include('admin.modules._partials.forms.page-fields')
 
                                 </div>
                                 <div class="panel-footer text-center">
-                                    <button class="btn btn-success btn-sm" type="submit">
-                                        <i class="fa fa-save"></i>
-                                        {{trans('buttons.update')}}
+                                    <button type="submit" class="btn btn-success" id="btnUpdatePage">
+                                        <i class="fa fa-save"></i>&nbsp;{{trans('buttons.update')}}
                                     </button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    @include('admin.modules.pages')
                 </div>
             </div>
         </div>
     </section>
-    @include('admin.modules._partials.modals.add-page')
-    @include('admin.modules.assets.js.modules-js')
     @include('admin.modules.assets.js.pages-js')
 @endsection

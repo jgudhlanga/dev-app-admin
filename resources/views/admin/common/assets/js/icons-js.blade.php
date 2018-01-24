@@ -14,6 +14,7 @@
 			}
 			else {
 				e.preventDefault();
+				waitBusy('app_wrapper', 'win8_linear', "{{trans('waitme.saving')}}", "{{config('waitme.success')}}");
 				var url = '{{ route("icons.store") }}';
 				$.ajax({
 					url: url,
@@ -22,6 +23,7 @@
 				})
 					.success(function (data) {
 						if (data.data.id) {
+							$('#app_wrapper').waitMe('hide');
 							swal("{{ trans('alerts.created') }}",
 								data.message,
 								"success"
@@ -31,6 +33,7 @@
 						}
 					})
 					.error(function (data) {
+						$('#app_wrapper').waitMe('hide');
 						var arr = Object.entries(data.responseJSON.errors);
 						var message = '';
 						for (i = 0; i < arr.length; i++) {
@@ -43,6 +46,7 @@
 	});
 	/* EDIT BUTTON CLICK */
 	function editClass(id) {
+		waitBusy('app_wrapper', 'win8_linear', "{{trans('waitme.loading')}}", "{{config('waitme.info')}}");
 		var url = '{{ route("icons.edit", [':class_id']) }}';
 		url = url.replace(':class_id', id);
 		var data = {'class_id': id};
@@ -52,6 +56,7 @@
 			data: data
 		})
 			.success(function (res) {
+				$('#app_wrapper').waitMe('hide');
 				//show update button
 				$('#btnUpdate').removeClass('hide');
 				$('#btnSave').addClass('hide');
@@ -65,6 +70,7 @@
 
 	/* UPDATE CLASS */
 	$('#btnUpdate').click(function () {
+		waitBusy('app_wrapper', 'win8_linear', "{{trans('waitme.updating')}}", "{{config('waitme.success')}}");
 		var url = '{{ route("icons.update",  [':class_id']) }}';
 		url = url.replace(':class_id', $('#edit_id').val());
 		$.ajax({
@@ -73,6 +79,7 @@
 			data: $('#addEditIconsForm').serialize()
 		})
 			.success(function (data) {
+				$('#app_wrapper').waitMe('hide');
 				location.reload(true);
 			})
 	});
@@ -92,6 +99,7 @@
 		})
 			.then(function (result) {
 				if (result.value) {
+					waitBusy('app_wrapper', 'win8_linear', "{{trans('waitme.deleting')}}", "{{config('waitme.danger')}}");
 					var url = '{{ route("icons.destroy", [':class_id']) }}';
 					url = url.replace(':class_id', id);
 					var data = {'class_id': id, '_token': "{{ csrf_token() }}"};
@@ -101,6 +109,7 @@
 						data: data
 					})
 						.success(function (data) {
+							$('#app_wrapper').waitMe('hide');
 							location.reload(true);
 						})
 
@@ -120,15 +129,17 @@
 			allowOutsideClick: false
 		})
 			.then(function (result) {
+				waitBusy('app_wrapper', 'win8_linear', "{{trans('waitme.busy')}}", "{{config('waitme.warning')}}");
 				if (result.value) {
-					var url = '{{ url("api/icons/change-status") }}';
-					var data = {class_id: id, status_id: status, '_token': "{{ csrf_token() }}"};
+					var url = '{{ url("api/icons/change-status") }}/'+ id;
+					var data = {status_id: status, '_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,
 						type: "PUT",
 						data: data
 					})
 						.success(function (data) {
+							$('#app_wrapper').waitMe('hide');
 							swal({
                                 title: data.title,
                                 text: data.message,
