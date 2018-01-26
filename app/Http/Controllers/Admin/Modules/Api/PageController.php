@@ -15,7 +15,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiPageController extends Controller
+class PageController extends Controller
 {
 	
 	/**

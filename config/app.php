@@ -178,7 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        
+        App\Providers\CommonViewComposerProvider::class,
         /* Collective Annotation for Routing */
        // App\Providers\AnnotationsServiceProvider::class
         

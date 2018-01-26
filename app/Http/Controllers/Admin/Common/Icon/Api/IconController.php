@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiIconController extends Controller
+class IconController extends Controller
 {
 	/**
 	 * @var IconService

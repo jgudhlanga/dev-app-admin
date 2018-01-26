@@ -14,7 +14,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiModuleController extends Controller
+class ModuleController extends Controller
 {
 	/**
 	 * Module Service

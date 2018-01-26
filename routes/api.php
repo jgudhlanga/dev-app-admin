@@ -10,20 +10,20 @@ use Illuminate\Http\Request;
 
 /*MODULES ROUTES*/
 Route::group(['prefix' => 'modules'], function () {
-	Route::get('/get-modules', 'Admin\Modules\Api\ApiModuleController@getModules');
-	Route::put('/change-module-status/{module}', 'Admin\Modules\Api\ApiModuleController@changeStatus');
-	Route::put('/order-modules/{module}', 'Admin\Modules\Api\ApiModuleController@order');
+	Route::get('/get-modules', 'Admin\Modules\Api\ModuleController@getModules');
+	Route::put('/change-module-status/{module}', 'Admin\Modules\Api\ModuleController@changeStatus');
+	Route::put('/order-modules/{module}', 'Admin\Modules\Api\ModuleController@order');
 	
 	/*PAGES*/
-	Route::get('/get-pages/{module}', 'Admin\Modules\Api\ApiPageController@getPages');
-	Route::put('/change-page-status/{page}', 'Admin\Modules\Api\ApiPageController@changeStatus');
-	Route::put('/order-pages/{page}', 'Admin\Modules\Api\ApiPageController@order');
+	Route::get('/get-pages/{module}', 'Admin\Modules\Api\PageController@getPages');
+	Route::put('/change-page-status/{page}', 'Admin\Modules\Api\PageController@changeStatus');
+	Route::put('/order-pages/{page}', 'Admin\Modules\Api\PageController@order');
 	
 });
 
 /*COMMON ROUTES*/
 Route::group(['prefix' => 'icons'], function () {
-	Route::put('/change-status/{icon}', 'Admin\Common\Icon\Api\ApiIconController@changeStatus');
+	Route::put('/change-status/{icon}', 'Admin\Common\Icon\Api\IconController@changeStatus');
 });
 
 /*AUTH ROUTE*/
@@ -40,7 +40,7 @@ Route::group(['prefix' => 'products'], function (){
 });*/
 
 /*USER ROUTES
-Route::apiResource('/users', 'Users\Api\ApiUserController');*/
+Route::apiResource('/users', 'Users\Api\UserController');*/
 
 
 

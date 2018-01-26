@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiUserController extends Controller
+class UserController extends Controller
 {
 	/**
 	 * @var UserService
@@ -17,7 +17,7 @@ class ApiUserController extends Controller
 	protected $userService;
 	
 	/**
-	 * ApiUserController constructor.
+	 * UserController constructor.
 	 * @param UserService $userService
 	 */
 	public function __construct(UserService $userService)
