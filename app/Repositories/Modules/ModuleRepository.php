@@ -48,8 +48,7 @@ class ModuleRepository implements RepositoryInterface
     {
 	    $query =  DB::table('modules AS m')
 		    ->leftJoin('statuses AS s', 's.id', '=', 'm.status_id' )
-		    ->leftJoin('icons AS i', 'i.id', '=', 'm.icon_id' )
-		    ->select('m.*', 's.title as status', 'i.class as class')
+		    ->select('m.*', 's.title as status')
 		    ->where('m.id', '>', 0);
 	
 	    if(!empty($args) && is_array($args))

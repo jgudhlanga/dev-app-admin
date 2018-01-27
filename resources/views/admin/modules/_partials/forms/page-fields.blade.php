@@ -31,11 +31,11 @@
 <div class="form-group">
     <label class="col-sm-2 control-label" for="icon_id">{{trans('modules.pages.icon')}}</label>
     <div class="col-sm-10">
-        <select name="icon_id" id="icon_id" class="form-control input-sm">
+        <select name="class" id="class" class="form-control input-sm">
             <option value="">{{ trans('forms.choose') }}</option>
             @if(count($icons) > 0)
                 @foreach($icons as $icon)
-                    <option value="{{$icon->id}}" @isset($page->icon_id) @if($page->icon_id == $icon->id) selected="selected" @endif @endisset>
+                    <option value="{{$icon->class}}" @isset($page->class) @if($page->class == $icon->class) selected="selected" @endif @endisset>
                         {{$icon->class}}
                     </option>
                 @endforeach

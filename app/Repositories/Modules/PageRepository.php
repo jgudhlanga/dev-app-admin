@@ -48,8 +48,7 @@ class PageRepository implements RepositoryInterface
 	{
 		$query =  DB::table('pages AS p')
 			->leftJoin('statuses AS s', 's.id', '=', 'p.status_id' )
-			->leftJoin('icons AS i', 'i.id', '=', 'p.icon_id' )
-			->select('p.*', 's.title as status', 'i.class as class')
+			->select('p.*', 's.title as status')
 			->where('p.id', '>', 0);
 		
 		if(!empty($args) && is_array($args))
