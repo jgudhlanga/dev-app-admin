@@ -26,7 +26,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ url('admin') }}" class="fa fa-circle-o">&nbsp;{{trans('admin.settings')}}</a></li>
+                    <li><a href="{{ url('admin') }}" class="fa fa-angle-right">&nbsp;{{trans('admin.settings')}}</a></li>
                 </ul>
             </li>
         </ul>
