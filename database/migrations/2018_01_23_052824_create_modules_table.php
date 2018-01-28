@@ -17,7 +17,7 @@ class CreateModulesTable extends Migration
 	        $table->increments('id');
 	        $table->string('title')->nullable()->unique();
 	        $table->string('description')->nullable();
-	        $table->integer('icon_id')->unsigned()->index()->nullable();
+	        $table->string('class')->nullable();
 	        $table->string('module_url')->unique()->nullable();
 	        $table->integer('status_id')->unsigned()->index()->default(1)->nullable();
 	        $table->integer('position')->nullable();
