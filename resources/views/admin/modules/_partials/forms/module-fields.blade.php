@@ -29,7 +29,7 @@
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label" for="icon_id">{{trans('modules.icon')}}</label>
+    <label class="col-sm-2 control-label" for="class">{{trans('modules.icon')}}</label>
     <div class="col-sm-10">
         <select name="class" id="class" class="form-control input-sm">
             <option value="">{{ trans('forms.choose') }}</option>
