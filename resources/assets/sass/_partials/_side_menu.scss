@@ -2,4 +2,8 @@
   margin-bottom: -70px !important;
   padding-bottom: 70px !important;
   position: fixed !important;
+	.treeview-menu > li {
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
 }
