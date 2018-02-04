@@ -31,6 +31,9 @@ Route::group(['prefix' => 'titles'], function () {
 Route::group(['prefix' => 'marital-statuses'], function () {
 	Route::put('/change-status/{marital_status}', 'CPanel\General\MaritalStatus\Api\MaritalStatusController@changeStatus');
 });
+Route::group(['prefix' => 'gender'], function () {
+	Route::put('/change-status/{gender}', 'CPanel\General\Gender\Api\GenderController@changeStatus');
+});
 
 /*AUTH ROUTE*/
 Route::middleware('auth:api')->get('/user', function (Request $request) {

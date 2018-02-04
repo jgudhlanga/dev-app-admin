@@ -81,13 +81,8 @@
 						}
 					})
 					.error(function (data) {
-						var arr = Object.entries(data.responseJSON.errors);
-						var message = '';
-						for (i = 0; i < arr.length; i++) {
-							message += "<br>" + arr[i][1];
-						}
 						$('#app_wrapper').waitMe('hide');
-						swal("{{ trans('alerts.error') }}", message, "error");
+						swal("{{ trans('alerts.error') }}", data.responseJSON.message, "error");
 					});
 			}
 		});

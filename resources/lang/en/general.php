@@ -9,4 +9,10 @@ return [
 	'no_records_found' => 'No records found',
 	'setting' => 'Setting|Settings',
 	'status' => 'Status',
+	'name' => 'Name|Names',
+	'description' => 'Description',
+	'placeholders' => [
+		'name' => 'enter your marital-status name here',
+		'description' => 'enter your marital-status description here',
+	],
 ];

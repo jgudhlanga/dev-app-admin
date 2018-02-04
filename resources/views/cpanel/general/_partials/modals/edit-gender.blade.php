@@ -1,12 +1,13 @@
-<div class="modal fade" id="addTitleModal" tabindex="-1" role="dialog" aria-labelledby="addTitleModal"
+<div class="modal fade" id="editGenderModal" tabindex="-1" role="dialog" aria-labelledby="editGenderModal"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <form id="addTitleForm"  role="form" data-toggle="validator">
+        <form id="editGenderForm"  role="form" data-toggle="validator">
             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+            <input type="hidden" name="edit_id" id="edit_id" value="">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">
-                        {{trans('titles.create')}}
+                        {{trans('gender.edit')}}
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" class="modal-close-btn">&times;</span>
                         </button>
@@ -19,8 +20,8 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
                         <i class="fa fa-times-circle"></i>&nbsp;{{trans('buttons.close')}}
                     </button>
-                    <button type="submit" class="btn btn-success"  id="btnAdd">
-                        <i class="fa fa-save"></i>&nbsp;{{trans('buttons.save')}}
+                    <button type="submit" class="btn btn-success"  id="btnUpdate">
+                        <i class="fa fa-save"></i>&nbsp;{{trans('buttons.update')}}
                     </button>
                 </div>
             </div>
