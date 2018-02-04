@@ -38,7 +38,7 @@ class CommonViewComposer
 		}
 		
 		$currentModule = Request::segment(1);
-		if(!in_array(strtolower($currentModule), $modulesArray)){
+		if((!empty($currentModule)) && (!in_array(strtolower($currentModule), $modulesArray))){
 			$currentModule = 'cpanel';
 		}
 		

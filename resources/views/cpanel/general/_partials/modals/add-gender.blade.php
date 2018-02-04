@@ -1,12 +1,12 @@
-<div class="modal fade" id="addTitleModal" tabindex="-1" role="dialog" aria-labelledby="addTitleModal"
+<div class="modal fade" id="addGenderModal" tabindex="-1" role="dialog" aria-labelledby="addGenderModal"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <form id="addTitleForm"  role="form" data-toggle="validator">
+        <form id="addGenderForm"  role="form" data-toggle="validator">
             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">
-                        {{trans('titles.create')}}
+                        {{trans('gender.create')}}
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" class="modal-close-btn">&times;</span>
                         </button>

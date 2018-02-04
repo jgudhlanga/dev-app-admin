@@ -2,9 +2,9 @@
 	$(document).ready(function () {
 
 		/*
-        * SAVE TITLE
+        * SAVE
         * */
-		$('#addTitleForm').validator().on('submit', function (e) {
+		$('#addGenderForm').validator().on('submit', function (e) {
 			if (e.isDefaultPrevented()) {
 				swal({
 					title: "{{ trans('alerts.error') }}",
@@ -16,15 +16,15 @@
 			else {
 				e.preventDefault();
 				waitBusy('app_wrapper', '{{config('waitme.success')}}');
-				var url = '{{ route("titles.store") }}';
+				var url = '{{ route("gender.store") }}';
 				$.ajax({
 					url: url,
 					type: "POST",
-					data: $('#addTitleForm').serialize()
+					data: $('#addGenderForm').serialize()
 				})
 					.success(function (data) {
-						if (data.title.id) {
-							$('#addTitleModal').modal('hide');
+						if (data.gender.id) {
+							$('#addGenderModal').modal('hide');
 							swal("{{ trans('alerts.created') }}",
 								data.message,
 								"success"
@@ -48,9 +48,9 @@
 
 
 		/*
-        * UPDATE TITLE
+        * UPDATE
         * */
-		$('#editTitleForm').validator().on('submit', function (e) {
+		$('#editGenderForm').validator().on('submit', function (e) {
 			if (e.isDefaultPrevented()) {
 				swal({
 					title: "{{ trans('alerts.error') }}",
@@ -62,15 +62,15 @@
 			else {
 				e.preventDefault();
 				waitBusy('app_wrapper', '{{config('waitme.success')}}');
-				var url = '{{ route("titles.update", [':id']) }}';
+				var url = '{{ route("gender.update", [':id']) }}';
 				url = url.replace(':id', $('#edit_id').val());
 				$.ajax({
 					url: url,
 					type: "PUT",
-					data: $('#editTitleForm').serialize()
+					data: $('#editGenderForm').serialize()
 				})
 					.success(function (data) {
-						if (data.title.id) {
+						if (data.gender.id) {
 							swal("{{ trans('alerts.updated') }}",
 								data.message,
 								"success"
@@ -92,10 +92,10 @@
 	/*
         * EDIT SHOW
         * */
-	function editTitle(id) {
-		$('#editTitleModal').modal('show');
-		waitBusy('editTitleModal', '{{config('waitme.info')}}');
-		var url = '{{ route("titles.edit", [':id']) }}';
+	function editGender(id) {
+		$('#editGenderModal').modal('show');
+		waitBusy('editGenderModal', '{{config('waitme.info')}}');
+		var url = '{{ route("gender.edit", [':id']) }}';
 		url = url.replace(':id', id);
 		var data = {'id': id};
 		$.ajax({
@@ -104,20 +104,20 @@
 			data: data
 		})
 			.success(function (res) {
-				$('#editTitleModal').waitMe('hide');
+				$('#editGenderModal').waitMe('hide');
 				//populate form fields
 				$('#btnUpdate').removeClass('disabled');
 				$('#edit_id').val(res.data.id);
-				$('#editTitleForm #name').val(res.data.name);
-				$('#editTitleForm #description').val(res.data.description);
+				$('#editGenderForm #name').val(res.data.name);
+				$('#editGenderForm #description').val(res.data.description);
 			})
 	}
 
 	/**
-	 * DELETE TITLE
+	 * DELETE
 	 * @param id
 	 */
-	function deleteTitle(id) {
+	function deleteGender(id) {
 		swal({
 			title: "{{ trans('alerts.confirm') }}",
 			text: "{{ trans('alerts.delete_text') }}",
@@ -131,7 +131,7 @@
 				if (result.value) {
 
 					waitBusy('app_wrapper', '{{config('waitme.danger')}}');
-					var url = '{{ route("titles.destroy", [':id']) }}';
+					var url = '{{ route("gender.destroy", [':id']) }}';
 					url = url.replace(':id', id);
 					var data = {'_token': "{{ csrf_token() }}"};
 					$.ajax({
@@ -157,7 +157,7 @@
 	}
 
 	/**
-	 * CHANGE MODULE STATUS
+	 * CHANGE GENDER STATUS
 	 * @param id
 	 */
 	function changeStatus(id) {
@@ -175,7 +175,7 @@
 
 					waitBusy('app_wrapper', '{{config('waitme.info')}}');
 
-					var url = '{{ url('api/titles/change-status') }}/' + id;
+					var url = '{{ url('api/gender/change-status') }}/' + id;
 					var data = {'_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,

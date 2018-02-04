@@ -14,7 +14,7 @@
                     </h3>
                 </div>
                 <div class="modal-body">
-                    @include('cpanel.general._partials.forms.marital-status-fields')
+                    @include('cpanel.general._partials.forms.general-fields')
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">

@@ -15,6 +15,7 @@ Route::group(['prefix' => 'cpanel/general'], function () {
 	Route::resource('status', 'CPanel\General\Status\StatusController');
 	Route::resource('icons', 'CPanel\General\Icon\IconController');
 	Route::resource('titles', 'CPanel\General\Title\TitleController');
+	Route::resource('gender', 'CPanel\General\Gender\GenderController');
 	Route::resource('marital-statuses', 'CPanel\General\MaritalStatus\MaritalStatusController');
 });
 Route::group(['prefix' => 'cpanel'], function (){

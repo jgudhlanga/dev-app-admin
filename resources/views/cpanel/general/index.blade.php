@@ -36,6 +36,12 @@
                     &nbsp;<span class="badge">{{$maritalStatusCount}}</span>
                 </a>
             </div>
+            <div class="col-sm-2">
+                <a class="btn btn-info btn-sm btn-block text-bold text-light" href="{{ url('cpanel/general/gender') }}">
+                    @lang('gender.gender')
+                    &nbsp;<span class="badge">{{$genderCount}}</span>
+                </a>
+            </div>
         </div>
     </section>
 @endsection
