@@ -17,16 +17,25 @@
             @include('layouts._partials._modules')
 
             @php
-                $class = (isset($currentModule) && $currentModule == 'admin') ? 'active' : '';
+                $class = (isset($currentModule) && $currentModule == 'cpanel') ? 'active' : '';
             @endphp
             <li class="treeview {{$class}}">
-                <a href="#"><i class="fa fa-wrench"></i> <span>&nbsp;{{trans('admin.c_panel')}}</span>
+                <a href="#"><i class="fa fa-wrench"></i> <span>&nbsp;{{trans('cpanel.c_panel')}}</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ url('admin') }}" class="fa fa-angle-right">&nbsp;{{trans('admin.settings')}}</a></li>
+                    <li>
+                        <a href="{{ url('cpanel') }}" class="fa fa-angle-right">
+                            &nbsp;@lang('cpanel.advanced')&nbsp;@choice('general.setting',2)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('cpanel/general') }}" class="fa fa-angle-right">
+                            &nbsp;@lang('cpanel.general')&nbsp;@choice('general.setting',2)
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>

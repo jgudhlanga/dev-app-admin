@@ -8,7 +8,6 @@
 return [
 	'id' => 'ID',
 	'class' => 'Class',
-	'status' => 'Status',
 	'not_found' => 'The Icons Record not found',
 	'placeholders' => [
 		'title' => 'enter your icon class here',

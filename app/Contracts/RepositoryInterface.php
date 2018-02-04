@@ -11,8 +11,10 @@ namespace App\Contracts;
 interface RepositoryInterface
 {
 	public function find( $id );
-	public function findBy( $args=[], $paginate=null, $single=false );
+	public function findBy( $args=[], $paginate=null, $limit=null, $orderBy=[] );
 	public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=[]);
 	public function delete( $id );
 	public function create($params);
+	public function update($model, $params);
+	public function count($args=[]);
 }

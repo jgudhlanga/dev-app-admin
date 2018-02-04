@@ -2,7 +2,8 @@
 
 namespace App\Http\Composers;
 
-use App\Models\Common\Status;
+use App\Http\Traits\General\CommonTrait;
+use App\Models\General\Status;
 use App\Services\Modules\ModuleService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Request;
@@ -10,15 +11,10 @@ use Illuminate\Support\Facades\Request;
 
 class CommonViewComposer
 {
-	/**
-	 * @var
-	 */
+	use CommonTrait;
+	
 	protected $moduleService;
 	
-	/**
-	 * CommonViewComposer constructor.
-	 * @param ModuleService $moduleService
-	 */
 	public function __construct(ModuleService $moduleService)
 	{
 		$this->moduleService = $moduleService;
@@ -29,7 +25,8 @@ class CommonViewComposer
 	 */
 	public function compose(View $view)
 	{
-		$systemModules = $this->moduleService->findAll(['status_id' => Status::ACTIVE], null, null, ['position' => 'asc']);
+		$systemModules = $this->moduleService->findAll(['status_id' => $this->getStatusActive()], null, null, ['position' => 'asc']);
+		
 		$modulesArray = [];
 		
 		if(count($systemModules) > 0)
@@ -42,7 +39,7 @@ class CommonViewComposer
 		
 		$currentModule = Request::segment(1);
 		if(!in_array(strtolower($currentModule), $modulesArray)){
-			$currentModule = 'admin';
+			$currentModule = 'cpanel';
 		}
 		
 		$data = [

@@ -10,8 +10,18 @@ Route::get('/', function () {
 
 Auth::routes();
 
-/*System Admin  Routes*/
-Route::resource('admin', 'Admin\Index\AdminController');
+/* CPANEL ROUTES */
+Route::group(['prefix' => 'cpanel/general'], function () {
+	Route::resource('status', 'CPanel\General\Status\StatusController');
+	Route::resource('icons', 'CPanel\General\Icon\IconController');
+	Route::resource('titles', 'CPanel\General\Title\TitleController');
+	Route::resource('marital-statuses', 'CPanel\General\MaritalStatus\MaritalStatusController');
+});
+Route::group(['prefix' => 'cpanel'], function (){
+	Route::resource('general', 'CPanel\General\IndexController');
+});
+
+Route::resource('cpanel', 'CPanel\Index\CPanelController');
 
 /*Chms  Routes*/
 Route::post('chms/search', 'Chms\Index\ChmsController@search');
@@ -21,21 +31,15 @@ Route::resource('chms', 'Chms\Index\ChmsController');
 Route::resource('hms', 'Hms\Index\HmsController');
 
 /*Modules Routes*/
-Route::resource('modules', 'Admin\Modules\ModuleController');
+Route::resource('modules', 'CPanel\Modules\ModuleController');
 Route::group(['prefix' => 'modules'], function(){
-	Route::resource('pages', 'Admin\Modules\PageController');
+	Route::resource('pages', 'CPanel\Modules\PageController');
 });
 
 
 /*Procurement Routes*/
 Route::resource('procurement', 'Procurement\Index\ProcurementController');
 
-/* COMMON ROUTES */
-Route::group(['prefix' => 'common'], function () {
-	Route::resource('status', 'Admin\Common\Status\StatusController');
-	Route::resource('icons', 'Admin\Common\Icon\IconController');
-});
-Route::resource('common', 'Admin\Common\CommonController');
 
 /*USERS ROUTES*/
 Route::resource('users', 'Users\UserController');

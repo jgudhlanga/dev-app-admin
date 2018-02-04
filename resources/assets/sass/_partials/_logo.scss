@@ -1,0 +1,19 @@
+.main-header{
+	.logo{
+		transition: width .3s ease-in-out;
+		display: block;
+		float: left;
+		height: 50px;
+		font-size: 20px;
+		line-height: 50px;
+		text-align: left;
+		width: 230px;
+		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-weight: bold;
+		overflow: hidden;
+		padding: 0 6px !important;
+	}
+	a:hover{
+		text-decoration: none;
+	}
+}

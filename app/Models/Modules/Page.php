@@ -2,7 +2,7 @@
 
 namespace App\Models\Modules;
 
-use App\Models\Common\Status;
+use App\Models\General\Status;
 use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
