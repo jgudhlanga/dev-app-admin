@@ -1,10 +1,7 @@
-<!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
 
-    <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
 
-        <!-- search form (Optional) -->
         <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
                 <input type="text" name="q" class="form-control" placeholder="Search...">
@@ -14,64 +11,33 @@
               </span>
             </div>
         </form>
-        <!-- /.search form -->
 
-        <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
-            <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="/"><i class="fa fa-home"></i> <span>Home</span></a></li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-group"></i> <span>CHMS</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ url('chms') }}" class="fa fa-circle-o">&nbsp;Dashboard</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-cart-plus"></i> <span>eProcurement</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ url('procurement') }}" class="fa fa-circle-o">&nbsp;Dashboard</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-bed"></i> <span>HMS</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ url('hms') }}" class="fa fa-circle-o">&nbsp;Dashboard</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-group"></i> <span>&nbsp;{{trans('users.users')}}</span>
+
+            @include('layouts._partials._modules')
+
+            @php
+                $class = (isset($currentModule) && $currentModule == 'cpanel') ? 'active' : '';
+            @endphp
+            <li class="treeview {{$class}}">
+                <a href="#"><i class="fa fa-wrench"></i> <span>&nbsp;{{trans('cpanel.c_panel')}}</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ url('users') }}" class="fa fa-circle-o">&nbsp;{{trans('users.home')}}</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-wrench"></i> <span>&nbsp;{{trans('admin.c_panel')}}</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ url('admin') }}" class="fa fa-circle-o">&nbsp;{{trans('admin.settings')}}</a></li>
+                    <li>
+                        <a href="{{ url('cpanel') }}" class="fa fa-angle-right">
+                            &nbsp;@lang('cpanel.advanced')&nbsp;@choice('general.setting',2)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('cpanel/general') }}" class="fa fa-angle-right">
+                            &nbsp;@lang('cpanel.general')&nbsp;@choice('general.setting',2)
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>
-        <!-- /.sidebar-menu -->
     </section>
-    <!-- /.sidebar -->
 </aside>

@@ -7,13 +7,13 @@
  */
 namespace App\Models\Modules;
 
-use App\Models\Common\Status;
+use App\Models\General\Status;
 use Illuminate\Database\Eloquent\Model;
 
 class Module extends Model
 {
 	
-    protected $fillable = ['title', 'description', 'icon_id', 'module_url', 'status_id','position','created_by', 'updated_by'];
+    protected $fillable = ['title', 'description', 'class', 'module_url', 'status_id','position','created_by', 'updated_by'];
 	
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

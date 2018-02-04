@@ -2,4 +2,14 @@
   margin-bottom: -70px !important;
   padding-bottom: 70px !important;
   position: fixed !important;
+	.treeview-menu > li {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		a:hover, a:focus{
+			text-decoration: none !important;
+		}
+	}
+}
+.sidebar-menu>li>a {
+	padding: 12px 5px 12px 5px;
 }

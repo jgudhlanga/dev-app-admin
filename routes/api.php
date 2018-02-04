@@ -10,20 +10,26 @@ use Illuminate\Http\Request;
 
 /*MODULES ROUTES*/
 Route::group(['prefix' => 'modules'], function () {
-	Route::get('/get-modules', 'Admin\Modules\Api\ApiModuleController@getModules');
-	Route::put('/change-module-status/{module}', 'Admin\Modules\Api\ApiModuleController@changeStatus');
-	Route::put('/order-modules/{module}', 'Admin\Modules\Api\ApiModuleController@order');
+	Route::get('/get-modules', 'CPanel\Modules\Api\ModuleController@getModules');
+	Route::put('/change-module-status/{module}', 'CPanel\Modules\Api\ModuleController@changeStatus');
+	Route::put('/order-modules/{module}', 'CPanel\Modules\Api\ModuleController@order');
 	
 	/*PAGES*/
-	Route::get('/get-pages/{module}', 'Admin\Modules\Api\ApiPageController@getPages');
-	Route::put('/change-page-status/{page}', 'Admin\Modules\Api\ApiPageController@changeStatus');
-	Route::put('/order-pages/{page}', 'Admin\Modules\Api\ApiPageController@order');
+	Route::get('/get-pages/{module}', 'CPanel\Modules\Api\PageController@getPages');
+	Route::put('/change-page-status/{page}', 'CPanel\Modules\Api\PageController@changeStatus');
+	Route::put('/order-pages/{page}', 'CPanel\Modules\Api\PageController@order');
 	
 });
 
-/*COMMON ROUTES*/
+/*GENERAL SETTINGS ROUTES*/
 Route::group(['prefix' => 'icons'], function () {
-	Route::put('/change-status/{icon}', 'Admin\Common\Icon\Api\ApiIconController@changeStatus');
+	Route::put('/change-status/{icon}', 'CPanel\General\Icon\Api\IconController@changeStatus');
+});
+Route::group(['prefix' => 'titles'], function () {
+	Route::put('/change-status/{title}', 'CPanel\General\Title\Api\TitleController@changeStatus');
+});
+Route::group(['prefix' => 'marital-statuses'], function () {
+	Route::put('/change-status/{marital_status}', 'CPanel\General\MaritalStatus\Api\MaritalStatusController@changeStatus');
 });
 
 /*AUTH ROUTE*/
@@ -40,7 +46,7 @@ Route::group(['prefix' => 'products'], function (){
 });*/
 
 /*USER ROUTES
-Route::apiResource('/users', 'Users\Api\ApiUserController');*/
+Route::apiResource('/users', 'Users\Api\UserController');*/
 
 
 

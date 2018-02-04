@@ -103,5 +103,13 @@ class PageService
 		return $this->pageRepository->orderPages($page, $direction);
 	}
 	
+	/**
+	 * @param array $args
+	 * @return mixed
+	 */
+	public function count($args = [])
+	{
+		return $this->pageRepository->count($args);
+	}
 }
 

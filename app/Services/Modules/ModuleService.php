@@ -103,5 +103,14 @@ class ModuleService
 	{
 		return $this->moduleRepository->orderModules($module, $direction);
 	}
+	
+	/**
+	 * @param array $args
+	 * @return mixed
+	 */
+	public function count($args = [])
+	{
+		return $this->moduleRepository->count($args);
+	}
 }
 

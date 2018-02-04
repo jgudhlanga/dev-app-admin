@@ -2,12 +2,12 @@
 
 namespace App\Models\Modules;
 
-use App\Models\Common\Status;
+use App\Models\General\Status;
 use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
 {
-	protected $fillable = ['title', 'description', 'icon_id', 'page_url', 'status_id','position', 'module_id', 'created_by', 'updated_by'];
+	protected $fillable = ['title', 'description', 'class', 'page_url', 'status_id','position', 'module_id', 'created_by', 'updated_by'];
 	
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

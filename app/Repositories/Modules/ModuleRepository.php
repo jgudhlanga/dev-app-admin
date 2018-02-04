@@ -48,8 +48,7 @@ class ModuleRepository implements RepositoryInterface
     {
 	    $query =  DB::table('modules AS m')
 		    ->leftJoin('statuses AS s', 's.id', '=', 'm.status_id' )
-		    ->leftJoin('icons AS i', 'i.id', '=', 'm.icon_id' )
-		    ->select('m.*', 's.title as status', 'i.class as class')
+		    ->select('m.*', 's.title as status')
 		    ->where('m.id', '>', 0);
 	
 	    if(!empty($args) && is_array($args))
@@ -215,5 +214,28 @@ class ModuleRepository implements RepositoryInterface
 		}
 		
 		return $this->find($module->id);
+	}
+	
+	/**
+	 * @param array $args
+	 * @return mixed
+	 */
+	public function count($args = [])
+	{
+		$count = $this->module->where('id', '>', 0);
+		if(!empty($args) && is_array($args))
+		{
+			for ($i=0; $i<count($args); $i++)
+			{
+				if(is_array(array_values($args)[$i])){
+					$count->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				}
+				else{
+					$count->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+				}
+			}
+		}
+		
+		return $count->count();
 	}
 }

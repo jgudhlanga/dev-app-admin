@@ -48,8 +48,7 @@ class PageRepository implements RepositoryInterface
 	{
 		$query =  DB::table('pages AS p')
 			->leftJoin('statuses AS s', 's.id', '=', 'p.status_id' )
-			->leftJoin('icons AS i', 'i.id', '=', 'p.icon_id' )
-			->select('p.*', 's.title as status', 'i.class as class')
+			->select('p.*', 's.title as status')
 			->where('p.id', '>', 0);
 		
 		if(!empty($args) && is_array($args))
@@ -217,4 +216,26 @@ class PageRepository implements RepositoryInterface
 		return $page;
 	}
 	
+	/**
+	 * @param array $args
+	 * @return mixed
+	 */
+	public function count($args = [])
+	{
+		$count = $this->page->where('id', '>', 0);
+		if(!empty($args) && is_array($args))
+		{
+			for ($i=0; $i<count($args); $i++)
+			{
+				if(is_array(array_values($args)[$i])){
+					$count->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				}
+				else{
+					$count->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+				}
+			}
+		}
+		
+		return $count->count();
+	}
 }
