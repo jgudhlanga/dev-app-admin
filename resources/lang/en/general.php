@@ -15,4 +15,8 @@ return [
 		'name' => 'enter your marital-status name here',
 		'description' => 'enter your marital-status description here',
 	],
+	
+	'occupations' => [
+		'heading' => 'Occupation|Occupations',
+	]
 ];
