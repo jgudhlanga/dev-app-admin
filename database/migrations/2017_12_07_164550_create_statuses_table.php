@@ -16,9 +16,12 @@ class CreateStatusesTable extends Migration
         Schema::create('statuses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->unique()->nullable();
-            $table->string('description')->nullable();
+	        $table->text('description')->nullable();
+	        $table->integer('created_by')->index()->unsigned()->nullable();
+	        $table->integer('updated_by')->index()->unsigned()->nullable();
+	        $table->foreign('created_by')->references('id')->on('users');
+	        $table->foreign('updated_by')->references('id')->on('users');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
