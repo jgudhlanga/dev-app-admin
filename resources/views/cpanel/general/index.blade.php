@@ -42,6 +42,20 @@
                     &nbsp;<span class="badge">{{$genderCount}}</span>
                 </a>
             </div>
+            <div class="col-sm-2">
+                <a class="btn btn-info btn-sm btn-block text-bold text-light" href="{{ url('cpanel/general/occupations') }}">
+                    @choice('general.occupations.heading', 2)
+                    &nbsp;<span class="badge">{{$occupationCount}}</span>
+                </a>
+            </div>
+        </div>
+        <div class="row margin-top-5">
+            <div class="col-sm-2">
+                <a class="btn btn-info btn-sm btn-block text-bold text-light" href="{{ url('cpanel/general/races') }}">
+                    @choice('general.races.heading', 2)
+                    &nbsp;<span class="badge">{{$raceCount}}</span>
+                </a>
+            </div>
         </div>
     </section>
 @endsection

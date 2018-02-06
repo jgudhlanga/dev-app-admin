@@ -2,30 +2,32 @@
 
 namespace App\Repositories\General;
 
+
 use App\Contracts\RepositoryInterface;
-use App\Models\General\Title;
+use App\Models\General\Occupation;
 
-class TitleRepository implements RepositoryInterface
+class OccupationRepository implements RepositoryInterface
 {
-
-	protected $title;
 	
-	public function __construct(Title $title)
+	protected $occupation;
+	
+	
+	public function __construct(Occupation $occupation)
 	{
-		$this->title = $title;
+		$this->occupation = $occupation;
 	}
 	
 	public function find($id)
 	{
-		return $this->title->where('id', $id)->first();
+		return $this->occupation->where('id', $id)->first();
 	}
 	
 	public function findBy( $args=[], $paginate=null, $limit=null, $orderBy=null )
 	{
-		$query =  DB::table('titles AS t')
-			->leftJoin('statuses AS s', 's.id', '=', 't.status_id' )
-			->select('t.*', 's.title as status')
-			->where('t.id', '>', 0);
+		$query =  DB::table('occupations AS o')
+			->leftJoin('statuses AS s', 's.id', '=', 'o.status_id' )
+			->select('o.*', 's.title as status')
+			->where('o.id', '>', 0);
 		
 		if(!empty($args) && is_array($args))
 		{
@@ -57,18 +59,19 @@ class TitleRepository implements RepositoryInterface
 		return $query->get();
 	}
 	
+	
 	public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=null )
 	{
-		$titles = $this->title->where('id', '>', 0);
+		$occupations = $this->occupation->where('id', '>', 0);
 		if(!empty($args) && is_array($args))
 		{
 			for ($i=0; $i<count($args); $i++)
 			{
 				if(is_array(array_values($args)[$i])){
-					$titles->wherein(array_keys($args)[$i],array_values($args)[$i]);
+					$occupations->wherein(array_keys($args)[$i],array_values($args)[$i]);
 				}
 				else{
-					$titles->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$occupations->where(array_keys($args)[$i], '=', array_values($args)[$i]);
 				}
 			}
 		}
@@ -76,30 +79,31 @@ class TitleRepository implements RepositoryInterface
 		if($orderBy != '')
 		{
 			if(is_array($orderBy)){
-				$titles->orderBy(array_keys($orderBy)[0], array_values($orderBy)[0]);
+				$occupations->orderBy(array_keys($orderBy)[0], array_values($orderBy)[0]);
 			}
 		}
 		else{
-			$titles->orderBy('created_at', 'desc')->take($limit);
+			$occupations->orderBy('created_at', 'desc')->take($limit);
 		}
 		
 		// Paginate if we need to
 		if (!is_null($paginate)) {
-			$titles->paginate($paginate);
+			$occupations->paginate($paginate);
 		}
 		
-		return $titles->get();
+		return $occupations->get();
 	}
 	
-	public function delete($title)
+	public function delete($occupation)
 	{
-		return $title->delete();
+		return $occupation->delete();
 	}
 	
 	public function getTableColumns()
 	{
-		return $this->title->getTableColumns();
+		return $this->occupation->getTableColumns();
 	}
+	
 	
 	public function create($params)
 	{
@@ -111,19 +115,19 @@ class TitleRepository implements RepositoryInterface
 			}
 			$data[$column] = (isset($params[$column]) && $params[$column] != '') ? $params[$column] : NULL;
 		}
-		$created = Title::create($data);
+		$created = Occupation::create($data);
 		return $created;
 	}
 	
-	public function update($title, $data)
+	public function update($occupation, $data)
 	{
-		$title->update($data);
-		return $title;
+		$occupation->update($data);
+		return $occupation;
 	}
 	
 	public function count($args = [])
 	{
-		$count = $this->title->where('id', '>', 0);
+		$count = $this->occupation->where('id', '>', 0);
 		if(!empty($args) && is_array($args))
 		{
 			for ($i=0; $i<count($args); $i++)
