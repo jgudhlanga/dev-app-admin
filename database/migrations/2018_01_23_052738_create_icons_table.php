@@ -15,9 +15,14 @@ class CreateIconsTable extends Migration
     {
 	    Schema::create('icons', function (Blueprint $table) {
 		    $table->increments('id');
-		    $table->string('class')->nullable();
-		    $table->integer('status_id')->unsigned()->index()->default('1');
+		    $table->string('class')->unique()->nullable();
+		    $table->text('description')->nullable();
+		    $table->integer('status_id')->index()->unsigned()->default(1);
+		    $table->integer('created_by')->index()->unsigned()->nullable();
+		    $table->integer('updated_by')->index()->unsigned()->nullable();
 		    $table->foreign('status_id')->references('id')->on('statuses');
+		    $table->foreign('created_by')->references('id')->on('users');
+		    $table->foreign('updated_by')->references('id')->on('users');
 		    $table->timestamps();
 	    });
     }
