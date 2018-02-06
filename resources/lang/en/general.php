@@ -18,5 +18,8 @@ return [
 	
 	'occupations' => [
 		'heading' => 'Occupation|Occupations',
+	],
+	'races' => [
+		'heading' => 'Race|Races',
 	]
 ];

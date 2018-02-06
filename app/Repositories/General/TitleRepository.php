@@ -2,39 +2,24 @@
 
 namespace App\Repositories\General;
 
-
 use App\Contracts\RepositoryInterface;
 use App\Models\General\Title;
 
 class TitleRepository implements RepositoryInterface
 {
-	/**
-	 * @var $title
-	 */
+
 	protected $title;
-	
 	
 	public function __construct(Title $title)
 	{
 		$this->title = $title;
 	}
 	
-	/**
-	 * @param $id
-	 * @return mixed
-	 */
 	public function find($id)
 	{
 		return $this->title->where('id', $id)->first();
 	}
 	
-	/**
-	 * @param array $args
-	 * @param null $paginate
-	 * @param null $limit
-	 * @param null $orderBy
-	 * @return mixed
-	 */
 	public function findBy( $args=[], $paginate=null, $limit=null, $orderBy=null )
 	{
 		$query =  DB::table('titles AS t')
@@ -72,13 +57,6 @@ class TitleRepository implements RepositoryInterface
 		return $query->get();
 	}
 	
-	/**
-	 * @param array $args
-	 * @param null $paginate
-	 * @param null $limit
-	 * @param null $orderBy
-	 * @return mixed
-	 */
 	public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=null )
 	{
 		$titles = $this->title->where('id', '>', 0);
@@ -113,29 +91,16 @@ class TitleRepository implements RepositoryInterface
 		return $titles->get();
 	}
 	
-	/**
-	 * @param $title
-	 * @return mixed
-	 */
 	public function delete($title)
 	{
 		return $title->delete();
 	}
 	
-	
-	
-	/**
-	 * @return array
-	 */
 	public function getTableColumns()
 	{
 		return $this->title->getTableColumns();
 	}
 	
-	/**
-	 * @param $params
-	 * @return mixed
-	 */
 	public function create($params)
 	{
 		$columns = $this->getTableColumns();
@@ -150,21 +115,12 @@ class TitleRepository implements RepositoryInterface
 		return $created;
 	}
 	
-	/**
-	 * @param $title
-	 * @param $data
-	 * @return mixed
-	 */
 	public function update($title, $data)
 	{
 		$title->update($data);
 		return $title;
 	}
 	
-	/**
-	 * @param array $args
-	 * @return mixed
-	 */
 	public function count($args = [])
 	{
 		$count = $this->title->where('id', '>', 0);

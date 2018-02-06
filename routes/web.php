@@ -18,6 +18,7 @@ Route::group(['prefix' => 'cpanel/general'], function () {
 	Route::resource('gender', 'CPanel\General\Gender\GenderController');
 	Route::resource('marital-statuses', 'CPanel\General\MaritalStatus\MaritalStatusController');
 	Route::resource('occupations', 'CPanel\General\Occupations\OccupationsController');
+	Route::resource('races', 'CPanel\General\Races\RaceController');
 });
 Route::group(['prefix' => 'cpanel'], function (){
 	Route::resource('general', 'CPanel\General\IndexController');

@@ -22,8 +22,8 @@ class TitleRequest extends FormRequest
     public function messages()
     {
     	return [
-    		'name.required' => 'Title Names is required',
-    		'name.unique' => 'Title Names has to be unique',
+    		'name.required' => 'Title Name is required',
+    		'name.unique' => 'Title Name has to be unique',
 	    ];
     }
 }

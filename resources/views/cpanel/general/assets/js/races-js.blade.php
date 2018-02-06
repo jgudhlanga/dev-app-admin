@@ -4,7 +4,7 @@
 		/*
         * SAVE
         * */
-		$('#addTitleForm').validator().on('submit', function (e) {
+		$('#addRaceForm').validator().on('submit', function (e) {
 			if (e.isDefaultPrevented()) {
 				swal({
 					title: "{{ trans('alerts.error') }}",
@@ -16,15 +16,15 @@
 			else {
 				e.preventDefault();
 				waitBusy('app_wrapper', '{{config('waitme.success')}}');
-				var url = '{{ route("titles.store") }}';
+				var url = '{{ route("races.store") }}';
 				$.ajax({
 					url: url,
 					type: "POST",
-					data: $('#addTitleForm').serialize()
+					data: $('#addRaceForm').serialize()
 				})
 					.success(function (data) {
-						if (data.title.id) {
-							$('#addTitleModal').modal('hide');
+						if (data.race.id) {
+							$('#addRaceModal').modal('hide');
 							swal("{{ trans('alerts.created') }}",
 								data.message,
 								"success"
@@ -50,7 +50,7 @@
 		/*
         * UPDATE
         * */
-		$('#editTitleForm').validator().on('submit', function (e) {
+		$('#editRaceForm').validator().on('submit', function (e) {
 			if (e.isDefaultPrevented()) {
 				swal({
 					title: "{{ trans('alerts.error') }}",
@@ -62,15 +62,15 @@
 			else {
 				e.preventDefault();
 				waitBusy('app_wrapper', '{{config('waitme.success')}}');
-				var url = '{{ route("titles.update", [':id']) }}';
+				var url = '{{ route("races.update", [':id']) }}';
 				url = url.replace(':id', $('#edit_id').val());
 				$.ajax({
 					url: url,
 					type: "PUT",
-					data: $('#editTitleForm').serialize()
+					data: $('#editRaceForm').serialize()
 				})
 					.success(function (data) {
-						if (data.title.id) {
+						if (data.race.id) {
 							swal("{{ trans('alerts.updated') }}",
 								data.message,
 								"success"
@@ -92,10 +92,10 @@
 	/*
         * EDIT SHOW
         * */
-	function editTitle(id) {
-		$('#editTitleModal').modal('show');
-		waitBusy('editTitleModal', '{{config('waitme.info')}}');
-		var url = '{{ route("titles.edit", [':id']) }}';
+	function editRace(id) {
+		$('#editRaceModal').modal('show');
+		waitBusy('editRaceModal', '{{config('waitme.info')}}');
+		var url = '{{ route("races.edit", [':id']) }}';
 		url = url.replace(':id', id);
 		var data = {'id': id};
 		$.ajax({
@@ -104,20 +104,20 @@
 			data: data
 		})
 			.success(function (res) {
-				$('#editTitleModal').waitMe('hide');
+				$('#editRaceModal').waitMe('hide');
 				//populate form fields
 				$('#btnUpdate').removeClass('disabled');
 				$('#edit_id').val(res.data.id);
-				$('#editTitleForm #name').val(res.data.name);
-				$('#editTitleForm #description').val(res.data.description);
+				$('#editRaceForm #name').val(res.data.name);
+				$('#editRaceForm #description').val(res.data.description);
 			})
 	}
 
 	/**
-	 * DELETE TITLE
+	 * DELETE
 	 * @param id
 	 */
-	function deleteTitle(id) {
+	function deleteRace(id) {
 		swal({
 			title: "{{ trans('alerts.confirm') }}",
 			text: "{{ trans('alerts.delete_text') }}",
@@ -131,7 +131,7 @@
 				if (result.value) {
 
 					waitBusy('app_wrapper', '{{config('waitme.danger')}}');
-					var url = '{{ route("titles.destroy", [':id']) }}';
+					var url = '{{ route("races.destroy", [':id']) }}';
 					url = url.replace(':id', id);
 					var data = {'_token': "{{ csrf_token() }}"};
 					$.ajax({
@@ -175,7 +175,7 @@
 
 					waitBusy('app_wrapper', '{{config('waitme.info')}}');
 
-					var url = '{{ url('api/titles/change-status') }}/' + id;
+					var url = '{{ url('api/races/change-status') }}/' + id;
 					var data = {'_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,
