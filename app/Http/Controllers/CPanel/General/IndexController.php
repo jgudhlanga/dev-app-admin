@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\CPanel\General;
 
+use App\Services\General\CountryService;
 use App\Services\General\GenderService;
 use App\Services\General\IconService;
 use App\Services\General\MaritalStatusService;
@@ -28,9 +29,11 @@ class IndexController extends Controller
 	
 	protected $raceService;
 	
+	protected $countryService;
+	
     public function __construct(StatusService $statusService, IconService $iconService, TitleService $titleService,
 	    MaritalStatusService $maritalStatusService, GenderService $genderService, OccupationService $occupationService,
-		RaceService $raceService
+		RaceService $raceService, CountryService $countryService
         )
     {
     	$this->statusService = $statusService;
@@ -40,6 +43,7 @@ class IndexController extends Controller
     	$this->genderService = $genderService;
     	$this->occupationService = $occupationService;
     	$this->raceService = $raceService;
+    	$this->countryService = $countryService;
     }
 	
 	public function index()
@@ -51,8 +55,9 @@ class IndexController extends Controller
     	$genderCount = $this->genderService->count(null);
     	$occupationCount = $this->occupationService->count(null);
     	$raceCount = $this->raceService->count(null);
+    	$countryCount = $this->countryService->count(null);
 	    return view('cpanel.general.index', compact('statusCount','iconCount', 'titleCount',
-		    'maritalStatusCount', 'genderCount', 'occupationCount', 'raceCount'));
+		    'maritalStatusCount', 'genderCount', 'occupationCount', 'raceCount', 'countryCount'));
     }
     
     public function show()

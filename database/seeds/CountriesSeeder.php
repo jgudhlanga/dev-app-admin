@@ -36,6 +36,7 @@ class CountriesSeeder extends Seeder {
                 'calling_code' => $country['calling_code'],
                 'currency_symbol' => ((isset($country['currency_symbol'])) ? $country['currency_symbol'] : null),
                 'flag' =>((isset($country['flag'])) ? $country['flag'] : null),
+	            
             ));
         }
     }
