@@ -57,11 +57,16 @@ class PageController extends Controller
 
     public function edit(Page $page)
     {
-	    $icons = $this->iconService->findAll();
-	    return view('cpanel.modules.edit-page', compact('page','icons'));
+	    if($page instanceof Page){
+		    return response([
+			    'data' => $page
+		    ], Response::HTTP_OK);
+	    }
+	    else{
+		    notify()->flash(trans('modules.pages.not_found'), 'error');
+	    }
     }
-
-    
+	   
     public function update(Request $request, Page $page)
     {
 	    try{

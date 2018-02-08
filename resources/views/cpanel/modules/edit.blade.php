@@ -15,6 +15,7 @@
         </div>
     </section>
     @include('cpanel.modules._partials.modals.add-page')
+    @include('cpanel.modules._partials.modals.edit-page')
     @include('cpanel.modules.assets.js.modules-js')
     @include('cpanel.modules.assets.js.pages-js')
 @endsection
