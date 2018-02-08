@@ -35,6 +35,7 @@ return [
 	],
 	'pages' => [
 		'position' => 'Order',
+		'page' => 'Page|Pages',
 		'heading' => 'Module Pages',
 		'title' => 'Title',
 		'module' => 'Module',

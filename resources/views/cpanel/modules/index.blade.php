@@ -48,5 +48,6 @@
         </div>
     </section>
     @include('cpanel.modules._partials.modals.add-module')
+    @include('cpanel.modules._partials.modals.edit-module')
     @include('cpanel.modules.assets.js.modules-js')
 @endsection

@@ -69,6 +69,18 @@ class ModuleController extends Controller
         return view('cpanel.modules.edit', compact('module', 'icons'));
     }
 	
+	public function edit(Module $module)
+	{
+		if($module instanceof Module){
+			return response([
+				'data' => $module
+			], Response::HTTP_OK);
+		}
+		else{
+			notify()->flash(trans('modules.not_found'), 'error');
+		}
+	}
+	
     public function update(Request $request, Module $module)
     {
      

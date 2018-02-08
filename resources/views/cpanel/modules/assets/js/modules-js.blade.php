@@ -39,8 +39,11 @@
 								changeStatusBtnTitle = "{{trans('buttons.reactivate')}}";
 								changeStatusBtnClass = "btn-success";
 							}
-							return '<a class="btn btn-xs btn-info" href="{{ url()->current() }}/' + data + '">' +
-                                '<i class="fa fa-eye"></i>&nbsp;{{ trans("buttons.view") }}</a>&nbsp;' +
+							return '' +
+                                '<a class="btn btn-xs btn-info" onclick="editModule('+ data +')">' +
+                                '<i class="fa fa-pencil"></i>&nbsp;{{ trans("buttons.edit") }}</a>&nbsp;' +
+                                '<a class="btn btn-xs btn-default" href="{{ url()->current() }}/' + data + '">' +
+                                '<i class="fa fa-file"></i>&nbsp;@choice('modules.pages.page', 2)</a>&nbsp;' +
 								'<a class="btn btn-xs ' + changeStatusBtnClass + '" onclick="changeStatus(' + data + ')">' +
 								'<i class="fa fa-toggle-off"></i>&nbsp;' + changeStatusBtnTitle + '</a>&nbsp;' +
 								'<a class="btn btn-xs btn-danger" onclick="deleteModule(' + data + ')">' +
@@ -141,6 +144,31 @@
 		});
 	});
 
+	/*
+        * EDIT SHOW
+        * */
+	function editModule(id) {
+		$('#editModuleModal').modal('show');
+		waitBusy('editModuleModal', '{{config('waitme.info')}}');
+		var url = '{{ route("modules.edit", [':id']) }}';
+		url = url.replace(':id', id);
+		var data = {'id': id};
+		$.ajax({
+			url: url,
+			type: "GET",
+			data: data
+		})
+			.success(function (res) {
+				$('#editModuleModal').waitMe('hide');
+				//populate form fields
+				$('#btnUpdate').removeClass('disabled');
+				$('#edit_id').val(res.data.id);
+				$('#editModuleForm #title').val(res.data.title);
+				$('#editModuleForm #module_url').val(res.data.module_url);
+				$('#editModuleForm #class').val(res.data.class);
+				$('#editModuleForm #description').val(res.data.description);
+			})
+	}
 	/**
      * DELETE MODULE
      * @param id
