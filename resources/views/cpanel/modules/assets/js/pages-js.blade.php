@@ -37,7 +37,7 @@
 								changeStatusBtnTitle = "{{trans('buttons.reactivate')}}";
 								changeStatusBtnClass = "btn-success";
 							}
-							return '<a class="btn btn-xs btn-info" href="pages/'+data+'/edit">' +
+							return '<a class="btn btn-xs btn-info" onclick="editPage('+ data +')">' +
 								'<i class="fa fa-edit"></i>&nbsp;{{ trans("buttons.edit") }}</a>&nbsp;' +
 								'<a class="btn btn-xs ' + changeStatusBtnClass + '" onclick="changeStatus(' + data + ')">' +
 								'<i class="fa fa-toggle-off"></i>&nbsp;' + changeStatusBtnTitle + '</a>&nbsp;' +
@@ -138,6 +138,32 @@
 			}
 		});
 	});
+
+	/*
+        * EDIT SHOW
+        * */
+	function editPage(id) {
+		$('#editPageModal').modal('show');
+		waitBusy('editPageModal', '{{config('waitme.info')}}');
+		var url = '{{ route("pages.edit", [':id']) }}';
+		url = url.replace(':id', id);
+		var data = {'id': id};
+		$.ajax({
+			url: url,
+			type: "GET",
+			data: data
+		})
+			.success(function (res) {
+				$('#editPageModal').waitMe('hide');
+				//populate form fields
+				$('#btnUpdate').removeClass('disabled');
+				$('#edit_id').val(res.data.id);
+				$('#editPageForm #title').val(res.data.title);
+				$('#editPageForm #page_url').val(res.data.page_url);
+				$('#editPageForm #class').val(res.data.class);
+				$('#editPageForm #description').val(res.data.description);
+			})
+	}
 
 	/**
 	 * DELETE PAGE
