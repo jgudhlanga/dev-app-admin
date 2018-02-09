@@ -4,6 +4,7 @@ namespace App\Repositories\General;
 
 use App\Contracts\RepositoryInterface;
 use App\Models\General\Country;
+use Illuminate\Support\Facades\DB;
 
 class CountryRepository implements RepositoryInterface
 {

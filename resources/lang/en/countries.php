@@ -22,6 +22,7 @@ return [
 	'not_found' => 'The Country Record not found',
 	'create' => 'Create Country',
 	'edit' => 'Edit Country',
+	'status' => 'Status',
 	'placeholders' => [
 		'name' => 'enter your country name here',
 		'full_name' => 'enter your country full_name here',

@@ -36,14 +36,14 @@ class CountryService
 		return $this->countryRepository->create($params);
 	}
 	
-	public function update($title, $data)
+	public function update($country, $data)
 	{
-		return $this->countryRepository->update($title, $data);
+		return $this->countryRepository->update($country, $data);
 	}
 	
-	public function delete($title)
+	public function delete($country)
 	{
-		return $this->countryRepository->delete($title);
+		return $this->countryRepository->delete($country);
 	}
 	
 	public function count($args = [])

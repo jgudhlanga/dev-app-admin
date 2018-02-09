@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 
 class CountriesController extends Controller
@@ -33,13 +34,19 @@ class CountriesController extends Controller
 			DB::commit();
 			$message = ($country->status_id == $this->getStatusActive()) ? 'countries.alerts.reactivated' : 'countries.alerts.deactivated';
 			$title = ($country->status_id == $this->getStatusActive()) ? 'alerts.reactivated' : 'alerts.deactivated';
-			return response()->json(['data' => $title, 'message' => trans($message), 'country' => trans($country)], Response::HTTP_OK);
+			return response()->json(['data' => $country, 'message' => trans($message), 'title' => trans($title)], Response::HTTP_OK);
 		}
 		catch (\Exception $e)
 		{
 			DB:rollback();
 			throw new \Exception($e->getMessage());
 		}
+	}
+	
+	public function getCountries()
+	{
+		$countries = $this->countryService->findBy(null, null, null, ['name' => 'asc']);
+		return Datatables::of($countries)->make(true);
 	}
 	
 }
