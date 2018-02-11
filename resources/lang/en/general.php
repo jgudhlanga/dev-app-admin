@@ -11,6 +11,8 @@ return [
 	'status' => 'Status',
 	'name' => 'Name|Names',
 	'description' => 'Description',
+	'system_wide' => 'System Wide',
+	'personal_related' => 'Person Related',
 	'placeholders' => [
 		'name' => 'enter your marital-status name here',
 		'description' => 'enter your marital-status description here',
