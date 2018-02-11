@@ -1,0 +1,15 @@
+.panel-heading .accordion-toggle:after {
+	font-family: 'Glyphicons Halflings';
+	content: "\e082";
+	float: right;
+	color: #38c9de;
+}
+.panel-heading .accordion-toggle.collapsed:after {
+	content: "\e081";
+}
+.accordion-toggle:hover {
+	text-decoration: none;
+}
+.accordion-toggle:focus {
+	text-decoration: none;
+}

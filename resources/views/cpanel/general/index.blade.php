@@ -5,62 +5,42 @@
             @lang('cpanel.general') @choice('general.setting', 2)
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{ url('cpanel') }}"><i class="fa fa-chevron-circle-left"></i>{{trans('cpanel.index')}}</a></li>
+            <li><a href="{{ url('cpanel') }}"><i class="fa fa-chevron-circle-left"></i>{{trans('cpanel.index')}}</a>
+            </li>
         </ol>
     </section>
 
     <section class="content">
-
-        <div class="row">
-            <div class="col-sm-2">
-                <a class="btn btn-info btn-sm btn-block text-bold text-light" href="{{ url('cpanel/general/status') }}">
-                    {{trans('cpanel.status')}}
-                    &nbsp;<span class="badge">{{$statusCount}}</span>
-                </a>
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse"  data-parent="#accordion" href="#system">
+                            @lang('general.system_wide')
+                        </a>
+                    </h4>
+                </div>
+                <div id="system" class="panel-collapse accordion-body collapse">
+                    <div class="panel-body">
+                        <div class="row">
+                            @include('cpanel.general._partials.system-wide')
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-2">
-                <a class="btn btn-info btn-sm btn-block text-bold text-light" href="{{ url('cpanel/general/icons') }}">
-                    {{trans('cpanel.menu_icons')}}
-                    &nbsp;<span class="badge">{{$iconCount}}</span>
-                </a>
-            </div>
-            <div class="col-sm-2">
-                <a class="btn btn-info btn-sm btn-block text-bold text-light" href="{{ url('cpanel/general/titles') }}">
-                   @choice('titles.title', 2)
-                    &nbsp;<span class="badge">{{$titleCount}}</span>
-                </a>
-            </div>
-            <div class="col-sm-2">
-                <a class="btn btn-info btn-sm btn-block text-bold text-light" href="{{ url('cpanel/general/marital-statuses') }}">
-                    @choice('marital-status.title', 2)
-                    &nbsp;<span class="badge">{{$maritalStatusCount}}</span>
-                </a>
-            </div>
-            <div class="col-sm-2">
-                <a class="btn btn-info btn-sm btn-block text-bold text-light" href="{{ url('cpanel/general/gender') }}">
-                    @lang('gender.gender')
-                    &nbsp;<span class="badge">{{$genderCount}}</span>
-                </a>
-            </div>
-            <div class="col-sm-2">
-                <a class="btn btn-info btn-sm btn-block text-bold text-light" href="{{ url('cpanel/general/occupations') }}">
-                    @choice('general.occupations.heading', 2)
-                    &nbsp;<span class="badge">{{$occupationCount}}</span>
-                </a>
-            </div>
-        </div>
-        <div class="row margin-top-5">
-            <div class="col-sm-2">
-                <a class="btn btn-info btn-sm btn-block text-bold text-light" href="{{ url('cpanel/general/races') }}">
-                    @choice('general.races.heading', 2)
-                    &nbsp;<span class="badge">{{$raceCount}}</span>
-                </a>
-            </div>
-            <div class="col-sm-2">
-                <a class="btn btn-info btn-sm btn-block text-bold text-light" href="{{ url('cpanel/general/countries') }}">
-                    @choice('countries.title', 2)
-                    &nbsp;<span class="badge">{{$countryCount}}</span>
-                </a>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#personal">
+                            @lang('general.personal_related')
+                        </a>
+                    </h4>
+                </div>
+                <div id="personal" class="panel-collapse accordion-body collapse">
+                    <div class="panel-body">
+                        @include('cpanel.general._partials.personal')
+                    </div>
+                </div>
             </div>
         </div>
     </section>
