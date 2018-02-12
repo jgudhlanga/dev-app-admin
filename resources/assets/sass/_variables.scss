@@ -10,7 +10,7 @@ $panel-default-border: $laravel-border-color;
 $panel-inner-border: $laravel-border-color;
 
 // Brands
-$brand-primary: #2c72d1;
+$brand-primary: #0135b6;
 $brand-info: #38c9de;
 $brand-success: #1cd532;
 $brand-warning: #f7b133;
@@ -28,7 +28,7 @@ $text-color: #636b6f;
 $navbar-default-bg: #fff;
 
 // Buttons
-$btn-default-color: $text-color;
+$btn-default-color: darken($text-color, 20%);
 
 // Inputs
 $input-border: lighten($text-color, 40%);

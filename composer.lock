@@ -4,29 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa8ab39ddb8ad33bfa6505289065bbb0",
+    "content-hash": "0562fd8ae61d166d522935b58e7e1207",
     "packages": [
         {
             "name": "albertcht/invisible-recaptcha",
-            "version": "v1.8.1",
+            "version": "v1.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/albertcht/invisible-recaptcha.git",
-                "reference": "8881e6e4b5c32c341911f0113828d843726007eb"
+                "reference": "bce2cebeb8d6c4ca5d1c4d8638f7bb0175ea102a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/albertcht/invisible-recaptcha/zipball/8881e6e4b5c32c341911f0113828d843726007eb",
-                "reference": "8881e6e4b5c32c341911f0113828d843726007eb",
+                "url": "https://api.github.com/repos/albertcht/invisible-recaptcha/zipball/bce2cebeb8d6c4ca5d1c4d8638f7bb0175ea102a",
+                "reference": "bce2cebeb8d6c4ca5d1c4d8638f7bb0175ea102a",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/guzzle": "^6.2",
-                "illuminate/support": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
+                "illuminate/support": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
                 "php": "^5.6.4 || ^7.0"
             },
             "require-dev": {
-                "illuminate/view": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
+                "illuminate/view": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
                 "phpunit/phpunit": "^6.1"
             },
             "type": "library",
@@ -63,25 +63,25 @@
                 "php",
                 "recaptcha"
             ],
-            "time": "2017-12-24T12:50:49+00:00"
+            "time": "2018-02-12T01:45:33+00:00"
         },
         {
             "name": "barryvdh/laravel-dompdf",
-            "version": "v0.8.1",
+            "version": "v0.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-dompdf.git",
-                "reference": "3b2235e589616331d68482d61b7763789a2600fe"
+                "reference": "7dcdecfa125c174d0abe723603633dc2756ea3af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-dompdf/zipball/3b2235e589616331d68482d61b7763789a2600fe",
-                "reference": "3b2235e589616331d68482d61b7763789a2600fe",
+                "url": "https://api.github.com/repos/barryvdh/laravel-dompdf/zipball/7dcdecfa125c174d0abe723603633dc2756ea3af",
+                "reference": "7dcdecfa125c174d0abe723603633dc2756ea3af",
                 "shasum": ""
             },
             "require": {
                 "dompdf/dompdf": "^0.8",
-                "illuminate/support": "5.1.x|5.2.x|5.3.x|5.4.x|5.5.x",
+                "illuminate/support": "5.1.x|5.2.x|5.3.x|5.4.x|5.5.x|5.6.x",
                 "php": ">=5.5.9"
             },
             "type": "library",
@@ -119,7 +119,7 @@
                 "laravel",
                 "pdf"
             ],
-            "time": "2017-07-29T19:01:17+00:00"
+            "time": "2018-02-07T17:43:25+00:00"
         },
         {
             "name": "codecourse/notify",
@@ -973,16 +973,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.5.33",
+            "version": "v5.5.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "ef7880e665390f999f4def7c9f78133636f973cf"
+                "reference": "1de7c0aec13eadbdddc2d1ba4019b064b2c6b966"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/ef7880e665390f999f4def7c9f78133636f973cf",
-                "reference": "ef7880e665390f999f4def7c9f78133636f973cf",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/1de7c0aec13eadbdddc2d1ba4019b064b2c6b966",
+                "reference": "1de7c0aec13eadbdddc2d1ba4019b064b2c6b966",
                 "shasum": ""
             },
             "require": {
@@ -1103,7 +1103,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-01-30T15:06:13+00:00"
+            "time": "2018-02-06T15:36:55+00:00"
         },
         {
             "name": "laravel/passport",
@@ -1564,23 +1564,23 @@
         },
         {
             "name": "maatwebsite/excel",
-            "version": "2.1.24",
+            "version": "2.1.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
-                "reference": "bd71c9f462ea4a7945944691cc58acd2c85abd47"
+                "reference": "5a8ac41af85cca4ca88971b2ab1a6ef674b1d82a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/bd71c9f462ea4a7945944691cc58acd2c85abd47",
-                "reference": "bd71c9f462ea4a7945944691cc58acd2c85abd47",
+                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/5a8ac41af85cca4ca88971b2ab1a6ef674b1d82a",
+                "reference": "5a8ac41af85cca4ca88971b2ab1a6ef674b1d82a",
                 "shasum": ""
             },
             "require": {
-                "illuminate/cache": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
-                "illuminate/config": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
-                "illuminate/filesystem": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
-                "illuminate/support": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
+                "illuminate/cache": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
+                "illuminate/config": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
+                "illuminate/filesystem": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
+                "illuminate/support": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
                 "jeremeamia/superclosure": "^2.3",
                 "nesbot/carbon": "~1.0",
                 "php": ">=5.5",
@@ -1589,15 +1589,15 @@
             },
             "require-dev": {
                 "mockery/mockery": "~1.0",
-                "orchestra/testbench": "3.1.*|3.2.*|3.3.*|3.4.*|3.5.*",
+                "orchestra/testbench": "3.1.*|3.2.*|3.3.*|3.4.*|3.5.*|3.6.*",
                 "phpseclib/phpseclib": "~1.0",
                 "phpunit/phpunit": "~4.0"
             },
             "suggest": {
-                "illuminate/http": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
-                "illuminate/queue": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
-                "illuminate/routing": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
-                "illuminate/view": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*"
+                "illuminate/http": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
+                "illuminate/queue": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
+                "illuminate/routing": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
+                "illuminate/view": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*"
             },
             "type": "library",
             "extra": {
@@ -1620,7 +1620,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "LGPL"
+                "MIT"
             ],
             "authors": [
                 {
@@ -1638,7 +1638,7 @@
                 "import",
                 "laravel"
             ],
-            "time": "2018-01-10T11:58:11+00:00"
+            "time": "2018-02-08T16:52:17+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -3729,24 +3729,24 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v8.3.3",
+            "version": "v8.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "2c475a5e0f13e9b61740a4bb0c59bdb4607ee48d"
+                "reference": "222dae7b74166dd45f46918aea46ac7f4b89c449"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/2c475a5e0f13e9b61740a4bb0c59bdb4607ee48d",
-                "reference": "2c475a5e0f13e9b61740a4bb0c59bdb4607ee48d",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/222dae7b74166dd45f46918aea46ac7f4b89c449",
+                "reference": "222dae7b74166dd45f46918aea46ac7f4b89c449",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "5.4.*|5.5.*",
-                "illuminate/filesystem": "5.4.*|5.5.*",
-                "illuminate/http": "5.4.*|5.5.*",
-                "illuminate/support": "5.4.*|5.5.*",
-                "illuminate/view": "5.4.*|5.5.*",
+                "illuminate/database": "5.4.*|5.5.*|5.6.*",
+                "illuminate/filesystem": "5.4.*|5.5.*|5.6.*",
+                "illuminate/http": "5.4.*|5.5.*|5.6.*",
+                "illuminate/support": "5.4.*|5.5.*|5.6.*",
+                "illuminate/view": "5.4.*|5.5.*|5.6.*",
                 "php": ">=7.0"
             },
             "require-dev": {
@@ -3795,7 +3795,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2018-01-11T01:35:04+00:00"
+            "time": "2018-02-11T14:16:35+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
@@ -4546,16 +4546,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.7.3",
+            "version": "1.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "e4ed002c67da8eceb0eb8ddb8b3847bb53c5c2bf"
+                "reference": "9f901e29c93dae4aa77c0bb161df4276f9c9a1be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/e4ed002c67da8eceb0eb8ddb8b3847bb53c5c2bf",
-                "reference": "e4ed002c67da8eceb0eb8ddb8b3847bb53c5c2bf",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/9f901e29c93dae4aa77c0bb161df4276f9c9a1be",
+                "reference": "9f901e29c93dae4aa77c0bb161df4276f9c9a1be",
                 "shasum": ""
             },
             "require": {
@@ -4567,7 +4567,7 @@
             },
             "require-dev": {
                 "phpspec/phpspec": "^2.5|^3.2",
-                "phpunit/phpunit": "^4.8.35 || ^5.7"
+                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.5"
             },
             "type": "library",
             "extra": {
@@ -4605,7 +4605,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2017-11-24T13:59:53+00:00"
+            "time": "2018-02-11T18:49:29+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
