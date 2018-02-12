@@ -20,6 +20,7 @@ Route::group(['prefix' => 'cpanel/general'], function () {
 	Route::resource('occupations', 'CPanel\General\Occupations\OccupationsController');
 	Route::resource('races', 'CPanel\General\Races\RaceController');
 	Route::resource('countries', 'CPanel\General\Countries\CountriesController');
+	Route::resource('member-types', 'CPanel\General\MemberTypes\MemberTypesController');
 });
 
 Route::resource('cpanel', 'CPanel\Index\CPanelController');

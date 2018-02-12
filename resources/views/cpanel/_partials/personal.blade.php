@@ -8,6 +8,13 @@
     </div>
     <div class="col-sm-2">
         <a class="btn btn-info btn-sm btn-block text-bold text-light"
+           href="{{ url('cpanel/general/member-types') }}">
+            @choice('members.types.title', 2)
+            &nbsp;<span class="badge">{{$memberTypeCount}}</span>
+        </a>
+    </div>
+    <div class="col-sm-2">
+        <a class="btn btn-info btn-sm btn-block text-bold text-light"
            href="{{ url('cpanel/general/marital-statuses') }}">
             @choice('marital-status.title', 2)
             &nbsp;<span class="badge">{{$maritalStatusCount}}</span>

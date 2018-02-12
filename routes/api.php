@@ -40,6 +40,9 @@ Route::group(['prefix' => 'occupations'], function () {
 Route::group(['prefix' => 'races'], function () {
 	Route::put('/change-status/{race}', 'CPanel\General\Races\Api\RaceController@changeStatus');
 });
+Route::group(['prefix' => 'member-types'], function () {
+	Route::put('/change-status/{member_type}', 'CPanel\General\MemberTypes\Api\MemberTypesController@changeStatus');
+});
 Route::group(['prefix' => 'countries'], function () {
 	Route::put('/change-status/{country}', 'CPanel\General\Countries\Api\CountriesController@changeStatus');
 	Route::get('/get-countries', 'CPanel\General\Countries\Api\CountriesController@getCountries');
