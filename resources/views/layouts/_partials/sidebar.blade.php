@@ -28,12 +28,7 @@
                 <ul class="treeview-menu">
                     <li>
                         <a href="{{ url('cpanel') }}" class="fa fa-angle-right">
-                            &nbsp;@lang('cpanel.advanced')&nbsp;@choice('general.setting',2)
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ url('cpanel/general') }}" class="fa fa-angle-right">
-                            &nbsp;@lang('cpanel.general')&nbsp;@choice('general.setting',2)
+                            @choice('general.system',1)&nbsp;@choice('general.setting',2)
                         </a>
                     </li>
                 </ul>
