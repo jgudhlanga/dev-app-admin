@@ -21,9 +21,6 @@ Route::group(['prefix' => 'cpanel/general'], function () {
 	Route::resource('races', 'CPanel\General\Races\RaceController');
 	Route::resource('countries', 'CPanel\General\Countries\CountriesController');
 });
-Route::group(['prefix' => 'cpanel'], function (){
-	Route::resource('general', 'CPanel\General\IndexController');
-});
 
 Route::resource('cpanel', 'CPanel\Index\CPanelController');
 

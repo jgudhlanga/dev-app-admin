@@ -5,9 +5,9 @@
     <section class="content-header">
         <h1 class="h1">@choice('general.occupations.heading', 2) @choice('general.setting', 2)</h1>
         <ol class="breadcrumb">
-            <li><a href="{{ url('cpanel/general') }}">
-                    <i class="fa fa-chevron-circle-left"></i>
-                    @lang('cpanel.general') @choice('general.setting', 2)
+            <li>
+                <a href="{{ url('cpanel') }}">
+                    <i class="fa fa-chevron-circle-left"></i>{{trans('cpanel.c_panel')}}
                 </a>
             </li>
         </ol>

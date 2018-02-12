@@ -6,8 +6,8 @@
         </h1>
         <ol class="breadcrumb">
             <li>
-                <a href="{{ url('cpanel/general') }}">
-                    <i class="fa fa-chevron-circle-left"></i>{{trans('cpanel.general')}}
+                <a href="{{ url('cpanel') }}">
+                    <i class="fa fa-chevron-circle-left"></i>{{trans('cpanel.c_panel')}}
                 </a>
             </li>
         </ol>

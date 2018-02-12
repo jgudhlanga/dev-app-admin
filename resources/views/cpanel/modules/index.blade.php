@@ -3,7 +3,7 @@
     <section class="content-header">
         <h1 class="h1">{{trans('modules.module_list')}}</h1>
         <ol class="breadcrumb">
-            <li><a href="{{ url('cpanel') }}"><i class="fa fa-chevron-circle-left"></i>{{trans('cpanel.index')}}</a></li>
+            <li><a href="{{ url('cpanel') }}"><i class="fa fa-chevron-circle-left"></i>{{trans('cpanel.c_panel')}}</a></li>
         </ol>
     </section>
     <section class="content">
