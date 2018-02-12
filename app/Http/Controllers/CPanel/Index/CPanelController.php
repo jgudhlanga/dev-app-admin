@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\CPanel\Index;
 
 use App\Http\Controllers\Controller;
+use App\Services\General\MemberTypeService;
 use App\Services\Modules\ModuleService;
 use App\Services\General\CountryService;
 use App\Services\General\GenderService;
@@ -24,10 +25,12 @@ class CpanelController extends Controller
 	protected $occupationService;
 	protected $raceService;
 	protected $countryService;
+	protected $memberTypeService;
 	
     public function __construct(ModuleService $modulesService, StatusService $statusService, IconService $iconService,
 	    TitleService $titleService,MaritalStatusService $maritalStatusService, GenderService $genderService,
-	    OccupationService $occupationService,RaceService $raceService, CountryService $countryService)
+	    OccupationService $occupationService,RaceService $raceService, CountryService $countryService,
+	    MemberTypeService $memberTypeService)
     {
         $this->moduleService = $modulesService;
 	    $this->statusService = $statusService;
@@ -38,6 +41,7 @@ class CpanelController extends Controller
 	    $this->occupationService = $occupationService;
 	    $this->raceService = $raceService;
 	    $this->countryService = $countryService;
+	    $this->memberTypeService = $memberTypeService;
     }
     
     public function index()
@@ -51,8 +55,9 @@ class CpanelController extends Controller
 	    $occupationCount = $this->occupationService->count(null);
 	    $raceCount = $this->raceService->count(null);
 	    $countryCount = $this->countryService->count(null);
+	    $memberTypeCount = $this->memberTypeService->count(null);
         return view('cpanel.index.index', compact('moduleCount','statusCount','iconCount', 'titleCount',
-	        'maritalStatusCount', 'genderCount', 'occupationCount', 'raceCount', 'countryCount'));
+	        'maritalStatusCount', 'genderCount', 'occupationCount', 'raceCount', 'countryCount', 'memberTypeCount'));
     }
    
 }
