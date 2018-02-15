@@ -15,6 +15,7 @@
         "laravel/scout": "^3.0",
         "laravel/tinker": "~1.0",
         "maatwebsite/excel": "^2.1",
+        "santigarcor/laratrust": "5.0.*",
         "webpatser/laravel-countries": "dev-master",
         "yajra/laravel-datatables-oracle": "~8.0"
     },
