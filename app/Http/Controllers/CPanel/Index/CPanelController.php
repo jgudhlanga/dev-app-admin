@@ -14,6 +14,8 @@ use App\Services\General\OccupationService;
 use App\Services\General\RaceService;
 use App\Services\General\StatusService;
 use App\Services\General\TitleService;
+use App\Services\Security\PermissionService;
+use App\Services\Security\RoleService;
 
 class CpanelController extends Controller
 {
@@ -28,11 +30,14 @@ class CpanelController extends Controller
 	protected $countryService;
 	protected $memberTypeService;
 	protected $addressTypeService;
+	protected $roleService;
+	protected $permissionService;
 	
     public function __construct(ModuleService $modulesService, StatusService $statusService, IconService $iconService,
 	    TitleService $titleService,MaritalStatusService $maritalStatusService, GenderService $genderService,
 	    OccupationService $occupationService,RaceService $raceService, CountryService $countryService,
-	    MemberTypeService $memberTypeService, AddressTypeService $addressTypeService)
+	    MemberTypeService $memberTypeService, AddressTypeService $addressTypeService, PermissionService $permissionService,
+	    RoleService $roleService)
     {
         $this->moduleService = $modulesService;
 	    $this->statusService = $statusService;
@@ -45,6 +50,8 @@ class CpanelController extends Controller
 	    $this->countryService = $countryService;
 	    $this->memberTypeService = $memberTypeService;
 	    $this->addressTypeService = $addressTypeService;
+	    $this->permissionService = $permissionService;
+	    $this->roleService = $roleService;
     }
     
     public function index()
@@ -60,9 +67,11 @@ class CpanelController extends Controller
 	    $countryCount = $this->countryService->count(null);
 	    $memberTypeCount = $this->memberTypeService->count(null);
 	    $addressTypeCount = $this->addressTypeService->count(null);
+	    $permissionCount = $this->permissionService->count(null);
+	    $roleCount = $this->roleService->count(null);
         return view('cpanel.index.index', compact('moduleCount','statusCount','iconCount', 'titleCount',
 	        'maritalStatusCount', 'genderCount', 'occupationCount', 'raceCount', 'countryCount', 'memberTypeCount',
-	        'addressTypeCount'));
+	        'addressTypeCount', 'permissionCount', 'roleCount'));
     }
    
 }

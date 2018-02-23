@@ -1,31 +1,30 @@
 <?php
-
-namespace App\Repositories\General;
+namespace App\Repositories\Security;
 
 use App\Contracts\RepositoryInterface;
-use App\Models\General\Title;
+use App\Models\Roles\Role;
+use Illuminate\Support\Facades\DB;
 
-class TitleRepository implements RepositoryInterface
+class RoleRepository implements RepositoryInterface
 {
+	protected $role;
 	
-	protected $title;
-	
-	public function __construct(Title $title)
+	public function __construct(Role $role)
 	{
-		$this->title = $title;
+		$this->role = $role;
 	}
 	
 	public function find($id)
 	{
-		return $this->title->where('id', $id)->first();
+		return $this->role->where('id', $id)->first();
 	}
 	
 	public function findBy( $args=[], $paginate=null, $limit=null, $orderBy=null )
 	{
-		$query =  DB::table('titles AS t')
-			->leftJoin('statuses AS s', 's.id', '=', 't.status_id' )
-			->select('t.*', 's.title as status')
-			->where('t.id', '>', 0);
+		$query =  DB::table('roles AS r')
+			->leftJoin('statuses AS s', 's.id', '=', 'r.status_id' )
+			->select('r.*', 's.title as status')
+			->where('r.id', '>', 0);
 		
 		if(!empty($args) && is_array($args))
 		{
@@ -47,7 +46,7 @@ class TitleRepository implements RepositoryInterface
 			}
 		}
 		else{
-			$query->orderBy('name', 'asc')->take($limit);
+			$query->orderBy('display_name', 'asc')->take($limit);
 		}
 		
 		// Paginate if we need to
@@ -59,16 +58,16 @@ class TitleRepository implements RepositoryInterface
 	
 	public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=null )
 	{
-		$titles = $this->title->where('id', '>', 0);
+		$roles = $this->role->where('id', '>', 0);
 		if(!empty($args) && is_array($args))
 		{
 			for ($i=0; $i<count($args); $i++)
 			{
 				if(is_array(array_values($args)[$i])){
-					$titles->wherein(array_keys($args)[$i],array_values($args)[$i]);
+					$roles->wherein(array_keys($args)[$i],array_values($args)[$i]);
 				}
 				else{
-					$titles->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$roles->where(array_keys($args)[$i], '=', array_values($args)[$i]);
 				}
 			}
 		}
@@ -76,29 +75,29 @@ class TitleRepository implements RepositoryInterface
 		if($orderBy != '')
 		{
 			if(is_array($orderBy)){
-				$titles->orderBy(array_keys($orderBy)[0], array_values($orderBy)[0]);
+				$roles->orderBy(array_keys($orderBy)[0], array_values($orderBy)[0]);
 			}
 		}
 		else{
-			$titles->orderBy('created_at', 'desc')->take($limit);
+			$roles->orderBy('created_at', 'desc')->take($limit);
 		}
 		
 		// Paginate if we need to
 		if (!is_null($paginate)) {
-			$titles->paginate($paginate);
+			$roles->paginate($paginate);
 		}
 		
-		return $titles->get();
+		return $roles->get();
 	}
 	
-	public function delete($title)
+	public function delete($role)
 	{
-		return $title->delete();
+		return $role->delete();
 	}
 	
 	public function getTableColumns()
 	{
-		return $this->title->getTableColumns();
+		return $this->role->getTableColumns();
 	}
 	
 	public function create($params)
@@ -111,19 +110,19 @@ class TitleRepository implements RepositoryInterface
 			}
 			$data[$column] = (isset($params[$column]) && $params[$column] != '') ? $params[$column] : NULL;
 		}
-		$created = Title::create($data);
+		$created = Role::create($data);
 		return $created;
 	}
 	
-	public function update($title, $data)
+	public function update($role, $data)
 	{
-		$title->update($data);
-		return $title;
+		$role->update($data);
+		return $role;
 	}
 	
 	public function count($args = [])
 	{
-		$count = $this->title->where('id', '>', 0);
+		$count = $this->role->where('id', '>', 0);
 		if(!empty($args) && is_array($args))
 		{
 			for ($i=0; $i<count($args); $i++)

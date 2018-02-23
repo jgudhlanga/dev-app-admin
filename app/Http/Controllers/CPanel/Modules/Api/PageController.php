@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Cpanel\Modules\Api;
 use App\Http\Traits\General\CommonTrait;
 use App\Models\Modules\Module;
 use App\Models\Modules\Page;
-use App\Services\General\IconService;
 use App\Services\Modules\PageService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,12 +18,9 @@ class PageController extends Controller
 	
 	protected $pageService;
 	
-	protected $iconService;
-	
-	public function __construct(PageService $pageService, IconService $iconService)
+	public function __construct(PageService $pageService)
 	{
 		$this->pageService = $pageService;
-		$this->iconService = $iconService;
 	}
 	
 	public function getPages(Module $module)

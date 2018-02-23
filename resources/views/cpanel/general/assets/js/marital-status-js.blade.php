@@ -175,7 +175,7 @@
 
 					waitBusy('app_wrapper', '{{config('waitme.info')}}');
 
-					var url = '{{ url('api/marital-statuses/change-status') }}/' + id;
+					var url = '{{ url('api/cpanel/general/marital-statuses/change-status') }}/' + id;
 					var data = {'_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,

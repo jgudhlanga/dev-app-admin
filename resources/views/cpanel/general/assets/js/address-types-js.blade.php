@@ -175,7 +175,7 @@
 
 					waitBusy('app_wrapper', '{{config('waitme.info')}}');
 
-					var url = '{{ url('api/address-types/change-status') }}/' + id;
+					var url = '{{ url('api/cpanel/general/address-types/change-status') }}/' + id;
 					var data = {'_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,

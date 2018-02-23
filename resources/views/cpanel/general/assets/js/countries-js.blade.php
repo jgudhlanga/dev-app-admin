@@ -14,7 +14,7 @@
 				responsive: true,
 				pageLength: 25,
 				dom: "Blfrtip",
-				ajax: '{{ url('api/countries/get-countries') }}',
+				ajax: '{{ url('api/cpanel/general/countries/get-countries') }}',
 				buttons: getDatatableButtons(),
 				initComplete: function () {
 					initComplete(countriesMainTable)
@@ -237,7 +237,7 @@
 
 					waitBusy('app_wrapper','{{config('waitme.info')}}');
 
-					var url = '{{ url('api/countries/change-status') }}/' + id;
+					var url = '{{ url('api/cpanel/general/countries/change-status') }}/' + id;
 					var data = {'_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,

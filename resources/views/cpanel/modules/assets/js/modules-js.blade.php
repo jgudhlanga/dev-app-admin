@@ -14,7 +14,7 @@
 				responsive: true,
 				pageLength: 25,
 				dom: "Blfrtip",
-				ajax: '{{ url('api/modules/get-modules') }}',
+				ajax: '{{ url('api/cpanel/modules/get-modules') }}',
 				buttons: getDatatableButtons(),
 				initComplete: function () {
 					initComplete(modulesMainTable)
@@ -231,7 +231,7 @@
 
 					waitBusy('app_wrapper','{{config('waitme.info')}}');
 
-					var url = '{{ url('api/modules/change-module-status') }}/' + id;
+					var url = '{{ url('api/cpanel/modules/change-module-status') }}/' + id;
 					var data = {'_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,
@@ -278,7 +278,7 @@
 
 					waitBusy('app_wrapper', '{{config('waitme.info')}}');
 
-					var url = '{{ url('api/modules/order-modules') }}/' + id;
+					var url = '{{ url('api/cpanel/modules/order-modules') }}/' + id;
 					var data = {'direction':'up', '_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,
@@ -324,7 +324,7 @@
 
 					waitBusy('app_wrapper', '{{config('waitme.info')}}');
 
-					var url = '{{ url("api/modules/order-modules") }}/' + id;
+					var url = '{{ url("api/cpanel/modules/order-modules") }}/' + id;
 					var data = {'module_id': id, 'direction':'down', '_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,

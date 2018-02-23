@@ -4,7 +4,7 @@
 		/*
         * SAVE
         * */
-		$('#addOccupationForm').validator().on('submit', function (e) {
+		$('#addRoleForm').validator().on('submit', function (e) {
 			if (e.isDefaultPrevented()) {
 				swal({
 					title: "{{ trans('alerts.error') }}",
@@ -16,15 +16,14 @@
 			else {
 				e.preventDefault();
 				waitBusy('app_wrapper', '{{config('waitme.success')}}');
-				var url = '{{ route("occupations.store") }}';
+				var url = '{{ route("roles.store") }}';
 				$.ajax({
 					url: url,
 					type: "POST",
-					data: $('#addOccupationForm').serialize()
+					data: $('#addRoleForm').serialize()
 				})
 					.success(function (data) {
-						if (data.occupation.id) {
-							$('#addOccupationModal').modal('hide');
+						if (data.role.id) {
 							swal("{{ trans('alerts.created') }}",
 								data.message,
 								"success"
@@ -50,7 +49,7 @@
 		/*
         * UPDATE
         * */
-		$('#editOccupationForm').validator().on('submit', function (e) {
+		$('#editTitleForm').validator().on('submit', function (e) {
 			if (e.isDefaultPrevented()) {
 				swal({
 					title: "{{ trans('alerts.error') }}",
@@ -62,15 +61,15 @@
 			else {
 				e.preventDefault();
 				waitBusy('app_wrapper', '{{config('waitme.success')}}');
-				var url = '{{ route("occupations.update", [':id']) }}';
+				var url = '{{ route("titles.update", [':id']) }}';
 				url = url.replace(':id', $('#edit_id').val());
 				$.ajax({
 					url: url,
 					type: "PUT",
-					data: $('#editOccupationForm').serialize()
+					data: $('#editTitleForm').serialize()
 				})
 					.success(function (data) {
-						if (data.occupation.id) {
+						if (data.title.id) {
 							swal("{{ trans('alerts.updated') }}",
 								data.message,
 								"success"
@@ -92,10 +91,10 @@
 	/*
         * EDIT SHOW
         * */
-	function editOccupation(id) {
-		$('#editOccupationModal').modal('show');
-		waitBusy('editOccupationModal', '{{config('waitme.info')}}');
-		var url = '{{ route("occupations.edit", [':id']) }}';
+	function editTitle(id) {
+		$('#editTitleModal').modal('show');
+		waitBusy('editTitleModal', '{{config('waitme.info')}}');
+		var url = '{{ route("titles.edit", [':id']) }}';
 		url = url.replace(':id', id);
 		var data = {'id': id};
 		$.ajax({
@@ -104,20 +103,20 @@
 			data: data
 		})
 			.success(function (res) {
-				$('#editOccupationModal').waitMe('hide');
+				$('#editTitleModal').waitMe('hide');
 				//populate form fields
 				$('#btnUpdate').removeClass('disabled');
 				$('#edit_id').val(res.data.id);
-				$('#editOccupationForm #name').val(res.data.name);
-				$('#editOccupationForm #description').val(res.data.description);
+				$('#editTitleForm #name').val(res.data.name);
+				$('#editTitleForm #description').val(res.data.description);
 			})
 	}
 
 	/**
-	 * DELETE
+	 * DELETE TITLE
 	 * @param id
 	 */
-	function deleteOccupation(id) {
+	function deleteTitle(id) {
 		swal({
 			title: "{{ trans('alerts.confirm') }}",
 			text: "{{ trans('alerts.delete_text') }}",
@@ -131,7 +130,7 @@
 				if (result.value) {
 
 					waitBusy('app_wrapper', '{{config('waitme.danger')}}');
-					var url = '{{ route("occupations.destroy", [':id']) }}';
+					var url = '{{ route("titles.destroy", [':id']) }}';
 					url = url.replace(':id', id);
 					var data = {'_token': "{{ csrf_token() }}"};
 					$.ajax({
@@ -175,7 +174,7 @@
 
 					waitBusy('app_wrapper', '{{config('waitme.info')}}');
 
-					var url = '{{ url('api/cpanel/general/occupations/change-status') }}/' + id;
+					var url = '{{ url('api/cpanel/security/roles/change-status') }}/' + id;
 					var data = {'_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,
