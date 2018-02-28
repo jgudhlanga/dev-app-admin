@@ -6,6 +6,7 @@ return [
 	'name' => 'Name',
 	'description' => 'Description',
 	'not_found' => 'The Permission Record not found',
+	'no_records' => 'Permissions  not found',
 	'create' => 'Create Permission',
 	'edit' => 'Edit Permission',
 	'allow_user_to' =>'ALLOW A USER TO',

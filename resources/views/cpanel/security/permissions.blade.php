@@ -51,4 +51,5 @@
         </div>
     </section>
     @include('cpanel.security.assets.js.permissions-js')
+    @include('cpanel.security._partials.modals.edit-permission')
 @endsection

@@ -32,17 +32,19 @@ class RolesController extends Controller
 		$roles =$this->roleService->findAll(null, null, null, ['name' => 'asc']);
 		$statusActive = $this->getStatusActive();
 		$statusInActive = $this->getStatusInActive();
+		
 		return view('cpanel.security.roles', compact('roles', 'statusActive', 'statusInActive'));
 	}
 	
 	public function create()
 	{
 		$permissions = $this->permissionService->findAll(null, null, null, ['display_name' => 'asc']);
-		return view('cpanel.security.create-role', compact($permissions));
+		return view('cpanel.security.create-role', compact('permissions'));
 	}
 	
 	public function store(RoleRequest $request)
 	{
+		dd($request->all());
 		try{
 			DB::beginTransaction();
 			$data = $request->all();
@@ -63,7 +65,6 @@ class RolesController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB::rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}

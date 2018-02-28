@@ -54,9 +54,12 @@ Route::group(['prefix' => 'cpanel'], function (){
 	
 	/* SECURITY */
 	Route::group(['prefix' => 'security'], function (){
+		//PERMISSIONS
 		Route::group(['prefix' => 'permissions'], function () {
 			Route::get('/get-permissions', 'CPanel\Security\Api\PermissionsController@getPermissions');
+			Route::put('/change-status/{permission}', 'CPanel\Security\Api\PermissionsController@changeStatus');
 		});
+		//ROLES
 	});
 });
 

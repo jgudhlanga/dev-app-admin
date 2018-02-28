@@ -4,7 +4,7 @@
         <h1 class="h1">@lang('permissions.create')</h1>
         <ol class="breadcrumb">
             <li>
-                <a href="{{ url('cpanel/security/general/permissions') }}">
+                <a href="{{ url('cpanel/security/permissions') }}">
                     <i class="fa fa-chevron-circle-left"></i>
                     @choice('permissions.title', 2)
                 </a>

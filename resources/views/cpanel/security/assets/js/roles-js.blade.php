@@ -4,7 +4,7 @@
 		/*
         * SAVE
         * */
-		$('#addRoleForm').validator().on('submit', function (e) {
+		$('#addRoleForm66').validator().on('submit', function (e) {
 			if (e.isDefaultPrevented()) {
 				swal({
 					title: "{{ trans('alerts.error') }}",

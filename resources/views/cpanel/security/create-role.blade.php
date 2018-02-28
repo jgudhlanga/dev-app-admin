@@ -13,11 +13,14 @@
     </section>
     <section class="content">
         <div class="row">
-            <form id="addRoleForm" role="form" data-toggle="validator">
+            <form id="addRoleForm" role="form" data-toggle="validator" method="POST" action="{{route('roles.store')}}">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                 @include('cpanel.security._partials.forms.roles-fields')
-                <div class="col-md-12 caption-title-div">
-                    <div class="caption-title ">@choice('permissions.title',2)</div>
+                <div class="col-md-12">
+                    <div class="col-md-12 caption-title-div">
+                        <div class="caption-title ">@choice('permissions.title',2)</div>
+                    </div>
+                    @include('cpanel.security._partials.forms.permissions')
                 </div>
                 <div class="col-md-12">
                     <button class="btn btn-default">

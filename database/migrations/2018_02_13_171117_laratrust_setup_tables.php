@@ -17,6 +17,12 @@ class LaratrustSetupTables extends Migration
             $table->string('name')->unique();
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
+	        $table->integer('status_id')->index()->unsigned()->default(1);
+	        $table->integer('created_by')->index()->unsigned()->nullable();
+	        $table->integer('updated_by')->index()->unsigned()->nullable();
+	        $table->foreign('status_id')->references('id')->on('statuses');
+	        $table->foreign('created_by')->references('id')->on('users');
+	        $table->foreign('updated_by')->references('id')->on('users');
             $table->timestamps();
         });
 
@@ -26,6 +32,12 @@ class LaratrustSetupTables extends Migration
             $table->string('name')->unique();
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
+	        $table->integer('status_id')->index()->unsigned()->default(1);
+	        $table->integer('created_by')->index()->unsigned()->nullable();
+	        $table->integer('updated_by')->index()->unsigned()->nullable();
+	        $table->foreign('status_id')->references('id')->on('statuses');
+	        $table->foreign('created_by')->references('id')->on('users');
+	        $table->foreign('updated_by')->references('id')->on('users');
             $table->timestamps();
         });
 

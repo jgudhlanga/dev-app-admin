@@ -59,7 +59,6 @@ class PermissionsController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB::rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}
@@ -104,6 +103,19 @@ class PermissionsController extends Controller
 		}
 	}
 	
+	public function edit(Permission $permission)
+	{
+		if($permission instanceof Permission){
+			return response([
+				'data' => $permission
+			], Response::HTTP_OK);
+		}
+		else{
+			notify()->flash(trans('permissions.not_found'), 'error');
+		}
+	}
+	
+	
 	public function update(Request $request, Permission $permission)
 	{
 		try{
@@ -126,7 +138,6 @@ class PermissionsController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB::rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}
