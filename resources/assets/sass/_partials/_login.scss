@@ -1,0 +1,28 @@
+#login {
+	padding-top: 50px;
+	.form-wrap {
+		
+		width: 50%;
+		margin: 0 auto;
+		
+	}
+	h1 {
+		color: $text-color;
+		font-size: 22px;
+		text-align: center;
+		font-weight: bold;
+		padding-bottom: 20px;
+	}
+	
+	.form-group {
+		margin-bottom: 25px;
+	}
+	.register{
+		font-weight: bold;
+	}
+	a:hover{
+		text-decoration: none;
+		color: $text-color;
+	}
+}
+

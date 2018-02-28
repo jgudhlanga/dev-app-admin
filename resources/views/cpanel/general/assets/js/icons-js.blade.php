@@ -131,7 +131,7 @@
 			.then(function (result) {
 				waitBusy('app_wrapper','{{config('waitme.warning')}}');
 				if (result.value) {
-					var url = '{{ url("api/icons/change-status") }}/'+ id;
+					var url = '{{ url("api/cpanel/general/icons/change-status") }}/'+ id;
 					var data = {status_id: status, '_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,

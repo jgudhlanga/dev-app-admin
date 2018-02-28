@@ -13,7 +13,7 @@
 				responsive: true,
 				pageLength: 25,
 				dom: "Blfrtip",
-				ajax: '{{ url('api/modules/get-pages') }}/'+ "@isset($module->id){{$module->id}}@endisset",
+				ajax: '{{ url('api/cpanel/modules/pages/get-pages') }}/'+ "@isset($module->id){{$module->id}}@endisset",
 				buttons: getDatatableButtons(),
 				initComplete: function () {
 					initComplete(pagesMainTable)
@@ -228,7 +228,7 @@
 
 					waitBusy('app_wrapper','{{config('waitme.info')}}');
 
-					var url = '{{ url("api/modules/change-page-status") }}/'+ id;
+					var url = '{{ url("api/cpanel/modules/pages/change-page-status") }}/'+ id;
 					var data = {'_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,
@@ -275,7 +275,7 @@
 
 					waitBusy('app_wrapper', '{{config('waitme.info')}}');
 
-					var url = '{{ url("api/modules/order-pages") }}/' + id;
+					var url = '{{ url("api/cpanel/modules/pages/order-pages") }}/' + id;
 					var data = {'page_id': id, 'direction':'up', '_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,
@@ -322,7 +322,7 @@
 
 					waitBusy('app_wrapper', '{{config('waitme.info')}}');
 
-					var url = '{{ url("api/modules/order-pages") }}/' + id;
+					var url = '{{ url("api/cpanel/modules/pages/order-pages") }}/' + id;
 					var data = {'direction':'down', '_token': "{{ csrf_token() }}"};
 					$.ajax({
 						url: url,

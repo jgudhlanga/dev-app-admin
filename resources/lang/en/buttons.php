@@ -14,6 +14,7 @@ return [
 	'reactivate' => 'Reactivate',
 	'save' => 'Save',
 	'close' => 'Close',
+	'cancel' => 'Cancel',
 	'view' => 'View',
 	'up' => 'Up',
 	'down' => 'Down',

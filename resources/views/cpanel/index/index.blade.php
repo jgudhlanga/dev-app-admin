@@ -12,7 +12,9 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="accordion-toggle collapsed" data-toggle="collapse"  data-parent="#accordion" href="#advanced">
-                            @lang('general.advanced')
+                            @lang('general.advanced')&nbsp;|&nbsp;
+                            @lang('cpanel.security')&nbsp;
+                            @choice('general.setting', 2)
                         </a>
                     </h4>
                 </div>

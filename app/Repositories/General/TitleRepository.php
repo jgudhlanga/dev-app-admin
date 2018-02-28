@@ -7,7 +7,7 @@ use App\Models\General\Title;
 
 class TitleRepository implements RepositoryInterface
 {
-
+	
 	protected $title;
 	
 	public function __construct(Title $title)

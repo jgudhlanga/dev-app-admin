@@ -1,11 +1,9 @@
 @extends('layouts.main.app-template')
-<!-- Content Wrapper. Contains page content -->
 @section('content')
-    <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1 class="h1">@lang('modules.pages.heading') ( {{$module->title}} )</h1>
         <ol class="breadcrumb">
-            <li><a href="{{ url('modules') }}"><i class="fa fa-chevron-circle-left"></i>{{trans('cpanel.modules')}}</a>
+            <li><a href="{{ url('cpanel/modules') }}"><i class="fa fa-chevron-circle-left"></i>{{trans('cpanel.modules')}}</a>
             </li>
         </ol>
     </section>

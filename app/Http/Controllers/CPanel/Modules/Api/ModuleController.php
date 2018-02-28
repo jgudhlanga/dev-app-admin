@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Cpanel\Modules\Api;
 
 use App\Http\Traits\General\CommonTrait;
-use App\Services\General\IconService;
 use App\Models\Modules\Module;
 use App\Services\Modules\ModuleService;
 use Illuminate\Http\Request;
@@ -18,12 +17,9 @@ class ModuleController extends Controller
 
 	protected $moduleService;
 	
-	protected $iconService;
-	
-	public function __construct(ModuleService $modulesService, IconService $iconService)
+	public function __construct(ModuleService $modulesService)
 	{
 		$this->moduleService = $modulesService;
-		$this->iconService = $iconService;
 	}
 	
 	public function getModules()
