@@ -10,17 +10,18 @@
     <link rel="icon" href="{{ URL::asset('images/favicon.png') }}" type="image/png">
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- Styles -->
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+    @include('layouts._partials.styles')
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
 </head>
-<body>
+<body style="background-color: #FFFFFF !important;">
     <div id="app">
         @yield('content')
     </div>
-    <script src="{{ asset('js/app.js') }}"></script>
+    <!--Scripts-->
+    @include('layouts._partials.scripts')
 </body>
 </html>
