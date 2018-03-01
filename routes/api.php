@@ -60,6 +60,9 @@ Route::group(['prefix' => 'cpanel'], function (){
 			Route::put('/change-status/{permission}', 'CPanel\Security\Api\PermissionsController@changeStatus');
 		});
 		//ROLES
+		Route::group(['prefix' => 'roles'], function() {
+			Route::put('/change-status/{role}', 'CPanel\Security\Api\RolesController@changeStatus');
+		});
 	});
 });
 

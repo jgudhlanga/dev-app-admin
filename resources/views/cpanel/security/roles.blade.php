@@ -7,7 +7,7 @@
         <ol class="breadcrumb">
             <li>
                 <a href="{{ url('cpanel') }}">
-                    <i class="fa fa-chevron-circle-left"></i>{{trans('cpanel.c_panel')}}
+                    <i class="{{config('buttons.icons.back')}}"></i>{{trans('cpanel.c_panel')}}
                 </a>
             </li>
         </ol>
@@ -36,10 +36,10 @@
                         <td>{{$role->display_name}}</td>
                         <td>{{$role->name}}</td>
                         <td>{{$role->description}}</td>
-                        <td>{{count($role->permissions)}}</td>
+                        <td class="text-center">{{count($role->permissions)}}</td>
                         <td>{{$role->status->title}}</td>
                         <td class="text-right">
-                            <a class="btn btn-info btn-xs" id="btnEdit" >
+                            <a class="btn btn-info btn-xs" href="{{route('roles.edit', [$role->id])}}" >
                                 <i class="fa fa-edit"></i> {{trans('buttons.edit')}}
                             </a>
 					        <?php

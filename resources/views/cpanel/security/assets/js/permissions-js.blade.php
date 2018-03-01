@@ -77,8 +77,12 @@
 				for(i=0; i < crud.length; i++)
 				{
 					$('#' + crud[i] + '_name').val( crud[i] + '-' + $('#resource').val());
-					$('#' + crud[i] + '_display_name').val( crud[i].toUpperCase() + ' ' + $('#resource').val().toUpperCase());
-					$('#' + crud[i] + '_description').val("@lang('permissions.allow_user_to') " + crud[i].toUpperCase() + ' ' + $('#resource').val().toUpperCase());
+					var displayName = crud[i].toUpperCase() + ' ' + $('#resource').val().toUpperCase();
+					displayName = displayName.replace('-', ' ');
+					$('#' + crud[i] + '_display_name').val(displayName);
+					var description = "@lang('permissions.allow_user_to') " + crud[i].toUpperCase() + ' ' + $('#resource').val().toUpperCase();
+					description = description.replace('-', ' ');
+					$('#' + crud[i] + '_description').val(description);
 				}
 
             	$('#crud_details, #crud_options').removeClass('hide');

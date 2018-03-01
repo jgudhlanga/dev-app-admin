@@ -7,6 +7,6 @@
 	border-bottom: 1px lighten($text-color, 50%) solid;
 	margin-bottom: 5px !important;
 	.caption-title {
-		font-weight: bold; color: darken($brand-primary, 10%); font-size: 18px !important;
+		font-weight: bold; color: $text-color; font-size: 18px !important;
 	}
 }

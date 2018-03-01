@@ -44,7 +44,6 @@ class RolesController extends Controller
 	
 	public function store(RoleRequest $request)
 	{
-		dd($request->all());
 		try{
 			DB::beginTransaction();
 			$data = $request->all();
@@ -69,6 +68,13 @@ class RolesController extends Controller
 		}
 	}
 	
+	public function edit(Role $role)
+	{
+		$permissions = $this->permissionService->findAll(null, null, null, ['display_name' => 'asc']);
+		$rolePermissions = (count($role->permissions) > 0) ? $role->permissions()->pluck('id')->all() : [];
+		return view('cpanel.security.edit-role', compact('role', 'permissions', 'rolePermissions'));
+	}
+	
 	public function update(Request $request, Role $role)
 	{
 		try{
@@ -91,7 +97,6 @@ class RolesController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB::rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}

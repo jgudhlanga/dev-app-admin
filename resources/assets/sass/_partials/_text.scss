@@ -1,9 +1,15 @@
 .text-bold {
-	font-weight: bold;
+	font-weight: bold !important;
 }
 .text-dark {
 	color: #000000;
 }
 .text-light{
 	color: #FFFFFF;
+}
+.text-right{
+	text-align: right !important;
+}
+.text-left{
+	text-align: left !important;
 }

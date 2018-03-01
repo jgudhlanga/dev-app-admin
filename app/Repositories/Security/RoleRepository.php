@@ -103,20 +103,37 @@ class RoleRepository implements RepositoryInterface
 	public function create($params)
 	{
 		$columns = $this->getTableColumns();
+		$skip = ['id', 'created_at', 'updated_at', 'status_id', 'permissions'];
 		$data = [];
 		foreach ( $columns as $column ) {
-			if($column == 'id' || $column == 'created_at'|| $column == 'updated_at' || $column == 'status_id' ) {
+			if(in_array($column, $skip)) {
 				continue;
 			}
 			$data[$column] = (isset($params[$column]) && $params[$column] != '') ? $params[$column] : NULL;
 		}
-		$created = Role::create($data);
-		return $created;
+		
+		$role = Role::create($data);
+		if(isset($params['permissions']))
+			$this->syncPermissions($role, $params['permissions']);
+		return $role;
+	}
+	
+	public function syncPermissions(Role $role, $permissions=[])
+	{
+		if((!empty($permissions)) && (count($permissions) > 0))
+			$role->permissions()->sync($permissions);
 	}
 	
 	public function update($role, $data)
 	{
+		$permissions = [];
+		if(isset($data['permissions']))
+		{
+			$permissions = $data['permissions'];
+			unset($data['permissions']);
+		}
 		$role->update($data);
+		$this->syncPermissions($role, $permissions);
 		return $role;
 	}
 	

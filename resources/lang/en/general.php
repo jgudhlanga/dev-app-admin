@@ -16,6 +16,7 @@ return [
 	'personal_related' => 'Person Related',
 	'advanced' => 'Advanced',
 	'other' => 'Other',
+	'check_all' => 'Check All',
 	'placeholders' => [
 		'name' => 'enter your marital-status name here',
 		'description' => 'enter your marital-status description here',

@@ -4,7 +4,7 @@
 		/*
         * SAVE
         * */
-		$('#addRoleForm66').validator().on('submit', function (e) {
+		$('#addRoleForm').validator().on('submit', function (e) {
 			if (e.isDefaultPrevented()) {
 				swal({
 					title: "{{ trans('alerts.error') }}",
@@ -49,7 +49,7 @@
 		/*
         * UPDATE
         * */
-		$('#editTitleForm').validator().on('submit', function (e) {
+		$('#editRoleForm').validator().on('submit', function (e) {
 			if (e.isDefaultPrevented()) {
 				swal({
 					title: "{{ trans('alerts.error') }}",
@@ -61,15 +61,15 @@
 			else {
 				e.preventDefault();
 				waitBusy('app_wrapper', '{{config('waitme.success')}}');
-				var url = '{{ route("titles.update", [':id']) }}';
+				var url = '{{ route("roles.update", [':id']) }}';
 				url = url.replace(':id', $('#edit_id').val());
 				$.ajax({
 					url: url,
 					type: "PUT",
-					data: $('#editTitleForm').serialize()
+					data: $('#editRoleForm').serialize()
 				})
 					.success(function (data) {
-						if (data.title.id) {
+						if (data.role.id) {
 							swal("{{ trans('alerts.updated') }}",
 								data.message,
 								"success"
@@ -85,38 +85,23 @@
 					});
 			}
 		});
+
+		/* CHECK ALL */
+		$('#check_all').click(function () {
+			if($(this).prop('checked')) {
+				$('input[type=checkbox]').prop('checked', true);
+            }
+            else{
+				$('input[type=checkbox]').prop('checked', false);
+            }
+		});
 	});
 
-
-	/*
-        * EDIT SHOW
-        * */
-	function editTitle(id) {
-		$('#editTitleModal').modal('show');
-		waitBusy('editTitleModal', '{{config('waitme.info')}}');
-		var url = '{{ route("titles.edit", [':id']) }}';
-		url = url.replace(':id', id);
-		var data = {'id': id};
-		$.ajax({
-			url: url,
-			type: "GET",
-			data: data
-		})
-			.success(function (res) {
-				$('#editTitleModal').waitMe('hide');
-				//populate form fields
-				$('#btnUpdate').removeClass('disabled');
-				$('#edit_id').val(res.data.id);
-				$('#editTitleForm #name').val(res.data.name);
-				$('#editTitleForm #description').val(res.data.description);
-			})
-	}
-
 	/**
-	 * DELETE TITLE
+	 * DELETE
 	 * @param id
 	 */
-	function deleteTitle(id) {
+	function deleteRole(id) {
 		swal({
 			title: "{{ trans('alerts.confirm') }}",
 			text: "{{ trans('alerts.delete_text') }}",
@@ -130,7 +115,7 @@
 				if (result.value) {
 
 					waitBusy('app_wrapper', '{{config('waitme.danger')}}');
-					var url = '{{ route("titles.destroy", [':id']) }}';
+					var url = '{{ route("roles.destroy", [':id']) }}';
 					url = url.replace(':id', id);
 					var data = {'_token': "{{ csrf_token() }}"};
 					$.ajax({

@@ -46,7 +46,7 @@ class PermissionRepository implements RepositoryInterface
 			}
 		}
 		else{
-			$query->orderBy('display_name', 'asc')->take($limit);
+			$query->orderBy('id', 'asc')->take($limit);
 		}
 		
 		// Paginate if we need to
@@ -108,7 +108,12 @@ class PermissionRepository implements RepositoryInterface
 			if($column == 'id' || $column == 'created_at'|| $column == 'updated_at' || $column == 'status_id' ) {
 				continue;
 			}
-			$data[$column] = (isset($params[$column]) && $params[$column] != '') ? $params[$column] : NULL;
+			if(in_array($column, ['display_name', 'description'])) {
+				$data[$column] = (isset($params[$column]) && $params[$column] != '') ? ucwords(strtolower($params[$column])) : NULL;
+			}
+			else {
+				$data[$column] = (isset($params[$column]) && $params[$column] != '') ? $params[$column] : NULL;
+			}
 		}
 		$created = Permission::create($data);
 		return $created;

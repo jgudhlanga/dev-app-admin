@@ -17,7 +17,7 @@
         ]) !!};
     </script>
 </head>
-<body style="background-color: #FFFFFF !important;">
+<body >
     <div id="app">
         @yield('content')
     </div>
