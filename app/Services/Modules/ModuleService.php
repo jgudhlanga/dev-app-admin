@@ -5,10 +5,14 @@ namespace App\Services\Modules;
 use App\Repositories\Modules\ModuleRepository;
 use App\Models\Modules\Module;
 
+/**
+ * Class ModuleService
+ * @package App\Services\Modules
+ */
 class ModuleService
 {
 	/**
-	 * @var $moduleRepository
+	 * @var ModuleRepository
 	 */
 	protected $moduleRepository;
 	
@@ -31,32 +35,33 @@ class ModuleService
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findAll($args = [], $paginate = null, $limit = null, $orderBy = null)
+	public function findAll($where = [], $paginate = null, $limit = null, $orderBy = null)
 	{
-		return $this->moduleRepository->findAll($args, $paginate, $limit);
+		return $this->moduleRepository->findAll($where, $paginate, $limit, $orderBy);
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $columns
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findBy($args = [], $paginate = null, $limit = null, $orderBy = null)
+	public function findBy($columns=[], $where = [], $paginate = null, $limit = null, $orderBy = null)
 	{
-		return $this->moduleRepository->findBy($args, $paginate, $limit, $orderBy);
+		return $this->moduleRepository->findBy($columns, $where, $paginate, $limit, $orderBy);
 	}
 	
 	/**
 	 * @param $params
-	 * @return Module
+	 * @return mixed
 	 */
 	public function create($params)
 	{
@@ -105,12 +110,12 @@ class ModuleService
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @return mixed
 	 */
-	public function count($args = [])
+	public function count($where = [])
 	{
-		return $this->moduleRepository->count($args);
+		return $this->moduleRepository->count($where);
 	}
 }
 

@@ -20,14 +20,14 @@
                 $class = (isset($currentModule) && $currentModule == 'cpanel') ? 'active' : '';
             @endphp
             <li class="treeview {{$class}}">
-                <a href="#"><i class="fa fa-wrench"></i> <span>&nbsp;{{trans('cpanel.c_panel')}}</span>
+                <a href="#" class="text-bold"><i class="fa fa-wrench"></i> <span>&nbsp;{{trans('cpanel.c_panel')}}</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
                     <li>
-                        <a href="{{ url('cpanel') }}" class="fa fa-angle-right">
+                        <a href="{{ url('cpanel') }}" class="fa fa-angle-right text-bold">
                             @choice('general.system',1)&nbsp;@choice('general.setting',2)
                         </a>
                     </li>

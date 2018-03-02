@@ -11,23 +11,44 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class RolesController
+ * @package App\Http\Controllers\Cpanel\Security\Api
+ */
 class RolesController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var RoleService
+	 */
 	protected $roleService;
 	
+	/**
+	 * RolesController constructor.
+	 * @param RoleService $roleService
+	 */
 	public function __construct(RoleService $roleService)
 	{
 		$this->roleService = $roleService;
 	}
 	
+	/**
+	 * @return mixed
+	 * @throws \Exception
+	 */
 	public function getRoles()
 	{
-		$roles = $this->roleService->findBy(null, null, null);
+		$roles = $this->roleService->findBy(null,null, null, null);
 		return Datatables::of($roles)->make(true);
 	}
 	
+	/**
+	 * @param Request $request
+	 * @param Role $role
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
 	public function changeStatus(Request $request, Role $role)
 	{
 		try

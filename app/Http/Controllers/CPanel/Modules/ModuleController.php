@@ -14,28 +14,55 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 
+/**
+ * Class ModuleController
+ * @package App\Http\Controllers\CPanel\Modules
+ */
 class ModuleController extends Controller
 {
-    protected $moduleService;
+	/**
+	 * @var ModuleService
+	 */
+	protected $moduleService;
 	
-    protected $iconService;
+	/**
+	 * @var IconService
+	 */
+	protected $iconService;
 	
-    protected $statusService;
-    
-    public function __construct(ModuleService $modulesService, IconService $iconService, StatusService $statusService)
+	/**
+	 * @var StatusService
+	 */
+	protected $statusService;
+	
+	/**
+	 * ModuleController constructor.
+	 * @param ModuleService $modulesService
+	 * @param IconService $iconService
+	 * @param StatusService $statusService
+	 */
+	public function __construct(ModuleService $modulesService, IconService $iconService, StatusService $statusService)
     {
         $this->moduleService = $modulesService;
         $this->iconService = $iconService;
         $this->statusService = $statusService;
     }
-
-    public function index()
+	
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+	public function index()
     {
     	$icons = $this->iconService->findAll();
         return view('cpanel.modules.index', compact('icons'));
     }
 	
-    public function store(ModuleRequest $request)
+	/**
+	 * @param ModuleRequest $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
+	public function store(ModuleRequest $request)
     {
         try{
 	        DB::beginTransaction();
@@ -57,18 +84,25 @@ class ModuleController extends Controller
         }
         catch (\Exception $e)
         {
-	        DB::rollback();
         	throw new \Exception($e->getMessage());
         }
     	
     }
 	
-    public function show(Module $module)
+	/**
+	 * @param Module $module
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+	public function show(Module $module)
     {
 	    $icons = $this->iconService->findAll();
         return view('cpanel.modules.edit', compact('module', 'icons'));
     }
 	
+	/**
+	 * @param Module $module
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
 	public function edit(Module $module)
 	{
 		if($module instanceof Module){
@@ -81,7 +115,13 @@ class ModuleController extends Controller
 		}
 	}
 	
-    public function update(Request $request, Module $module)
+	/**
+	 * @param Request $request
+	 * @param Module $module
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
+	public function update(Request $request, Module $module)
     {
      
 	    try{
@@ -104,12 +144,15 @@ class ModuleController extends Controller
 	    }
 	    catch (\Exception $e)
 	    {
-		    DB::rollback();
 		    throw new \Exception($e->getMessage());
 	    }
     }
 	
-    public function destroy(Module $module)
+	/**
+	 * @param Module $module
+	 * @throws \Exception
+	 */
+	public function destroy(Module $module)
     {
     	try{
 		    $this->moduleService->delete($module);

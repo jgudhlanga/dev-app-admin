@@ -4,6 +4,10 @@ namespace App\Models\General;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Icon
+ * @package App\Models\General
+ */
 class Icon extends Model
 {
 	/**

@@ -13,17 +13,31 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 
+/**
+ * Class PermissionsController
+ * @package App\Http\Controllers\CPanel\Security
+ */
 class PermissionsController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var PermissionService
+	 */
 	protected $permissionService;
 	
+	/**
+	 * PermissionsController constructor.
+	 * @param PermissionService $permissionService
+	 */
 	public function __construct(PermissionService $permissionService)
 	{
 		$this->permissionService = $permissionService;
 	}
 	
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function index()
 	{
 		$permissions =$this->permissionService->findAll(null, null, null, ['name' => 'asc']);
@@ -32,11 +46,19 @@ class PermissionsController extends Controller
 		return view('cpanel.security.permissions', compact('permissions', 'statusActive', 'statusInActive'));
 	}
 	
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function create()
 	{
 		return view('cpanel.security.create-permissions');
 	}
 	
+	/**
+	 * @param PermissionRequest $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws Exception
+	 */
 	public function store(PermissionRequest $request)
 	{
 		try{
@@ -63,6 +85,11 @@ class PermissionsController extends Controller
 		}
 	}
 	
+	/**
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws Exception
+	 */
 	public function storeCrud(Request $request)
 	{
 		
@@ -103,6 +130,10 @@ class PermissionsController extends Controller
 		}
 	}
 	
+	/**
+	 * @param Permission $permission
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
 	public function edit(Permission $permission)
 	{
 		if($permission instanceof Permission){
@@ -116,6 +147,12 @@ class PermissionsController extends Controller
 	}
 	
 	
+	/**
+	 * @param Request $request
+	 * @param Permission $permission
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws Exception
+	 */
 	public function update(Request $request, Permission $permission)
 	{
 		try{
@@ -142,6 +179,10 @@ class PermissionsController extends Controller
 		}
 	}
 	
+	/**
+	 * @param Permission $permission
+	 * @throws Exception
+	 */
 	public function destroy(Permission $permission)
 	{
 		try{

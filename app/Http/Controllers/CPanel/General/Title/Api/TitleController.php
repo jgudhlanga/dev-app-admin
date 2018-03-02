@@ -11,18 +11,35 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 
+/**
+ * Class TitleController
+ * @package App\Http\Controllers\CPanel\General\Title\Api
+ */
 class TitleController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var TitleService
+	 */
 	protected $titleService;
 	
+	/**
+	 * TitleController constructor.
+	 * @param TitleService $titleService
+	 */
 	public function __construct(TitleService $titleService)
 	{
 		$this->titleService = $titleService;
 	}
 	
 	
+	/**
+	 * @param Request $request
+	 * @param Title $title
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
 	public function changeStatus(Request $request, Title $title)
 	{
 		try
@@ -37,7 +54,6 @@ class TitleController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB:rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}

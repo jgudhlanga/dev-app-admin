@@ -10,23 +10,41 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class StatusController
+ * @package App\Http\Controllers\CPanel\General\Status
+ */
 class StatusController extends Controller
 {
+	/**
+	 * @var StatusService
+	 */
 	public $statusService;
 	
+	/**
+	 * StatusController constructor.
+	 * @param StatusService $statusService
+	 */
 	public function __construct(StatusService $statusService)
 	{
 		$this->statusService = $statusService;
 	}
-
-    public function index()
+	
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+	public function index()
     {
     	$statuses = $this->statusService->findAll(null,null, null, ['id' => 'asc']);
 	    return view('cpanel.general.status', compact('statuses'));
     }
-
-  
-    public function store(StatusRequest $request)
+	
+	/**
+	 * @param StatusRequest $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
+	public function store(StatusRequest $request)
     {
 	    try{
 		    DB::beginTransaction();
@@ -46,12 +64,15 @@ class StatusController extends Controller
 	    }
 	    catch (\Exception $e)
 	    {
-		    DB::rollback();
 		    throw new \Exception($e->getMessage());
 	    }
     }
 	
-    public function edit(Status $status)
+	/**
+	 * @param Status $status
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
+	public function edit(Status $status)
     {
         if($status instanceof Status){
 	        return response([
@@ -63,7 +84,12 @@ class StatusController extends Controller
         }
     }
 	
-    public function update(Request $request, Status $status)
+	/**
+	 * @param Request $request
+	 * @param Status $status
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
+	public function update(Request $request, Status $status)
     {
     	try{
 		    if($status instanceof Status)
@@ -85,7 +111,10 @@ class StatusController extends Controller
 		}
     }
 	
-    public function destroy(Status $status)
+	/**
+	 * @param Status $status
+	 */
+	public function destroy(Status $status)
     {
 	    try{
 		    $this->statusService->delete($status);

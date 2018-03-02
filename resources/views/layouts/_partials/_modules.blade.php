@@ -6,7 +6,7 @@
         @endphp
         @if(count($module->pages) > 0)
             <li class="treeview {{$active}}">
-                <a href="#"><i class="{{$module->class}}"></i>
+                <a href="#" class="text-bold"><i class="{{$module->class}}"></i>
                     <span>{{$module->title}}</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
@@ -20,7 +20,7 @@
             </li>
         @else
             <li class="{{$active}}">
-                <a href="{{ url($module->module_url) }}">
+                <a href="{{ url($module->module_url) }}" class="text-bold">
                     <i class="{{$module->class}}"></i>
                     <span>{{$module->title}}</span>
                 </a>

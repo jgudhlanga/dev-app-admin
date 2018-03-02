@@ -13,17 +13,31 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 
+/**
+ * Class RaceController
+ * @package App\Http\Controllers\CPanel\General\Races
+ */
 class RaceController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var RaceService
+	 */
 	protected $raceService;
 	
+	/**
+	 * RaceController constructor.
+	 * @param RaceService $raceService
+	 */
 	public function __construct(RaceService $raceService)
 	{
 		$this->raceService = $raceService;
 	}
 	
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function index()
 	{
 		$races =$this->raceService->findAll(null, null, null, ['name' => 'asc']);
@@ -32,6 +46,11 @@ class RaceController extends Controller
 		return view('cpanel.general.races', compact('races', 'statusActive', 'statusInActive'));
 	}
 	
+	/**
+	 * @param RaceRequest $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws Exception
+	 */
 	public function store(RaceRequest $request)
 	{
 		try{
@@ -54,11 +73,14 @@ class RaceController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB::rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}
 	
+	/**
+	 * @param Race $race
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
 	public function edit(Race $race)
 	{
 		if($race instanceof Race){
@@ -71,6 +93,12 @@ class RaceController extends Controller
 		}
 	}
 	
+	/**
+	 * @param Request $request
+	 * @param Race $race
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws Exception
+	 */
 	public function update(Request $request, Race $race)
 	{
 		try{
@@ -93,11 +121,14 @@ class RaceController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB::rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}
 	
+	/**
+	 * @param Race $race
+	 * @throws Exception
+	 */
 	public function destroy(Race $race)
 	{
 		try{

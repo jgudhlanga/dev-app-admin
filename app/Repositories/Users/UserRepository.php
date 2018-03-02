@@ -60,10 +60,6 @@ class UserRepository implements RepositoryInterface
 		// TODO: Implement find() method.
 	}
 	
-	public function findBy($args = [], $paginate = null, $single = false)
-	{
-		// TODO: Implement findBy() method.
-	}
 	
 	public function findAll($args = [], $paginate = null, $limit = null, $orderBy=null)
 	{
@@ -73,5 +69,20 @@ class UserRepository implements RepositoryInterface
 	public function delete($id)
 	{
 		// TODO: Implement delete() method.
+	}
+	
+	public function update($model, $params)
+	{
+		// TODO: Implement update() method.
+	}
+	
+	public function count($args = [])
+	{
+		// TODO: Implement count() method.
+	}
+	
+	public function findBy($columns = [], $where = [], $paginate = null, $limit = null, $orderBy = [])
+	{
+		// TODO: Implement findBy() method.
 	}
 }

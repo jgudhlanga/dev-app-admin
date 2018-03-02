@@ -11,10 +11,14 @@ namespace App\Services\General;
 
 use App\Repositories\General\StatusRepository;
 
+/**
+ * Class StatusService
+ * @package App\Services\General
+ */
 class StatusService
 {
 	/**
-	 * @var $statusRepository
+	 * @var StatusRepository
 	 */
 	protected $statusRepository;
 	
@@ -51,7 +55,7 @@ class StatusService
 	
 	/**
 	 * @param $params
-	 * @return Status
+	 * @return mixed
 	 */
 	public function create($params)
 	{

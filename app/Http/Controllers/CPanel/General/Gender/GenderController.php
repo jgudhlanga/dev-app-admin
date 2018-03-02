@@ -12,17 +12,31 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class GenderController
+ * @package App\Http\Controllers\CPanel\General\Gender
+ */
 class GenderController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var GenderService
+	 */
 	protected $genderService;
 	
+	/**
+	 * GenderController constructor.
+	 * @param GenderService $genderService
+	 */
 	public function __construct(GenderService $genderService)
 	{
 		$this->genderService = $genderService;
 	}
 	
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function index()
 	{
 		$genders =$this->genderService->findAll(null, null, null, ['name' => 'asc']);
@@ -31,6 +45,11 @@ class GenderController extends Controller
 		return view('cpanel.general.gender', compact('genders', 'statusActive', 'statusInActive'));
 	}
 	
+	/**
+	 * @param GenderRequest $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
 	public function store(GenderRequest $request)
 	{
 		try{
@@ -53,11 +72,14 @@ class GenderController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB::rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}
 	
+	/**
+	 * @param Gender $gender
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
 	public function edit(Gender $gender)
 	{
 		if($gender instanceof Gender){
@@ -70,6 +92,12 @@ class GenderController extends Controller
 		}
 	}
 	
+	/**
+	 * @param Request $request
+	 * @param Gender $gender
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
 	public function update(Request $request, Gender $gender)
 	{
 		try{
@@ -92,11 +120,14 @@ class GenderController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB::rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}
 	
+	/**
+	 * @param Gender $gender
+	 * @throws \Exception
+	 */
 	public function destroy(Gender $gender)
 	{
 		try{

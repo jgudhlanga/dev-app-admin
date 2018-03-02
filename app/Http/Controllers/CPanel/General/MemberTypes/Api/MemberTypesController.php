@@ -11,18 +11,35 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 
+/**
+ * Class MemberTypesController
+ * @package App\Http\Controllers\CPanel\General\MemberTypes\Api
+ */
 class MemberTypesController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var MemberTypeService
+	 */
 	protected $memberTypeService;
 	
+	/**
+	 * MemberTypesController constructor.
+	 * @param MemberTypeService $memberTypeService
+	 */
 	public function __construct(MemberTypeService $memberTypeService)
 	{
 		$this->memberTypeService = $memberTypeService;
 	}
 	
 	
+	/**
+	 * @param Request $request
+	 * @param MemberType $memberType
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
 	public function changeStatus(Request $request, MemberType $memberType)
 	{
 		try
@@ -37,7 +54,6 @@ class MemberTypesController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB:rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}

@@ -10,17 +10,34 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class OccupationsController
+ * @package App\Http\Controllers\Cpanel\General\Occupations\Api
+ */
 class OccupationsController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var OccupationService
+	 */
 	protected $occupationService;
 	
+	/**
+	 * OccupationsController constructor.
+	 * @param OccupationService $occupationService
+	 */
 	public function __construct(OccupationService $occupationService)
 	{
 		$this->occupationService = $occupationService;
 	}
 	
+	/**
+	 * @param Request $request
+	 * @param Occupation $occupation
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
 	public function changeStatus(Request $request, Occupation $occupation)
 	{
 		try
@@ -35,7 +52,6 @@ class OccupationsController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			//DB:rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}

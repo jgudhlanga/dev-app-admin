@@ -11,17 +11,34 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 
+/**
+ * Class AddressTypesController
+ * @package App\Http\Controllers\CPanel\General\AddressTypes\Api
+ */
 class AddressTypesController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var AddressTypeService
+	 */
 	protected $addressTypeService;
 	
+	/**
+	 * AddressTypesController constructor.
+	 * @param AddressTypeService $addressTypeService
+	 */
 	public function __construct(AddressTypeService $addressTypeService)
 	{
 		$this->addressTypeService = $addressTypeService;
 	}
 	
+	/**
+	 * @param Request $request
+	 * @param AddressType $addressType
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
 	public function changeStatus(Request $request, AddressType $addressType)
 	{
 		try
@@ -36,7 +53,6 @@ class AddressTypesController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB:rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}

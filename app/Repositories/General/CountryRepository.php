@@ -6,37 +6,66 @@ use App\Contracts\RepositoryInterface;
 use App\Models\General\Country;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class CountryRepository
+ * @package App\Repositories\General
+ */
 class CountryRepository implements RepositoryInterface
 {
 	
+	/**
+	 * @var Country
+	 */
 	protected $country;
 	
+	/**
+	 * CountryRepository constructor.
+	 * @param Country $country
+	 */
 	public function __construct(Country $country)
 	{
 		$this->country = $country;
 	}
 	
+	/**
+	 * @param $id
+	 * @return mixed
+	 */
 	public function find($id)
 	{
 		return $this->country->where('id', $id)->first();
 	}
 	
-	public function findBy( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	/**
+	 * @param array $columns
+	 * @param array $where
+	 * @param null $paginate
+	 * @param null $limit
+	 * @param null $orderBy
+	 * @return mixed
+	 */
+	public function findBy($columns=[], $where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
-		$query =  DB::table('countries AS c')
-			->leftJoin('statuses AS s', 's.id', '=', 'c.status_id' )
-			->select('c.*', 's.title as status')
-			->where('c.id', '>', 0);
+		$query =  DB::table('countries AS c')->leftJoin('statuses AS s', 's.id', '=', 'c.status_id' );
+		if(!empty($columns)) {
+			$cols = "";
+			foreach ($columns as $column){
+				$cols .= "c.{$column},";
+			}
+			$query->select(rtrim(',', $cols), 's.title as status');
+		}
+		else
+			$query->select('c.*', 's.title as status');
 		
-		if(!empty($args) && is_array($args))
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$query->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$query->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$query->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$query->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}
@@ -51,25 +80,31 @@ class CountryRepository implements RepositoryInterface
 			$query->orderBy('name', 'asc')->take($limit);
 		}
 		
-		// Paginate if we need to
 		if (!is_null($paginate)) {
 			$query->paginate($paginate);
 		}
 		return $query->get();
 	}
 	
-	public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	/**
+	 * @param array $where
+	 * @param null $paginate
+	 * @param null $limit
+	 * @param null $orderBy
+	 * @return mixed
+	 */
+	public function findAll( $where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
 		$countries = $this->country->where('id', '>', 0);
-		if(!empty($args) && is_array($args))
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$countries->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$countries->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$countries->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$countries->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}
@@ -84,7 +119,6 @@ class CountryRepository implements RepositoryInterface
 			$countries->orderBy('created_at', 'desc')->take($limit);
 		}
 		
-		// Paginate if we need to
 		if (!is_null($paginate)) {
 			$countries->paginate($paginate);
 		}
@@ -92,16 +126,27 @@ class CountryRepository implements RepositoryInterface
 		return $countries->get();
 	}
 	
+	/**
+	 * @param $country
+	 * @return mixed
+	 */
 	public function delete($country)
 	{
 		return $country->delete();
 	}
 	
+	/**
+	 * @return array
+	 */
 	public function getTableColumns()
 	{
 		return $this->country->getTableColumns();
 	}
 	
+	/**
+	 * @param $params
+	 * @return mixed
+	 */
 	public function create($params)
 	{
 		$columns = $this->getTableColumns();
@@ -116,24 +161,33 @@ class CountryRepository implements RepositoryInterface
 		return $created;
 	}
 	
+	/**
+	 * @param $country
+	 * @param $data
+	 * @return mixed
+	 */
 	public function update($country, $data)
 	{
 		$country->update($data);
 		return $country;
 	}
 	
-	public function count($args = [])
+	/**
+	 * @param array $where
+	 * @return mixed
+	 */
+	public function count($where = [])
 	{
 		$count = $this->country->where('id', '>', 0);
-		if(!empty($args) && is_array($args))
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$count->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$count->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$count->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$count->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}

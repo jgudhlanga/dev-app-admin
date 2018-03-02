@@ -12,18 +12,35 @@ use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
 
+/**
+ * Class CountriesController
+ * @package App\Http\Controllers\CPanel\General\Countries\Api
+ */
 class CountriesController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var CountryService
+	 */
 	protected $countryService;
 	
+	/**
+	 * CountriesController constructor.
+	 * @param CountryService $countryService
+	 */
 	public function __construct(CountryService $countryService)
 	{
 		$this->countryService = $countryService;
 	}
 	
 	
+	/**
+	 * @param Request $request
+	 * @param Country $country
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
 	public function changeStatus(Request $request, Country $country)
 	{
 		try
@@ -38,14 +55,17 @@ class CountriesController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB:rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}
 	
+	/**
+	 * @return mixed
+	 * @throws \Exception
+	 */
 	public function getCountries()
 	{
-		$countries = $this->countryService->findBy(null, null, null, ['name' => 'asc']);
+		$countries = $this->countryService->findBy(null,null, null, null, ['name' => 'asc']);
 		return Datatables::of($countries)->make(true);
 	}
 	

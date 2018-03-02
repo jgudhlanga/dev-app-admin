@@ -6,10 +6,14 @@ namespace App\Services\General;
 use App\Models\General\Icon;
 use App\Repositories\General\IconRepository;
 
+/**
+ * Class IconService
+ * @package App\Services\General
+ */
 class IconService
 {
 	/**
-	 * @var $iconRepository
+	 * @var IconRepository
 	 */
 	protected $iconRepository;
 	
@@ -32,33 +36,33 @@ class IconService
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $columns
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findBy($args=[], $paginate=null, $limit=null, $orderBy=null)
+	public function findBy($columns=[], $where=[], $paginate=null, $limit=null, $orderBy=null)
 	{
-		return $this->iconRepository->findBy($args, $paginate, $limit, $orderBy);
+		return $this->iconRepository->findBy($columns, $where, $paginate, $limit, $orderBy);
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	public function findAll( $where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
-		return $this->iconRepository->findAll($args, $paginate, $limit, $orderBy);
+		return $this->iconRepository->findAll($where, $paginate, $limit, $orderBy);
 	}
-	
 	
 	/**
 	 * @param $params
-	 * @return Icon
+	 * @return mixed
 	 */
 	public function create($params)
 	{
@@ -85,11 +89,11 @@ class IconService
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @return mixed
 	 */
-	public function count($args = [])
+	public function count($where = [])
 	{
-		return $this->iconRepository->count($args);
+		return $this->iconRepository->count($where);
 	}
 }

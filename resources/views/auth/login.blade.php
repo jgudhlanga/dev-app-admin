@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="form-wrap">
-                        <h1>@lang('auth.auth_heading')</h1>
+                        <h1>{{ config('app.name') }}</h1>
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}" >
                             {{ csrf_field() }}
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -47,7 +47,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group margin-top-20 margin-bottom-20">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-success btn-block">@lang('auth.login')</button>
                                 </div>

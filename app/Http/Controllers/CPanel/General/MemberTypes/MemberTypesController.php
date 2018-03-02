@@ -13,17 +13,31 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 
+/**
+ * Class MemberTypesController
+ * @package App\Http\Controllers\CPanel\General\MemberTypes
+ */
 class MemberTypesController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var MemberTypeService
+	 */
 	protected $memberTypeService;
 	
+	/**
+	 * MemberTypesController constructor.
+	 * @param MemberTypeService $memberTypeService
+	 */
 	public function __construct(MemberTypeService $memberTypeService)
 	{
 		$this->memberTypeService = $memberTypeService;
 	}
 	
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function index()
 	{
 		$memberTypes =$this->memberTypeService->findAll(null, null, null, ['name' => 'asc']);
@@ -32,6 +46,11 @@ class MemberTypesController extends Controller
 		return view('cpanel.general.member-types', compact('memberTypes', 'statusActive', 'statusInActive'));
 	}
 	
+	/**
+	 * @param MemberTypeRequest $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws Exception
+	 */
 	public function store(MemberTypeRequest $request)
 	{
 		try{
@@ -54,11 +73,14 @@ class MemberTypesController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB::rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}
 	
+	/**
+	 * @param MemberType $memberType
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
 	public function edit(MemberType $memberType)
 	{
 		if($memberType instanceof MemberType){
@@ -71,6 +93,12 @@ class MemberTypesController extends Controller
 		}
 	}
 	
+	/**
+	 * @param Request $request
+	 * @param MemberType $memberType
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws Exception
+	 */
 	public function update(Request $request, MemberType $memberType)
 	{
 		try{
@@ -93,11 +121,14 @@ class MemberTypesController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB::rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}
 	
+	/**
+	 * @param MemberType $memberType
+	 * @throws Exception
+	 */
 	public function destroy(MemberType $memberType)
 	{
 		try{

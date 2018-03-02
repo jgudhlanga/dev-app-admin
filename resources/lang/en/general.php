@@ -1,6 +1,7 @@
 <?php
 return [
 	'copyright' => 'Copyright',
+	'dashboard' => 'Dashboard',
 	'rights_reserved' => 'All Rights Reserved',
 	'home' => 'Home',
 	'action' => 'Action',
@@ -15,8 +16,17 @@ return [
 	'system_wide' => 'System Wide',
 	'personal_related' => 'Person Related',
 	'advanced' => 'Advanced',
+	'create' => 'Create',
+	'edit' => 'Edit',
+	'delete' => 'Delete',
+	'update' => 'Update',
+	'activate' => 'Update',
 	'other' => 'Other',
+	'id' => 'ID',
+	'email' => 'Email',
+	'language' => 'Language',
 	'check_all' => 'Check All',
+	'website' => 'Website',
 	'placeholders' => [
 		'name' => 'enter your marital-status name here',
 		'description' => 'enter your marital-status description here',
@@ -27,5 +37,20 @@ return [
 	],
 	'races' => [
 		'heading' => 'Race|Races',
-	]
+	],
+	'people' => [
+		'first_name' => 'First Name',
+		'middle_name' => 'Middle Name',
+		'last_name' => 'Surname',
+		'alias' => 'Nickname',
+		'title' => 'Title',
+		'gender' => 'Gender',
+		'user_name' => 'User Name',
+		'display_name' => 'Display Name',
+		'password' => 'Password',
+		'confirm_password' => 'Confirm Password',
+		'cell_number' => 'Cell',
+		'tell_number' => 'Telephone',
+		'fax' => 'Fax',
+	],
 ];

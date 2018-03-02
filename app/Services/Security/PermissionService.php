@@ -5,13 +5,21 @@ namespace App\Services\Security;
 use App\Repositories\Security\PermissionRepository;
 use App\Models\Roles\Permission;
 
+/**
+ * Class PermissionService
+ * @package App\Services\Security
+ */
 class PermissionService
 {
 	/**
-	 * @var $permissionRepository
+	 * @var PermissionRepository
 	 */
 	protected $permissionRepository;
 	
+	/**
+	 * PermissionService constructor.
+	 * @param PermissionRepository $permissionRepository
+	 */
 	public function __construct(PermissionRepository $permissionRepository)
 	{
 		$this->permissionRepository = $permissionRepository;
@@ -27,32 +35,33 @@ class PermissionService
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findAll($args = [], $paginate = null, $limit = null, $orderBy = null)
+	public function findAll($where = [], $paginate = null, $limit = null, $orderBy = null)
 	{
-		return $this->permissionRepository->findAll($args, $paginate, $limit);
+		return $this->permissionRepository->findAll($where, $paginate, $limit);
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $columns
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findBy($args = [], $paginate = null, $limit = null, $orderBy = null)
+	public function findBy($columns=[], $where = [], $paginate = null, $limit = null, $orderBy = null)
 	{
-		return $this->permissionRepository->findBy($args, $paginate, $limit, $orderBy);
+		return $this->permissionRepository->findBy($columns, $where, $paginate, $limit, $orderBy);
 	}
 	
 	/**
 	 * @param $params
-	 * @return Permission
+	 * @return mixed
 	 */
 	public function create($params)
 	{
@@ -78,14 +87,13 @@ class PermissionService
 		return $this->permissionRepository->delete($permission);
 	}
 	
-	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @return mixed
 	 */
-	public function count($args = [])
+	public function count($where = [])
 	{
-		return $this->permissionRepository->count($args);
+		return $this->permissionRepository->count($where);
 	}
 }
 

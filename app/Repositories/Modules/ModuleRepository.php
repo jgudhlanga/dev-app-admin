@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: James
- * Date: 2017/12/17
- * Time: 05:49 PM
- */
 
 namespace App\Repositories\Modules;
 
@@ -12,54 +6,67 @@ use App\Contracts\RepositoryInterface;
 use App\Models\Modules\Module;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class ModuleRepository
+ * @package App\Repositories\Modules
+ */
 class ModuleRepository implements RepositoryInterface
 {
-    /**
-     * @var $module
-     */
-    protected $module;
-    
-    /**
-     * ModuleRepository constructor.
-     * @param Module $module
-     */
-    public function __construct(Module $module)
+	
+	/**
+	 * @var Module
+	 */
+	protected $module;
+	
+	/**
+	 * ModuleRepository constructor.
+	 * @param Module $module
+	 */
+	public function __construct(Module $module)
     {
         $this->module = $module;
     }
-    
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function find($id)
+	
+	/**
+	 * @param $id
+	 * @return mixed
+	 */
+	public function find($id)
     {
        return $this->module->where('id', $id)->first();
     }
 	
 	/**
-	 * @param array $args
+	 * @param array $columns
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-    public function findBy($args=[], $paginate=null, $limit=null, $orderBy=null )
+	public function findBy($columns=[], $where=[], $paginate=null, $limit=null, $orderBy=null )
     {
-	    $query =  DB::table('modules AS m')
-		    ->leftJoin('statuses AS s', 's.id', '=', 'm.status_id' )
-		    ->select('m.*', 's.title as status')
-		    ->where('m.id', '>', 0);
-	
-	    if(!empty($args) && is_array($args))
+    	
+	    $query = DB::table('modules AS m')->leftJoin('statuses AS s', 's.id', '=', 'm.status_id');
+	    if (!empty($columns)) {
+		    $cols = "";
+		    foreach ($columns as $column) {
+			    $cols .= "m.{$column},";
+		    }
+		    $query->select(rtrim(',', $cols), 's.title as status');
+	    } else {
+		    $query->select('m.*', 's.title as status');
+	    }
+	    
+	    if(!empty($where) && is_array($where))
 	    {
-		    for ($i=0; $i<count($args); $i++)
+		    for ($i=0; $i<count($where); $i++)
 		    {
-			    if(is_array(array_values($args)[$i])){
-				    $query->wherein(array_keys($args)[$i],array_values($args)[$i]);
+			    if(is_array(array_values($where)[$i])){
+				    $query->wherein(array_keys($where)[$i],array_values($where)[$i]);
 			    }
 			    else{
-				    $query->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+				    $query->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 			    }
 		    }
 	    }
@@ -74,7 +81,6 @@ class ModuleRepository implements RepositoryInterface
 		    $query->orderBy('position', 'asc')->take($limit);
 	    }
 	
-	    // Paginate if we need to
 	    if (!is_null($paginate)) {
 		    $query->paginate($paginate);
 	    }
@@ -82,24 +88,24 @@ class ModuleRepository implements RepositoryInterface
     }
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	public function findAll( $where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
 		$modules = $this->module->where('id', '>', 0);
-		if(!empty($args) && is_array($args))
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$modules->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$modules->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$modules->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$modules->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}
@@ -114,7 +120,6 @@ class ModuleRepository implements RepositoryInterface
 			$modules->orderBy('position', 'asc')->take($limit);
 		}
 		
-		// Paginate if we need to
 		if (!is_null($paginate)) {
 			$modules->paginate($paginate);
 		}
@@ -126,12 +131,12 @@ class ModuleRepository implements RepositoryInterface
 	 * @param $module
 	 * @return mixed
 	 */
-    public function delete($module)
+	public function delete($module)
     {
 	    return $module->delete();
     }
 	
-    
+	
 	/**
 	 * @return array
 	 */
@@ -217,21 +222,21 @@ class ModuleRepository implements RepositoryInterface
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @return mixed
 	 */
-	public function count($args = [])
+	public function count($where = [])
 	{
 		$count = $this->module->where('id', '>', 0);
-		if(!empty($args) && is_array($args))
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$count->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$count->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$count->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$count->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}

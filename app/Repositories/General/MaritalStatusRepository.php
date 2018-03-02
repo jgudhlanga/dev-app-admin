@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: James
- * Date: 2018/02/02
- * Time: 06:04 PM
- */
 
 namespace App\Repositories\General;
 
@@ -12,14 +6,22 @@ namespace App\Repositories\General;
 use App\Contracts\RepositoryInterface;
 use App\Models\General\MaritalStatus;
 
+/**
+ * Class MaritalStatusRepository
+ * @package App\Repositories\General
+ */
 class MaritalStatusRepository implements RepositoryInterface
 {
+	
 	/**
-	 * @var $maritalStatus
+	 * @var MaritalStatus
 	 */
 	protected $maritalStatus;
 	
-	
+	/**
+	 * MaritalStatusRepository constructor.
+	 * @param MaritalStatus $maritalStatus
+	 */
 	public function __construct(MaritalStatus $maritalStatus)
 	{
 		$this->maritalStatus = $maritalStatus;
@@ -35,28 +37,35 @@ class MaritalStatusRepository implements RepositoryInterface
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $columns
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findBy( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	public function findBy($columns=[], $where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
-		$query =  DB::table('marital_statuses AS ms')
-			->leftJoin('statuses AS s', 's.id', '=', 'ms.status_id' )
-			->select('ms.*', 's.title as status')
-			->where('ms.id', '>', 0);
+		$query = DB::table('marital_statuses AS ms')->leftJoin('statuses AS s', 's.id', '=', 'ms.status_id');
+		if (!empty($columns)) {
+			$cols = "";
+			foreach ($columns as $column) {
+				$cols .= "ms.{$column},";
+			}
+			$query->select(rtrim(',', $cols), 's.title as status');
+		} else {
+			$query->select('ms.*', 's.title as status');
+		}
 		
-		if(!empty($args) && is_array($args))
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$query->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$query->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$query->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$query->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}
@@ -71,7 +80,6 @@ class MaritalStatusRepository implements RepositoryInterface
 			$query->orderBy('name', 'asc')->take($limit);
 		}
 		
-		// Paginate if we need to
 		if (!is_null($paginate)) {
 			$query->paginate($paginate);
 		}
@@ -79,24 +87,24 @@ class MaritalStatusRepository implements RepositoryInterface
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	public function findAll( $where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
-		$maritalStatuss = $this->maritalStatus->where('id', '>', 0);
-		if(!empty($args) && is_array($args))
+		$maritalStatuses = $this->maritalStatus->where('id', '>', 0);
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$maritalStatuss->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$maritalStatuses->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$maritalStatuss->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$maritalStatuses->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}
@@ -104,19 +112,18 @@ class MaritalStatusRepository implements RepositoryInterface
 		if($orderBy != '')
 		{
 			if(is_array($orderBy)){
-				$maritalStatuss->orderBy(array_keys($orderBy)[0], array_values($orderBy)[0]);
+				$maritalStatuses->orderBy(array_keys($orderBy)[0], array_values($orderBy)[0]);
 			}
 		}
 		else{
-			$maritalStatuss->orderBy('created_at', 'desc')->take($limit);
+			$maritalStatuses->orderBy('created_at', 'desc')->take($limit);
 		}
 		
-		// Paginate if we need to
 		if (!is_null($paginate)) {
-			$maritalStatuss->paginate($paginate);
+			$maritalStatuses->paginate($paginate);
 		}
 		
-		return $maritalStatuss->get();
+		return $maritalStatuses->get();
 	}
 	
 	/**
@@ -127,8 +134,6 @@ class MaritalStatusRepository implements RepositoryInterface
 	{
 		return $maritalStatus->delete();
 	}
-	
-	
 	
 	/**
 	 * @return array
@@ -168,21 +173,21 @@ class MaritalStatusRepository implements RepositoryInterface
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @return mixed
 	 */
-	public function count($args = [])
+	public function count($where = [])
 	{
 		$count = $this->maritalStatus->where('id', '>', 0);
-		if(!empty($args) && is_array($args))
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$count->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$count->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$count->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$count->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}

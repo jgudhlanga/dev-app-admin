@@ -5,8 +5,15 @@ namespace App\Models\Modules;
 use App\Models\General\Status;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Page
+ * @package App\Models\Modules
+ */
 class Page extends Model
 {
+	/**
+	 * @var array
+	 */
 	protected $fillable = ['title', 'description', 'class', 'page_url', 'status_id','position', 'module_id', 'created_by', 'updated_by'];
 	
 	/**

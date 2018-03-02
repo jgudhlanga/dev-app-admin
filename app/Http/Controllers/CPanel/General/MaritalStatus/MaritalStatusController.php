@@ -12,17 +12,31 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\DB;
 use Auth;
 
+/**
+ * Class MaritalStatusController
+ * @package App\Http\Controllers\CPanel\General\MaritalStatus
+ */
 class MaritalStatusController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var MaritalStatusService
+	 */
 	protected $maritalStatusService;
 	
+	/**
+	 * MaritalStatusController constructor.
+	 * @param MaritalStatusService $maritalStatusService
+	 */
 	public function __construct(MaritalStatusService $maritalStatusService)
 	{
 		$this->maritalStatusService = $maritalStatusService;
 	}
 	
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function index()
 	{
 		$maritalStatuses =$this->maritalStatusService->findAll(null, null, null, ['name' => 'asc']);
@@ -31,6 +45,11 @@ class MaritalStatusController extends Controller
 		return view('cpanel.general.marital-status', compact('maritalStatuses', 'statusActive', 'statusInActive'));
 	}
 	
+	/**
+	 * @param MaritalStatusRequest $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
 	public function store(MaritalStatusRequest $request)
 	{
 		try{
@@ -53,17 +72,23 @@ class MaritalStatusController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB::rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}
 	
 	
+	/**
+	 * @param $id
+	 */
 	public function show($id)
 	{
 		
 	}
 	
+	/**
+	 * @param MaritalStatus $maritalStatus
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
 	public function edit(MaritalStatus $maritalStatus)
 	{
 		if($maritalStatus instanceof MaritalStatus){
@@ -76,6 +101,12 @@ class MaritalStatusController extends Controller
 		}
 	}
 	
+	/**
+	 * @param Request $request
+	 * @param MaritalStatus $maritalStatus
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
 	public function update(Request $request, MaritalStatus $maritalStatus)
 	{
 		try{
@@ -98,11 +129,14 @@ class MaritalStatusController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB::rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}
 	
+	/**
+	 * @param MaritalStatus $maritalStatus
+	 * @throws \Exception
+	 */
 	public function destroy(MaritalStatus $maritalStatus)
 	{
 		try{

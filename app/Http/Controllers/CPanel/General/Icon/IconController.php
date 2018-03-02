@@ -12,30 +12,48 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 
+/**
+ * Class IconController
+ * @package App\Http\Controllers\CPanel\General\Icon
+ */
 class IconController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var IconService
+	 */
 	protected $iconService;
 	
+	/**
+	 * IconController constructor.
+	 * @param IconService $iconService
+	 */
 	public function __construct(IconService $iconService)
 	{
 		$this->iconService = $iconService;
 	}
 	
-    public function index()
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+	public function index()
     {
 	    $classes = $this->iconService->findAll(null,null, null, ['id' => 'asc']);
 	    $statusActive = $this->getStatusActive();
 	    $statusInActive = $this->getStatusInActive();
 	    return view('cpanel.general.icons', compact('classes', 'statusActive', 'statusInActive'));
     }
-    
 	
-    public function store(IconRequest $request)
+	
+	/**
+	 * @param IconRequest $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
+	public function store(IconRequest $request)
     {
 	    try{
-		    //validation here
 		    DB::beginTransaction();
 		    $created = $this->iconService->create($request->all());
 		    if($created instanceof Icon) {
@@ -44,7 +62,7 @@ class IconController extends Controller
 			    $status = Response::HTTP_CREATED;
 		    }
 		    else{
-			    $messages = trans('icons.alerts.error');
+			    $message = trans('icons.alerts.error');
 			    $icon = null;
 			    $status = Response::HTTP_INTERNAL_SERVER_ERROR;
 		    }
@@ -54,13 +72,16 @@ class IconController extends Controller
 	    }
 	    catch (\Exception $e)
 	    {
-		    DB::rollback();
 		    throw new \Exception($e->getMessage());
 	    }
     }
 	
-    
-    public function edit(Icon $icon)
+	
+	/**
+	 * @param Icon $icon
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
+	public function edit(Icon $icon)
     {
 	    if($icon instanceof Icon){
 		    return response([
@@ -71,8 +92,13 @@ class IconController extends Controller
 		    notify()->flash(trans('icons.not_found'), 'error');
 	    }
     }
-    
-    public function update(Request $request, Icon $icon)
+	
+	/**
+	 * @param Request $request
+	 * @param Icon $icon
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
+	public function update(Request $request, Icon $icon)
     {
 	    try{
 		    if($icon instanceof Icon)
@@ -95,7 +121,10 @@ class IconController extends Controller
     }
 	
 	
-    public function destroy(Icon $icon)
+	/**
+	 * @param Icon $icon
+	 */
+	public function destroy(Icon $icon)
     {
 	    try{
 		    $this->iconService->delete($icon);

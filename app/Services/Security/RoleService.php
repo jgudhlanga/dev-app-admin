@@ -5,13 +5,21 @@ namespace App\Services\Security;
 use App\Repositories\Security\RoleRepository;
 use App\Models\Roles\Role;
 
+/**
+ * Class RoleService
+ * @package App\Services\Security
+ */
 class RoleService
 {
 	/**
-	 * @var $roleRepository
+	 * @var RoleRepository
 	 */
 	protected $roleRepository;
 	
+	/**
+	 * RoleService constructor.
+	 * @param RoleRepository $roleRepository
+	 */
 	public function __construct(RoleRepository $roleRepository)
 	{
 		$this->roleRepository = $roleRepository;
@@ -27,32 +35,33 @@ class RoleService
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findAll($args = [], $paginate = null, $limit = null, $orderBy = null)
+	public function findAll($where = [], $paginate = null, $limit = null, $orderBy = null)
 	{
-		return $this->roleRepository->findAll($args, $paginate, $limit);
+		return $this->roleRepository->findAll($where, $paginate, $limit);
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $columns
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findBy($args = [], $paginate = null, $limit = null, $orderBy = null)
+	public function findBy($columns=[], $where = [], $paginate = null, $limit = null, $orderBy = null)
 	{
-		return $this->roleRepository->findBy($args, $paginate, $limit, $orderBy);
+		return $this->roleRepository->findBy($columns, $where, $paginate, $limit, $orderBy);
 	}
 	
 	/**
 	 * @param $params
-	 * @return Role
+	 * @return mixed
 	 */
 	public function create($params)
 	{
@@ -78,14 +87,13 @@ class RoleService
 		return $this->roleRepository->delete($role);
 	}
 	
-	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @return mixed
 	 */
-	public function count($args = [])
+	public function count($where = [])
 	{
-		return $this->roleRepository->count($args);
+		return $this->roleRepository->count($where);
 	}
 }
 

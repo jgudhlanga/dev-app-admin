@@ -4,15 +4,28 @@ namespace App\Models\General;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Title
+ * @package App\Models\General
+ */
 class Title extends Model
 {
-    protected $fillable = ['name', 'description', 'status_id', 'created_by', 'updated_by'];
+	/**
+	 * @var array
+	 */
+	protected $fillable = ['name', 'description', 'status_id', 'created_by', 'updated_by'];
 	
-    public function status()
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function status()
     {
     	return $this->belongsTo(Status::class);
     }
 	
+	/**
+	 * @return array
+	 */
 	public function getTableColumns() {
 		return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
 	}

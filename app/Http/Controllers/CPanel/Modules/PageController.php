@@ -13,14 +13,33 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class PageController
+ * @package App\Http\Controllers\CPanel\Modules
+ */
 class PageController extends Controller
 {
+	/**
+	 * @var PageService
+	 */
 	protected $pageService;
 	
+	/**
+	 * @var IconService
+	 */
 	protected $iconService;
 	
+	/**
+	 * @var StatusService
+	 */
 	protected $statusService;
 	
+	/**
+	 * PageController constructor.
+	 * @param PageService $pageService
+	 * @param IconService $iconService
+	 * @param StatusService $statusService
+	 */
 	public function __construct(PageService $pageService, IconService $iconService, StatusService $statusService)
 	{
 		$this->pageService = $pageService;
@@ -28,7 +47,12 @@ class PageController extends Controller
 		$this->statusService = $statusService;
 	}
 	
-    public function store(PageRequest $request)
+	/**
+	 * @param PageRequest $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
+	public function store(PageRequest $request)
     {
 	    try{
 		    DB::beginTransaction();
@@ -50,12 +74,15 @@ class PageController extends Controller
 	    }
 	    catch (\Exception $e)
 	    {
-		    DB::rollback();
 		    throw new \Exception($e->getMessage());
 	    }
     }
-
-    public function edit(Page $page)
+	
+	/**
+	 * @param Page $page
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
+	public function edit(Page $page)
     {
 	    if($page instanceof Page){
 		    return response([
@@ -66,8 +93,14 @@ class PageController extends Controller
 		    notify()->flash(trans('modules.pages.not_found'), 'error');
 	    }
     }
-	   
-    public function update(Request $request, Page $page)
+	
+	/**
+	 * @param Request $request
+	 * @param Page $page
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
+	public function update(Request $request, Page $page)
     {
 	    try{
 		    DB::beginTransaction();
@@ -89,12 +122,15 @@ class PageController extends Controller
 	    }
 	    catch (\Exception $e)
 	    {
-		    DB::rollback();
 		    throw new \Exception($e->getMessage());
 	    }
     }
 	
-    public function destroy(Page $page)
+	/**
+	 * @param Page $page
+	 * @throws \Exception
+	 */
+	public function destroy(Page $page)
     {
 	    try{
 		    $this->pageService->delete($page);

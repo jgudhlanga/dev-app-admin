@@ -10,17 +10,34 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class GenderController
+ * @package App\Http\Controllers\CPanel\General\Gender\Api
+ */
 class GenderController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var GenderService
+	 */
 	protected $genderService;
 	
+	/**
+	 * GenderController constructor.
+	 * @param GenderService $genderService
+	 */
 	public function __construct(GenderService $genderService)
 	{
 		$this->genderService = $genderService;
 	}
 	
+	/**
+	 * @param Request $request
+	 * @param Gender $gender
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
 	public function changeStatus(Request $request, Gender $gender)
 	{
 		try
@@ -35,7 +52,6 @@ class GenderController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB:rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}

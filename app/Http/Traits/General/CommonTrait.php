@@ -4,6 +4,10 @@ namespace App\Http\Traits\General;
 
 use App\Models\General\Status;
 
+/**
+ * Trait CommonTrait
+ * @package App\Http\Traits\General
+ */
 trait CommonTrait
 {
 	

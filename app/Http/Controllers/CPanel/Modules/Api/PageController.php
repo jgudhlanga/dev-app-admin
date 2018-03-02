@@ -12,23 +12,45 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class PageController
+ * @package App\Http\Controllers\Cpanel\Modules\Api
+ */
 class PageController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var PageService
+	 */
 	protected $pageService;
 	
+	/**
+	 * PageController constructor.
+	 * @param PageService $pageService
+	 */
 	public function __construct(PageService $pageService)
 	{
 		$this->pageService = $pageService;
 	}
 	
+	/**
+	 * @param Module $module
+	 * @return mixed
+	 * @throws \Exception
+	 */
 	public function getPages(Module $module)
 	{
-		$pages = $this->pageService->findBy(['module_id' => $module->id], null, null, ['position' => 'asc']);
+		$pages = $this->pageService->findBy(null, ['module_id' => $module->id], null, null, ['position' => 'asc']);
 		return Datatables::of($pages)->make(true);
 	}
 	
+	/**
+	 * @param Request $request
+	 * @param Page $page
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
 	public function changeStatus(Request $request, Page $page)
 	{
 		try
@@ -43,11 +65,16 @@ class PageController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB:rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}
 	
+	/**
+	 * @param Request $request
+	 * @param Page $page
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
 	public function order(Request $request, Page $page)
 	{
 		try
@@ -62,7 +89,6 @@ class PageController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB:rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}

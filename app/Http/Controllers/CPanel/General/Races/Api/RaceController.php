@@ -10,17 +10,34 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class RaceController
+ * @package App\Http\Controllers\CPanel\General\Races\Api
+ */
 class RaceController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var RaceService
+	 */
 	protected $raceService;
 	
+	/**
+	 * RaceController constructor.
+	 * @param RaceService $raceService
+	 */
 	public function __construct(RaceService $raceService)
 	{
 		$this->raceService = $raceService;
 	}
 	
+	/**
+	 * @param Request $request
+	 * @param Race $race
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
 	public function changeStatus(Request $request, Race $race)
 	{
 		try
@@ -35,7 +52,6 @@ class RaceController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB:rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}

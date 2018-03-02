@@ -10,17 +10,33 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class IconController
+ * @package App\Http\Controllers\CPanel\General\Icon\Api
+ */
 class IconController extends Controller
 {
 	use CommonTrait;
-
+	
+	/**
+	 * @var IconService
+	 */
 	protected $iconService;
 	
+	/**
+	 * IconController constructor.
+	 * @param IconService $iconService
+	 */
 	public function __construct(IconService $iconService)
 	{
 		$this->iconService = $iconService;
 	}
 	
+	/**
+	 * @param Request $request
+	 * @param Icon $icon
+	 * @return \Illuminate\Http\JsonResponse
+	 */
 	public function changeStatus(Request $request, Icon $icon)
 	{
 		try
@@ -36,7 +52,6 @@ class IconController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB:rollback();
 			notify()->flash(trans($e->getMessage()), 'error', ['title'=>trans('alerts.error')]);
 		}
 	}

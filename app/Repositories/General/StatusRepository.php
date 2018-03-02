@@ -6,10 +6,15 @@ namespace App\Repositories\General;
 use App\Contracts\RepositoryInterface;
 use App\Models\General\Status;
 
+/**
+ * Class StatusRepository
+ * @package App\Repositories\General
+ */
 class StatusRepository implements RepositoryInterface
 {
+	
 	/**
-	 * @var $status
+	 * @var Status
 	 */
 	protected $status;
 	
@@ -32,27 +37,36 @@ class StatusRepository implements RepositoryInterface
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $columns
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findBy( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	public function findBy($columns=[], $where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
-		$query =  DB::table('statuses AS s')
-			->select('s.*')
-			->where('i.id', '>', 0);
 		
-		if(!empty($args) && is_array($args))
+		$query = DB::table('statuses AS s');
+		if (!empty($columns)) {
+			$cols = "";
+			foreach ($columns as $column) {
+				$cols .= "s.{$column},";
+			}
+			$query->select(rtrim(',', $cols));
+		} else {
+			$query->select('s.*');
+		}
+		
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$query->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$query->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$query->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$query->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}
@@ -67,7 +81,6 @@ class StatusRepository implements RepositoryInterface
 			$query->orderBy('class', 'asc')->take($limit);
 		}
 		
-		// Paginate if we need to
 		if (!is_null($paginate)) {
 			$query->paginate($paginate);
 		}
@@ -75,24 +88,24 @@ class StatusRepository implements RepositoryInterface
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	public function findAll( $where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
 		$statuses = $this->status->where('id', '>', 0);
-		if(!empty($args) && is_array($args))
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$statuses->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$statuses->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$statuses->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$statuses->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}
@@ -107,7 +120,6 @@ class StatusRepository implements RepositoryInterface
 			$statuses->orderBy('created_at', 'desc')->take($limit);
 		}
 		
-		// Paginate if we need to
 		if (!is_null($paginate)) {
 			$statuses->paginate($paginate);
 		}
@@ -178,21 +190,21 @@ class StatusRepository implements RepositoryInterface
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @return mixed
 	 */
-	public function count($args = [])
+	public function count($where = [])
 	{
 		$count = $this->status->where('id', '>', 0);
-		if(!empty($args) && is_array($args))
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$count->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$count->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$count->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$count->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}

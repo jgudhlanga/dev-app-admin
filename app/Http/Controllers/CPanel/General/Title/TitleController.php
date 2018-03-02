@@ -13,17 +13,31 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 
+/**
+ * Class TitleController
+ * @package App\Http\Controllers\CPanel\General\Title
+ */
 class TitleController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var TitleService
+	 */
 	protected $titleService;
 	
-   public function __construct(TitleService $titleService)
+	/**
+	 * TitleController constructor.
+	 * @param TitleService $titleService
+	 */
+	public function __construct(TitleService $titleService)
    {
    	$this->titleService = $titleService;
    }
 	
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function index()
     {
 	    $titles =$this->titleService->findAll(null, null, null, ['name' => 'asc']);
@@ -31,8 +45,13 @@ class TitleController extends Controller
 	    $statusInActive = $this->getStatusInActive();
 	    return view('cpanel.general.titles', compact('titles', 'statusActive', 'statusInActive'));
     }
-    
-    public function store(TitleRequest $request)
+	
+	/**
+	 * @param TitleRequest $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws Exception
+	 */
+	public function store(TitleRequest $request)
     {
 	    try{
 		    DB::beginTransaction();
@@ -54,12 +73,15 @@ class TitleController extends Controller
 	    }
 	    catch (\Exception $e)
 	    {
-		    DB::rollback();
 		    throw new \Exception($e->getMessage());
 	    }
     }
-    
-    public function edit(Title $title)
+	
+	/**
+	 * @param Title $title
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
+	public function edit(Title $title)
     {
 	    if($title instanceof Title){
 		    return response([
@@ -70,8 +92,14 @@ class TitleController extends Controller
 		    notify()->flash(trans('titles.not_found'), 'error');
 	    }
     }
-
-    public function update(Request $request, Title $title)
+	
+	/**
+	 * @param Request $request
+	 * @param Title $title
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws Exception
+	 */
+	public function update(Request $request, Title $title)
     {
 	    try{
 		    DB::beginTransaction();
@@ -93,12 +121,15 @@ class TitleController extends Controller
 	    }
 	    catch (\Exception $e)
 	    {
-		    DB::rollback();
 		    throw new \Exception($e->getMessage());
 	    }
     }
 	
-    public function destroy(Title $title)
+	/**
+	 * @param Title $title
+	 * @throws Exception
+	 */
+	public function destroy(Title $title)
     {
 	    try{
 		    $this->titleService->delete($title);

@@ -5,37 +5,67 @@ namespace App\Repositories\General;
 use App\Contracts\RepositoryInterface;
 use App\Models\General\MemberType;
 
+/**
+ * Class MemberTypeRepository
+ * @package App\Repositories\General
+ */
 class MemberTypeRepository implements RepositoryInterface
 {
 	
+	/**
+	 * @var MemberType
+	 */
 	protected $memberType;
 	
+	/**
+	 * MemberTypeRepository constructor.
+	 * @param MemberType $memberType
+	 */
 	public function __construct(MemberType $memberType)
 	{
 		$this->memberType = $memberType;
 	}
 	
+	/**
+	 * @param $id
+	 * @return mixed
+	 */
 	public function find($id)
 	{
 		return $this->memberType->where('id', $id)->first();
 	}
 	
-	public function findBy( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	/**
+	 * @param array $columns
+	 * @param array $where
+	 * @param null $paginate
+	 * @param null $limit
+	 * @param null $orderBy
+	 * @return mixed
+	 */
+	public function findBy($columns=[], $where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
-		$query =  DB::table('member_types AS mt')
-			->leftJoin('statuses AS s', 's.id', '=', 'mt.status_id' )
-			->select('mt.*', 's.title as status')
-			->where('mt.id', '>', 0);
 		
-		if(!empty($args) && is_array($args))
+		$query = DB::table('member_types AS mt')->leftJoin('statuses AS s', 's.id', '=', 'mt.status_id');
+		if (!empty($columns)) {
+			$cols = "";
+			foreach ($columns as $column) {
+				$cols .= "mt.{$column},";
+			}
+			$query->select(rtrim(',', $cols), 's.title as status');
+		} else {
+			$query->select('mt.*', 's.title as status');
+		}
+		
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$query->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$query->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$query->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$query->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}
@@ -50,25 +80,31 @@ class MemberTypeRepository implements RepositoryInterface
 			$query->orderBy('name', 'asc')->take($limit);
 		}
 		
-		// Paginate if we need to
 		if (!is_null($paginate)) {
 			$query->paginate($paginate);
 		}
 		return $query->get();
 	}
 	
-	public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	/**
+	 * @param array $where
+	 * @param null $paginate
+	 * @param null $limit
+	 * @param null $orderBy
+	 * @return mixed
+	 */
+	public function findAll( $where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
 		$memberTypes = $this->memberType->where('id', '>', 0);
-		if(!empty($args) && is_array($args))
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$memberTypes->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$memberTypes->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$memberTypes->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$memberTypes->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}
@@ -83,7 +119,6 @@ class MemberTypeRepository implements RepositoryInterface
 			$memberTypes->orderBy('created_at', 'desc')->take($limit);
 		}
 		
-		// Paginate if we need to
 		if (!is_null($paginate)) {
 			$memberTypes->paginate($paginate);
 		}
@@ -91,16 +126,27 @@ class MemberTypeRepository implements RepositoryInterface
 		return $memberTypes->get();
 	}
 	
+	/**
+	 * @param $memberType
+	 * @return mixed
+	 */
 	public function delete($memberType)
 	{
 		return $memberType->delete();
 	}
 	
+	/**
+	 * @return array
+	 */
 	public function getTableColumns()
 	{
 		return $this->memberType->getTableColumns();
 	}
 	
+	/**
+	 * @param $params
+	 * @return mixed
+	 */
 	public function create($params)
 	{
 		$columns = $this->getTableColumns();
@@ -115,24 +161,33 @@ class MemberTypeRepository implements RepositoryInterface
 		return $created;
 	}
 	
+	/**
+	 * @param $memberType
+	 * @param $data
+	 * @return mixed
+	 */
 	public function update($memberType, $data)
 	{
 		$memberType->update($data);
 		return $memberType;
 	}
 	
-	public function count($args = [])
+	/**
+	 * @param array $where
+	 * @return mixed
+	 */
+	public function count($where = [])
 	{
 		$count = $this->memberType->where('id', '>', 0);
-		if(!empty($args) && is_array($args))
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$count->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$count->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$count->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$count->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}

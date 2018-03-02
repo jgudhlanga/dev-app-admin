@@ -5,15 +5,19 @@ namespace App\Services\Modules;
 use App\Repositories\Modules\PageRepository;
 use App\Models\Modules\Page;
 
+/**
+ * Class PageService
+ * @package App\Services\Modules
+ */
 class PageService
 {
 	/**
-	 * @var $pageRepository
+	 * @var PageRepository
 	 */
 	protected $pageRepository;
 	
 	/**
-	 * ModuleService constructor.
+	 * PageService constructor.
 	 * @param PageRepository $pageRepository
 	 */
 	public function __construct(PageRepository $pageRepository)
@@ -31,32 +35,33 @@ class PageService
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	public function findAll( $where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
-		return $this->pageRepository->findAll($args, $paginate, $limit);
+		return $this->pageRepository->findAll($where, $paginate, $limit);
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $columns
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findBy($args=[], $paginate=null, $limit=null, $orderBy=null)
+	public function findBy($columns=[], $where=[], $paginate=null, $limit=null, $orderBy=null)
 	{
-		return $this->pageRepository->findBy($args, $paginate, $limit, $orderBy);
+		return $this->pageRepository->findBy($columns, $where, $paginate, $limit, $orderBy);
 	}
 	
 	/**
 	 * @param $params
-	 * @return Page
+	 * @return mixed
 	 */
 	public function create($params)
 	{
@@ -104,12 +109,12 @@ class PageService
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @return mixed
 	 */
-	public function count($args = [])
+	public function count($where = [])
 	{
-		return $this->pageRepository->count($args);
+		return $this->pageRepository->count($where);
 	}
 }
 

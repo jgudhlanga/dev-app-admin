@@ -14,17 +14,31 @@ use Illuminate\Support\Facades\Auth;
 use Exception;
 
 
+/**
+ * Class OccupationsController
+ * @package App\Http\Controllers\Cpanel\General\Occupations
+ */
 class OccupationsController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var OccupationService
+	 */
 	protected $occupationService;
 	
+	/**
+	 * OccupationsController constructor.
+	 * @param OccupationService $occupationService
+	 */
 	public function __construct(OccupationService $occupationService)
 	{
 		$this->occupationService = $occupationService;
 	}
 	
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function index()
 	{
 		$occupations =$this->occupationService->findAll(null, null, null, ['name' => 'asc']);
@@ -33,6 +47,11 @@ class OccupationsController extends Controller
 		return view('cpanel.general.occupation', compact('occupations', 'statusActive', 'statusInActive'));
 	}
 	
+	/**
+	 * @param OccupationRequest $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws Exception
+	 */
 	public function store(OccupationRequest $request)
 	{
 		try{
@@ -55,11 +74,14 @@ class OccupationsController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB::rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}
 	
+	/**
+	 * @param Occupation $occupation
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
 	public function edit(Occupation $occupation)
 	{
 		if($occupation instanceof Occupation){
@@ -72,6 +94,12 @@ class OccupationsController extends Controller
 		}
 	}
 	
+	/**
+	 * @param Request $request
+	 * @param Occupation $occupation
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws Exception
+	 */
 	public function update(Request $request, Occupation $occupation)
 	{
 		try{
@@ -94,11 +122,14 @@ class OccupationsController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB::rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}
 	
+	/**
+	 * @param Occupation $occupation
+	 * @throws Exception
+	 */
 	public function destroy(Occupation $occupation)
 	{
 		try{

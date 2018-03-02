@@ -5,10 +5,14 @@ namespace App\Services\General;
 
 use App\Repositories\General\MaritalStatusRepository;
 
+/**
+ * Class MaritalStatusService
+ * @package App\Services\General
+ */
 class MaritalStatusService
 {
 	/**
-	 * @var $maritalStatusRepository
+	 * @var MaritalStatusRepository
 	 */
 	protected $maritalStatusRepository;
 	
@@ -31,29 +35,29 @@ class MaritalStatusService
 	}
 	
 	/**
-	 * @param array $args
+	 * @param $columns
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findBy($args=[], $paginate=null, $limit=null, $orderBy=null)
+	public function findBy($columns, $where=[], $paginate=null, $limit=null, $orderBy=null)
 	{
-		return $this->maritalStatusRepository->findBy($args, $paginate, $limit, $orderBy);
+		return $this->maritalStatusRepository->findBy($columns, $where, $paginate, $limit, $orderBy);
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	public function findAll( $where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
-		return $this->maritalStatusRepository->findAll($args, $paginate, $limit, $orderBy);
+		return $this->maritalStatusRepository->findAll($where, $paginate, $limit, $orderBy);
 	}
-	
 	
 	/**
 	 * @param $params
@@ -84,11 +88,11 @@ class MaritalStatusService
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @return mixed
 	 */
-	public function count($args = [])
+	public function count($where = [])
 	{
-		return $this->maritalStatusRepository->count($args);
+		return $this->maritalStatusRepository->count($where);
 	}
 }

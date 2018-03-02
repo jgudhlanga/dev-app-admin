@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: James
- * Date: 2018/01/07
- * Time: 07:27 AM
- */
 
 namespace App\Repositories\General;
 
@@ -12,14 +6,23 @@ namespace App\Repositories\General;
 use App\Contracts\RepositoryInterface;
 use App\Models\General\Icon;
 
+/**
+ * Class IconRepository
+ * @package App\Repositories\General
+ */
 class IconRepository implements RepositoryInterface
 {
+	
 	/**
-	 * @var $icon
+	 * @var Icon
 	 */
 	protected $icon;
 	
 	
+	/**
+	 * IconRepository constructor.
+	 * @param Icon $icon
+	 */
 	public function __construct(Icon $icon)
 	{
 		$this->icon = $icon;
@@ -34,29 +37,38 @@ class IconRepository implements RepositoryInterface
 		return $this->icon->where('id', $id)->first();
 	}
 	
+	
 	/**
-	 * @param array $args
+	 * @param array $columns
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findBy( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	public function findBy($columns=[], $where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
-		$query =  DB::table('icons AS i')
-			->leftJoin('statuses AS s', 's.id', '=', 'i.status_id' )
-			->select('i.*', 's.title as status')
-			->where('i.id', '>', 0);
 		
-		if(!empty($args) && is_array($args))
+		$query = DB::table('icons AS i')->leftJoin('statuses AS s', 's.id', '=', 'i.status_id');
+		if (!empty($columns)) {
+			$cols = "";
+			foreach ($columns as $column) {
+				$cols .= "i.{$column},";
+			}
+			$query->select(rtrim(',', $cols), 's.title as status');
+		} else {
+			$query->select('i.*', 's.title as status');
+		}
+		
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$query->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$query->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$query->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$query->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}
@@ -71,7 +83,6 @@ class IconRepository implements RepositoryInterface
 			$query->orderBy('class', 'asc')->take($limit);
 		}
 		
-		// Paginate if we need to
 		if (!is_null($paginate)) {
 			$query->paginate($paginate);
 		}
@@ -79,24 +90,24 @@ class IconRepository implements RepositoryInterface
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	public function findAll( $where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
 		$icons = $this->icon->where('id', '>', 0);
-		if(!empty($args) && is_array($args))
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$icons->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$icons->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$icons->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$icons->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}
@@ -111,7 +122,6 @@ class IconRepository implements RepositoryInterface
 			$icons->orderBy('created_at', 'desc')->take($limit);
 		}
 		
-		// Paginate if we need to
 		if (!is_null($paginate)) {
 			$icons->paginate($paginate);
 		}
@@ -127,8 +137,6 @@ class IconRepository implements RepositoryInterface
 	{
 		return $icon->delete();
 	}
-	
-	
 	
 	/**
 	 * @return array
@@ -168,21 +176,21 @@ class IconRepository implements RepositoryInterface
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @return mixed
 	 */
-	public function count($args = [])
+	public function count($where = [])
 	{
 		$count = $this->icon->where('id', '>', 0);
-		if(!empty($args) && is_array($args))
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$count->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$count->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$count->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$count->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}

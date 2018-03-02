@@ -11,17 +11,34 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\DB;
 use Exception;
 
+/**
+ * Class MaritalStatusController
+ * @package App\Http\Controllers\CPanel\General\MaritalStatus\Api
+ */
 class MaritalStatusController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var MaritalStatusService
+	 */
 	protected $maritalStatusService;
 	
+	/**
+	 * MaritalStatusController constructor.
+	 * @param MaritalStatusService $maritalStatusService
+	 */
 	public function __construct(MaritalStatusService $maritalStatusService)
 	{
 		$this->maritalStatusService = $maritalStatusService;
 	}
 	
+	/**
+	 * @param Request $request
+	 * @param MaritalStatus $maritalStatus
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws Exception
+	 */
 	public function changeStatus(Request $request, MaritalStatus $maritalStatus)
 	{
 		try
@@ -36,7 +53,6 @@ class MaritalStatusController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB:rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}

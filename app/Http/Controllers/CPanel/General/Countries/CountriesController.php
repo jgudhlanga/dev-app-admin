@@ -13,17 +13,31 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 
+/**
+ * Class CountriesController
+ * @package App\Http\Controllers\CPanel\General\Countries
+ */
 class CountriesController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var CountryService
+	 */
 	protected $countryService;
 	
+	/**
+	 * CountriesController constructor.
+	 * @param CountryService $countryService
+	 */
 	public function __construct(CountryService $countryService)
 	{
 		$this->countryService = $countryService;
 	}
 	
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function index()
 	{
 		$countries =$this->countryService->findAll(null, null, null, ['name' => 'asc']);
@@ -32,6 +46,11 @@ class CountriesController extends Controller
 		return view('cpanel.general.countries', compact('countries', 'statusActive', 'statusInActive'));
 	}
 	
+	/**
+	 * @param CountryRequest $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws Exception
+	 */
 	public function store(CountryRequest $request)
 	{
 		try{
@@ -54,11 +73,14 @@ class CountriesController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB::rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}
 	
+	/**
+	 * @param Country $country
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
 	public function edit(Country $country)
 	{
 		if($country instanceof Country){
@@ -71,6 +93,12 @@ class CountriesController extends Controller
 		}
 	}
 	
+	/**
+	 * @param Request $request
+	 * @param Country $country
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws Exception
+	 */
 	public function update(Request $request, Country $country)
 	{
 		try{
@@ -93,11 +121,14 @@ class CountriesController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			DB::rollback();
 			throw new \Exception($e->getMessage());
 		}
 	}
 	
+	/**
+	 * @param Country $country
+	 * @throws Exception
+	 */
 	public function destroy(Country $country)
 	{
 		try{

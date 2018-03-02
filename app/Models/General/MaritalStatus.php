@@ -4,6 +4,10 @@ namespace App\Models\General;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class MaritalStatus
+ * @package App\Models\General
+ */
 class MaritalStatus extends Model
 {
 	/**

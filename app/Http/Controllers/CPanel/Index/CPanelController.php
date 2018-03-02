@@ -17,23 +17,82 @@ use App\Services\General\TitleService;
 use App\Services\Security\PermissionService;
 use App\Services\Security\RoleService;
 
+/**
+ * Class CpanelController
+ * @package App\Http\Controllers\CPanel\Index
+ */
 class CpanelController extends Controller
 {
-    protected $moduleService;
+	/**
+	 * @var ModuleService
+	 */
+	protected $moduleService;
+	/**
+	 * @var TitleService
+	 */
 	protected $titleService;
+	/**
+	 * @var IconService
+	 */
 	protected $iconService;
+	/**
+	 * @var StatusService
+	 */
 	protected $statusService;
+	/**
+	 * @var MaritalStatusService
+	 */
 	protected $maritalStatusService;
+	/**
+	 * @var GenderService
+	 */
 	protected $genderService;
+	/**
+	 * @var OccupationService
+	 */
 	protected $occupationService;
+	/**
+	 * @var RaceService
+	 */
 	protected $raceService;
+	/**
+	 * @var CountryService
+	 */
 	protected $countryService;
+	/**
+	 * @var MemberTypeService
+	 */
 	protected $memberTypeService;
+	/**
+	 * @var AddressTypeService
+	 */
 	protected $addressTypeService;
+	/**
+	 * @var RoleService
+	 */
 	protected $roleService;
+	/**
+	 * @var PermissionService
+	 */
 	protected $permissionService;
 	
-    public function __construct(ModuleService $modulesService, StatusService $statusService, IconService $iconService,
+	/**
+	 * CpanelController constructor.
+	 * @param ModuleService $modulesService
+	 * @param StatusService $statusService
+	 * @param IconService $iconService
+	 * @param TitleService $titleService
+	 * @param MaritalStatusService $maritalStatusService
+	 * @param GenderService $genderService
+	 * @param OccupationService $occupationService
+	 * @param RaceService $raceService
+	 * @param CountryService $countryService
+	 * @param MemberTypeService $memberTypeService
+	 * @param AddressTypeService $addressTypeService
+	 * @param PermissionService $permissionService
+	 * @param RoleService $roleService
+	 */
+	public function __construct(ModuleService $modulesService, StatusService $statusService, IconService $iconService,
 	    TitleService $titleService,MaritalStatusService $maritalStatusService, GenderService $genderService,
 	    OccupationService $occupationService,RaceService $raceService, CountryService $countryService,
 	    MemberTypeService $memberTypeService, AddressTypeService $addressTypeService, PermissionService $permissionService,
@@ -53,8 +112,11 @@ class CpanelController extends Controller
 	    $this->permissionService = $permissionService;
 	    $this->roleService = $roleService;
     }
-    
-    public function index()
+	
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+	public function index()
     {
         $moduleCount = $this->moduleService->count(null);
 	    $statusCount = $this->statusService->count(null);

@@ -10,10 +10,17 @@ namespace App\Models\Modules;
 use App\Models\General\Status;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Module
+ * @package App\Models\Modules
+ */
 class Module extends Model
 {
 	
-    protected $fillable = ['title', 'description', 'class', 'module_url', 'status_id','position','created_by', 'updated_by'];
+	/**
+	 * @var array
+	 */
+	protected $fillable = ['title', 'description', 'class', 'module_url', 'status_id','position','created_by', 'updated_by'];
 	
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

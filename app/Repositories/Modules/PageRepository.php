@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: James
- * Date: 2017/12/17
- * Time: 05:49 PM
- */
 
 namespace App\Repositories\Modules;
 
@@ -12,10 +6,15 @@ use App\Contracts\RepositoryInterface;
 use App\Models\Modules\Page;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class PageRepository
+ * @package App\Repositories\Modules
+ */
 class PageRepository implements RepositoryInterface
 {
+	
 	/**
-	 * @var $page
+	 * @var Page
 	 */
 	protected $page;
 	
@@ -38,28 +37,36 @@ class PageRepository implements RepositoryInterface
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $columns
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findBy( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	public function findBy($columns=[], $where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
-		$query =  DB::table('pages AS p')
-			->leftJoin('statuses AS s', 's.id', '=', 'p.status_id' )
-			->select('p.*', 's.title as status')
-			->where('p.id', '>', 0);
 		
-		if(!empty($args) && is_array($args))
+		$query = DB::table('pages AS p')->leftJoin('statuses AS s', 's.id', '=', 'p.status_id');
+		if (!empty($columns)) {
+			$cols = "";
+			foreach ($columns as $column) {
+				$cols .= "p.{$column},";
+			}
+			$query->select(rtrim(',', $cols), 's.title as status');
+		} else {
+			$query->select('p.*', 's.title as status');
+		}
+		
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$query->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$query->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$query->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$query->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}
@@ -82,24 +89,24 @@ class PageRepository implements RepositoryInterface
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @param null $paginate
 	 * @param null $limit
 	 * @param null $orderBy
 	 * @return mixed
 	 */
-	public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	public function findAll( $where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
 		$pages = $this->page->where('id', '>', 0);
-		if(!empty($args) && is_array($args))
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$pages->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$pages->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$pages->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$pages->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}
@@ -217,21 +224,21 @@ class PageRepository implements RepositoryInterface
 	}
 	
 	/**
-	 * @param array $args
+	 * @param array $where
 	 * @return mixed
 	 */
-	public function count($args = [])
+	public function count($where = [])
 	{
 		$count = $this->page->where('id', '>', 0);
-		if(!empty($args) && is_array($args))
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$count->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$count->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$count->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$count->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}

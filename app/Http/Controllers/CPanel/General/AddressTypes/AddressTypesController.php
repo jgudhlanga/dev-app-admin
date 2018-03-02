@@ -13,17 +13,31 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 
+/**
+ * Class AddressTypesController
+ * @package App\Http\Controllers\CPanel\General\AddressTypes
+ */
 class AddressTypesController extends Controller
 {
 	use CommonTrait;
 	
+	/**
+	 * @var AddressTypeService
+	 */
 	protected $addressTypeService;
 	
+	/**
+	 * AddressTypesController constructor.
+	 * @param AddressTypeService $addressTypeService
+	 */
 	public function __construct(AddressTypeService $addressTypeService)
 	{
 		$this->addressTypeService = $addressTypeService;
 	}
 	
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function index()
 	{
 		$addressTypes =$this->addressTypeService->findAll(null, null, null, ['name' => 'asc']);
@@ -32,6 +46,11 @@ class AddressTypesController extends Controller
 		return view('cpanel.general.address-types', compact('addressTypes', 'statusActive', 'statusInActive'));
 	}
 	
+	/**
+	 * @param AddressTypeRequest $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws Exception
+	 */
 	public function store(AddressTypeRequest $request)
 	{
 		try{
@@ -59,6 +78,10 @@ class AddressTypesController extends Controller
 		}
 	}
 	
+	/**
+	 * @param AddressType $addressType
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+	 */
 	public function edit(AddressType $addressType)
 	{
 		if($addressType instanceof AddressType){
@@ -71,6 +94,12 @@ class AddressTypesController extends Controller
 		}
 	}
 	
+	/**
+	 * @param Request $request
+	 * @param AddressType $addressType
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws Exception
+	 */
 	public function update(Request $request, AddressType $addressType)
 	{
 		try{
@@ -98,6 +127,10 @@ class AddressTypesController extends Controller
 		}
 	}
 	
+	/**
+	 * @param AddressType $addressType
+	 * @throws Exception
+	 */
 	public function destroy(AddressType $addressType)
 	{
 		try{

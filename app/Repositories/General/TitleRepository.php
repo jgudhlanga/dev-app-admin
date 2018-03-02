@@ -5,37 +5,67 @@ namespace App\Repositories\General;
 use App\Contracts\RepositoryInterface;
 use App\Models\General\Title;
 
+/**
+ * Class TitleRepository
+ * @package App\Repositories\General
+ */
 class TitleRepository implements RepositoryInterface
 {
 	
+	/**
+	 * @var Title
+	 */
 	protected $title;
 	
+	/**
+	 * TitleRepository constructor.
+	 * @param Title $title
+	 */
 	public function __construct(Title $title)
 	{
 		$this->title = $title;
 	}
 	
+	/**
+	 * @param $id
+	 * @return mixed
+	 */
 	public function find($id)
 	{
 		return $this->title->where('id', $id)->first();
 	}
 	
-	public function findBy( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	/**
+	 * @param array $columns
+	 * @param array $where
+	 * @param null $paginate
+	 * @param null $limit
+	 * @param null $orderBy
+	 * @return mixed
+	 */
+	public function findBy($columns=[],$where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
-		$query =  DB::table('titles AS t')
-			->leftJoin('statuses AS s', 's.id', '=', 't.status_id' )
-			->select('t.*', 's.title as status')
-			->where('t.id', '>', 0);
 		
-		if(!empty($args) && is_array($args))
+		$query = DB::table('titles AS t')->leftJoin('statuses AS s', 's.id', '=', 't.status_id');
+		if (!empty($columns)) {
+			$cols = "";
+			foreach ($columns as $column) {
+				$cols .= "t.{$column},";
+			}
+			$query->select(rtrim(',', $cols), 's.title as status');
+		} else {
+			$query->select('t.*', 's.title as status');
+		}
+		
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$query->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$query->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$query->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$query->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}
@@ -50,25 +80,31 @@ class TitleRepository implements RepositoryInterface
 			$query->orderBy('name', 'asc')->take($limit);
 		}
 		
-		// Paginate if we need to
 		if (!is_null($paginate)) {
 			$query->paginate($paginate);
 		}
 		return $query->get();
 	}
 	
-	public function findAll( $args=[], $paginate=null, $limit=null, $orderBy=null )
+	/**
+	 * @param array $where
+	 * @param null $paginate
+	 * @param null $limit
+	 * @param null $orderBy
+	 * @return mixed
+	 */
+	public function findAll( $where=[], $paginate=null, $limit=null, $orderBy=null )
 	{
 		$titles = $this->title->where('id', '>', 0);
-		if(!empty($args) && is_array($args))
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$titles->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$titles->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$titles->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$titles->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}
@@ -80,10 +116,9 @@ class TitleRepository implements RepositoryInterface
 			}
 		}
 		else{
-			$titles->orderBy('created_at', 'desc')->take($limit);
+			$titles->orderBy('name', 'asc')->take($limit);
 		}
 		
-		// Paginate if we need to
 		if (!is_null($paginate)) {
 			$titles->paginate($paginate);
 		}
@@ -91,16 +126,27 @@ class TitleRepository implements RepositoryInterface
 		return $titles->get();
 	}
 	
+	/**
+	 * @param $title
+	 * @return mixed
+	 */
 	public function delete($title)
 	{
 		return $title->delete();
 	}
 	
+	/**
+	 * @return array
+	 */
 	public function getTableColumns()
 	{
 		return $this->title->getTableColumns();
 	}
 	
+	/**
+	 * @param $params
+	 * @return mixed
+	 */
 	public function create($params)
 	{
 		$columns = $this->getTableColumns();
@@ -115,24 +161,33 @@ class TitleRepository implements RepositoryInterface
 		return $created;
 	}
 	
+	/**
+	 * @param $title
+	 * @param $data
+	 * @return mixed
+	 */
 	public function update($title, $data)
 	{
 		$title->update($data);
 		return $title;
 	}
 	
-	public function count($args = [])
+	/**
+	 * @param array $where
+	 * @return mixed
+	 */
+	public function count($where = [])
 	{
 		$count = $this->title->where('id', '>', 0);
-		if(!empty($args) && is_array($args))
+		if(!empty($where) && is_array($where))
 		{
-			for ($i=0; $i<count($args); $i++)
+			for ($i=0; $i<count($where); $i++)
 			{
-				if(is_array(array_values($args)[$i])){
-					$count->wherein(array_keys($args)[$i],array_values($args)[$i]);
+				if(is_array(array_values($where)[$i])){
+					$count->wherein(array_keys($where)[$i],array_values($where)[$i]);
 				}
 				else{
-					$count->where(array_keys($args)[$i], '=', array_values($args)[$i]);
+					$count->where(array_keys($where)[$i], '=', array_values($where)[$i]);
 				}
 			}
 		}

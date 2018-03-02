@@ -2,7 +2,7 @@
 	font-family: 'Glyphicons Halflings';
 	content: "\e082";
 	float: right;
-	color: #38c9de;
+	color: $text-color;
 }
 .panel-heading .accordion-toggle.collapsed:after {
 	content: "\e081";
