@@ -27,7 +27,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li>
-                        <a href="{{ url('cpanel') }}" class="fa fa-angle-right text-bold">
+                        <a href="{{ url('cpanel') }}" class="fa fa-angle-right">
                             @choice('general.system',1)&nbsp;@choice('general.setting',2)
                         </a>
                     </li>

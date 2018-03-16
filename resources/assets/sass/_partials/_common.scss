@@ -31,6 +31,26 @@
 .margin-20{
 	margin: 20px !important;
 }
+
+.border-right {
+	border-right: 1px solid lighten($text-color, 40%) !important;
+}
 .border-top {
-	border-top: 1px solid $text-color !important;
+	border-top: 1px solid lighten($text-color, 40%) !important;
+}
+/* PADDING */
+.padding-bottom-5{
+	padding-bottom: 5px !important;
+}
+.padding-left-5{
+	padding-left: 5px !important;
+}
+.padding-right-5{
+	padding-left: 5px !important;
+}
+.padding-top-5{
+	padding-top: 5px !important;
+}
+.padding-5{
+	padding: 5px !important;
 }

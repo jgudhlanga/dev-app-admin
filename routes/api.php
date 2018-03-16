@@ -66,6 +66,11 @@ Route::group(['prefix' => 'cpanel'], function (){
 	});
 });
 
+/* USERS ROUTES */
+Route::group(['prefix' => 'users'], function () {
+	Route::get('/get-users', 'Users\Api\UsersController@getUsers');
+	Route::put('/change-user-status/{user}', 'Users\Api\UsersController@changeStatus');
+});
 
 /*AUTH ROUTE*/
 Route::middleware('auth:api')->get('/user', function (Request $request) {
@@ -81,7 +86,7 @@ Route::group(['prefix' => 'products'], function (){
 });*/
 
 /*USER ROUTES
-Route::apiResource('/users', 'Users\Api\UserController');*/
+Route::apiResource('/users', 'Users\Api\UsersController');*/
 
 
 

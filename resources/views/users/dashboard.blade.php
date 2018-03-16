@@ -1,7 +1,7 @@
 @extends('layouts.main.app-template')
 @section('content')
     <section class="content-header">
-        <h1 class="h1">{{trans('users.dashboard')}}</h1>
+        <h1 class="h1">@choice('users.user', 1) {{trans('general.dashboard')}}</h1>
         <ol class="breadcrumb">
             <li><a href="{{ url('home') }}"><i class="fa fa-home"></i>{{trans('general.home')}}</a></li>
         </ol>

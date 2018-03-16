@@ -3,6 +3,7 @@ return [
 	'user' => 'User|Users',
 	'not_found' => 'User Record not found',
 	'placeholders' => [
+	
 	],
 	'alerts' => [
 		'created' => 'User Successfully Created',

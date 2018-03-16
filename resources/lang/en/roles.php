@@ -6,6 +6,7 @@ return [
 	'name' => 'Name',
 	'description' => 'Description',
 	'not_found' => 'The Role Record not found',
+	'no_records' => 'No roles found!',
 	'create' => 'Create Role',
 	'edit' => 'Edit Role',
 	'placeholders' => [

@@ -57,5 +57,5 @@ Route::resource('procurement', 'Procurement\Index\ProcurementController');
 
 
 /*USERS ROUTES*/
-Route::resource('users', 'Users\UserController');
+Route::resource('users', 'Users\UsersController');
 

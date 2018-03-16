@@ -35,6 +35,10 @@ class ModulesSeeder extends Seeder
 			    'id' => 5, 'title' => 'HMS', 'description' => 'Hostel Management','class' => 'fa fa-bed',
 			    'module_url' => 'hms', 'status_id' => Status::ACTIVE, 'position' => 5, 'created_by' => 1
 		    ],
+	    	6 => [
+			    'id' => 6, 'title' => 'Users', 'description' => 'User Management','class' => 'fa fa-group',
+			    'module_url' => 'users', 'status_id' => Status::ACTIVE, 'position' => 6, 'created_by' => 1
+		    ],
 	    ];
 	
 	    foreach ($data as $row)

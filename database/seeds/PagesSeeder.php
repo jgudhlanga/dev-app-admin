@@ -56,6 +56,19 @@ class PagesSeeder extends Seeder
 			    'id' => 9,'title' => 'Dashboard', 'module_id' => 5, 'class' => 'fa fa-angle-right',
 			    'page_url' => 'hms','status_id' => Status::ACTIVE, 'position' => 1, 'created_by' => 1
 		    ],
+		    /* USER PAGES */
+		    10 => [
+			    'id' => 10,'title' => 'Add User', 'module_id' => 6, 'class' => 'fa fa-angle-right',
+			    'page_url' => 'users/create','status_id' => Status::ACTIVE, 'position' => 1, 'created_by' => 1
+		    ],
+		    11 => [
+			    'id' => 11,'title' => 'Dashboard', 'module_id' => 6, 'class' => 'fa fa-angle-right',
+			    'page_url' => 'users/dashboard','status_id' => Status::ACTIVE, 'position' => 2, 'created_by' => 1
+		    ],
+		    12 => [
+			    'id' => 12,'title' => 'User List', 'module_id' => 6, 'class' => 'fa fa-angle-right',
+			    'page_url' => 'users','status_id' => Status::ACTIVE, 'position' => 3, 'created_by' => 1
+		    ],
 	    ];
 	
 	    foreach ($data as $row)

@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Gender extends Model
 {
+	const MALE = 1;
+	const FEMALE = 2;
+	const UNKNOWN = 3;
 	/**
 	 * @var array
 	 */

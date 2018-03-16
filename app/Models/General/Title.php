@@ -10,6 +10,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Title extends Model
 {
+	const MR = 1;
+	const MRS = 2;
+	const DR = 3;
+	
 	/**
 	 * @var array
 	 */
