@@ -1,4 +1,4 @@
-<div class="row col-md-8">
+<div class="col-md-6">
     <div class="form-group">
         <label for="title_id" class="col-md-3 control-label text-left">@lang('general.people.title')
             <i class="fa fa-asterisk asterisk"></i>
@@ -70,17 +70,33 @@
             <i class="fa fa-asterisk asterisk"></i>
         </label>
         <div class="col-md-9">
-            <input type="password" class="form-control input-sm" name="password" id="password" required>
+            <input type="password" class="form-control input-sm" name="password" id="password"
+               @if(isset($user) && !empty($user))
+                   value="{{$user->password}}"
+                   disabled
+               @else
+                   required
+               @endif
+            >
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group @if(isset($user) && !empty($user)) hide @endif">
         <label for="c_password" class="col-md-3 control-label text-left">@lang('general.people.c_password')
             <i class="fa fa-asterisk asterisk"></i>
         </label>
         <div class="col-md-9">
-            <input type="password" class="form-control input-sm" name="c_password" id="c_password" required>
+            <input type="password" class="form-control input-sm" name="c_password" id="c_password"
+               @if(isset($user) && !empty($user))
+                    value="{{$user->password}}"
+                    disabled
+               @else
+                    required
+                @endif
+            >
         </div>
     </div>
+</div>
+<div class="col-md-6">
     <div class="form-group">
         <label for="email" class="col-md-3 control-label text-left">@lang('general.email')
             <i class="fa fa-asterisk asterisk"></i>
@@ -98,22 +114,12 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="profile_picture" class="col-md-3 control-label text-left">@lang('general.people.profile_picture')</label>
+        <label class="col-md-3 control-label text-left">@choice('roles.title', 2)</label>
         <div class="col-md-9">
-            <input type="file" class="form-control input-sm" name="profile_picture" id="profile_picture">
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="caption-title-div">
-            <div class="caption-title ">@choice('roles.title',2)</div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        @if(count($roles) > 0)
-            @foreach($roles->chunk(4) as $chunk)
-                <div class="row margin-top-5">
+            @if(count($roles) > 0)
+                @foreach($roles->chunk(2) as $chunk)
                     @foreach($chunk as $role)
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="checkbox checkbox-success">
                                 <input id="{{$role->id}}"  type="checkbox"  name="roles[{{$role->id}}]" value="{{$role->id}}"
                                         @php
@@ -125,12 +131,14 @@
                             </div>
                         </div>
                     @endforeach
+                @endforeach
+            @else
+                <div class="col-md-12 alert alert-warning" role="alert">
+                    @lang('roles.no_records')
                 </div>
-            @endforeach
-        @else
-            <div class="col-md-12 alert alert-warning" role="alert">
-                @lang('roles.no_records')
-            </div>
-        @endif
+            @endif
+        </div>
     </div>
+
 </div>
+

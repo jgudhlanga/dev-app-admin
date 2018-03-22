@@ -70,6 +70,7 @@ Route::group(['prefix' => 'cpanel'], function (){
 Route::group(['prefix' => 'users'], function () {
 	Route::get('/get-users', 'Users\Api\UsersController@getUsers');
 	Route::put('/change-user-status/{user}', 'Users\Api\UsersController@changeStatus');
+	Route::put('upload-profile-picture/{user}', 'Users\Api\UsersController@uploadProfilePicture')->name('users.upload-profile-picture');
 });
 
 /*AUTH ROUTE*/

@@ -40,7 +40,7 @@
 							}
 							return '' +
 								'<a class="btn btn-xs btn-default" href="{{ url()->current() }}/' + data + '">' +
-								'<i class="fa fa-file"></i>&nbsp;{{ trans("buttons.edit") }}</a>&nbsp;' +
+								'<i class="fa fa-user"></i>&nbsp;{{ trans_choice("general.profile",1) }}</a>&nbsp;' +
 								'<a class="btn btn-xs ' + changeStatusBtnClass + '" onclick="changeStatus(' + data + ')">' +
 								'<i class="fa fa-toggle-off"></i>&nbsp;' + changeStatusBtnTitle + '</a>&nbsp;' +
 								'<a class="btn btn-xs btn-danger" onclick="deleteUser(' + data + ')">' +
@@ -98,7 +98,7 @@
 		/*
         * UPDATE USER
         * */
-		$('#editUserForm').validator().on('submit', function (e) {
+		$('#editUserForm, #userSocialMediaForm').validator().on('submit', function (e) {
 			if (e.isDefaultPrevented()) {
 				swal({
 					title: "{{ trans('alerts.error') }}",
@@ -115,7 +115,7 @@
 				$.ajax({
 					url: url,
 					type: "PUT",
-					data: $('#editUserForm').serialize()
+					data: $(this).serialize()
 				})
 					.success(function (data) {
 						if (data.user.id) {

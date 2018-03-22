@@ -22,6 +22,7 @@ return [
 	'update' => 'Update',
 	'activate' => 'Update',
 	'other' => 'Other',
+	'select' => 'Select',
 	'id' => 'ID',
 	'email' => 'Email',
 	'fax' => 'Fax',
@@ -29,6 +30,10 @@ return [
 	'check_all' => 'Check All',
 	'website' => 'Website',
 	'list' => 'List|Lists',
+	'profile' => 'Profile|Profiles',
+	'detail' => 'Detail|Details',
+	'social_media' => 'Social Media',
+	'gallery' => 'Gallery',
 	'placeholders' => [
 		'name' => 'enter your marital-status name here',
 		'description' => 'enter your marital-status description here',
@@ -52,6 +57,6 @@ return [
 		'c_password' => 'C Password',
 		'cell_number' => 'Cell',
 		'tel_number' => 'Telephone',
-		'profile_picture' => 'Profile Pic',
+		'upload' => 'Upload Profile Picture',
 	],
 ];

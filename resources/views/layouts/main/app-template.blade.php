@@ -3,7 +3,7 @@
   <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>{{trans('jdev.app-title')}}</title>
+      <title>{{trans('system.app-title')}}</title>
       <!--Styles-->
       @include('layouts._partials.styles')
       <link rel="icon" href="{{ URL::asset('images/favicon.png') }}" type="image/png">

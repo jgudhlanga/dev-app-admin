@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ URL::asset('images/favicon.png') }}" type="image/png">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'J-PORTAL') }}</title>
     <!-- Styles -->
     @include('layouts._partials.styles')
     <script>

@@ -94,5 +94,24 @@ class UserService
 	{
 		return $this->userRepository->count($where);
 	}
+	
+	/**
+	 * @param $user
+	 * @param $request
+	 * @return mixed
+	 */
+	public function uploadProfilePicture($user, $request)
+	{
+		return $this->userRepository->uploadProfilePicture($user, $request);
+	}
+	
+	/**
+	 * @param $user
+	 * @return string
+	 */
+	public function getUserProfilePicture($user)
+	{
+		return $this->userRepository->getUserProfilePicture($user);
+	}
 }
 
