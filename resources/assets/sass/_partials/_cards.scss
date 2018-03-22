@@ -5,9 +5,9 @@
 	-webkit-border-top-left-radius:5px;
 	-moz-border-top-left-radius:5px;
 	border-top-left-radius:5px;
-	-webkit-border-top-right-radius:5px;
+	//-webkit-border-top-right-radius:5px;
 	-moz-border-top-right-radius:5px;
-	border-top-right-radius:5px;
+	//border-top-right-radius:5px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -19,7 +19,6 @@
 	text-align: center;
 	background-color: #fff;
 	background-color: rgba(255, 255, 255, 1);
-	margin-right: 30px;
 }
 .card.hovercard .card-background {
 	height: 130px;
@@ -60,8 +59,8 @@
 	padding:0 5px;
 	font-size: 20px;
 	line-height: 1;
+	font-weight: bold;
 	color: #262626;
-	background-color: rgba(255, 255, 255, 0.1);
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
@@ -79,4 +78,7 @@
 }
 .btn-pref .btn {
 	-webkit-border-radius:0 !important;
+}
+.well{
+	background-color: #FFFFFF !important;
 }

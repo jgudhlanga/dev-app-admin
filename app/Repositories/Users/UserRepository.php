@@ -5,6 +5,9 @@ namespace App\Repositories\Users;
 use App\Contracts\RepositoryInterface;
 use App\Models\Users\User;
 use Illuminate\Support\Facades\DB;
+use Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class UserRepository
@@ -149,52 +152,66 @@ class UserRepository implements RepositoryInterface
 	}
 	
 	/**
-	 * @param $params
+	 * @param $request
 	 * @return mixed
 	 */
-	public function create($params)
+	public function create($request)
 	{
 		$columns = $this->getTableColumns();
 		$skip = ['id', 'created_at', 'updated_at', 'status_id', 'roles'];
+		$params = $request->all();
 		$data = [];
-		foreach ( $columns as $column ) {
-			if(in_array($column, $skip)) {
-				continue;
-			}
-			$data[$column] = (isset($params[$column]) && $params[$column] != '') ? $params[$column] : NULL;
+		$data['created_by'] = Auth::id();
+		foreach ( $params as $key => $value ) {
+			if(in_array($key, $skip)) continue;
+			if(!in_array($key, $columns)) continue;
+			$data[$key] = ($value != '') ? $value : NULL;
 		}
 		
+		if(isset($data['password'])) {
+			$data['password'] = bcrypt($data['password']);
+		}
 		$user = User::create($data);
 		if(isset($params['roles']))
-			$this->syncRoles($user, $params['roles']);
+			$user = $this->syncRoles($user, $params['roles']);
+			
 		return $user;
 	}
+	
 	
 	/**
 	 * @param User $user
 	 * @param array $roles
+	 * @return User
 	 */
 	public function syncRoles(User $user, $roles=[])
 	{
 		if((!empty($roles)) && (count($roles) > 0))
 			$user->roles()->sync($roles);
+		return $user;
 	}
 	
 	/**
 	 * @param $user
-	 * @param $data
+	 * @param $request
 	 * @return mixed
 	 */
-	public function update($user, $data)
+	public function update($user, $request)
 	{
-		$roles = [];
-		if(isset($data['roles']))
-		{
-			$roles = $data['roles'];
-			unset($data['roles']);
+		$params = $request->all();
+		$data = [];
+		$columns = $this->getTableColumns();
+		$skip = ['roles', 'edit_id'];
+		foreach ( $params as $key => $value ) {
+			if((in_array($key, $skip)) || (!in_array($key, $columns))) {
+				continue;
+			}
+			$data[$key] = ($value != '') ? $value : NULL;
 		}
+		
 		$user->update($data);
-		$this->syncRoles($user, $roles);
+		if(isset($params['roles']))
+			$user = $this->syncRoles($user, $params['roles']);
 		return $user;
 	}
 	
@@ -219,5 +236,38 @@ class UserRepository implements RepositoryInterface
 		}
 		
 		return $count->count();
+	}
+	
+	/**
+	 * @param $request
+	 * @param $user
+	 * @return mixed
+	 */
+	public function uploadProfilePicture($user, $request)
+	{
+		if ($request->hasFile('profile_picture')) {
+			$file = $request->file('profile_picture');
+			$ext = $file->getClientOriginalExtension();
+			$fileName = $user->email . '_' . time() . '.' . $ext;
+			$file->storeAs(
+				config('system.uploads.users') . $user->id, $fileName
+			);
+			$user->update(['profile_picture' => $fileName]);
+		}
+		return $user;
+	}
+	
+	/**
+	 * @param $user
+	 * @return string
+	 */
+	public function getUserProfilePicture($user)
+	{
+		/* Profile picture */
+		$profileImage = "unknown.png";
+		if(File::exists(storage_path(config('system.storage_path.users').$user->id.'/'.$user->profile_picture))) {
+			$profileImage = $user->id.'/'.$user->profile_picture;
+		}
+		return $profileImage;
 	}
 }

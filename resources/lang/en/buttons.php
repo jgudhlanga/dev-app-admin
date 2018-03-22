@@ -18,5 +18,6 @@ return [
 	'back' => 'Back',
 	'view' => 'View',
 	'up' => 'Up',
+	'upload' => 'Upload',
 	'down' => 'Down',
 ];

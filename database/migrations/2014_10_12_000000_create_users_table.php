@@ -27,6 +27,16 @@ class CreateUsersTable extends Migration
 	        $table->integer('gender_id')->nullable();
 	        $table->integer('status_id')->default(Status::ACTIVE)->nullable();
 	        $table->integer('title_id')->nullable();
+	        $table->string('facebook')->nullable();
+	        $table->string('twitter')->nullable();
+	        $table->string('google_plus')->nullable();
+	        $table->string('linkedin')->nullable();
+	        $table->string('skype')->nullable();
+	        $table->string('youtube')->nullable();
+	        $table->string('whatsapp')->nullable();
+	        $table->string('github')->nullable();
+	        $table->string('bitbucket')->nullable();
+	        $table->string('gitlab')->nullable();
 	        $table->integer('created_by')->nullable();
 	        $table->integer('updated_by')->nullable();
 	        $table->rememberToken();

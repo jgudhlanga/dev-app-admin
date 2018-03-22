@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\DB;
 use Auth;
+use Illuminate\Support\Facades\File;
 
 /**
  * Class UsersController
@@ -97,9 +98,7 @@ class UsersController extends Controller
 	{
 		try{
 			DB::beginTransaction();
-			$data = $request->all();
-			$data['created_by'] = Auth::id();
-			$user = $this->userService->create($data);
+			$user = $this->userService->create($request);
 			if($user instanceof User) {
 				$created = $user;
 				$status = Response::HTTP_CREATED;
@@ -125,6 +124,8 @@ class UsersController extends Controller
 	 */
 	public function show(User $user)
 	{
+		/* Profile picture */
+		$user->profile_picture = $this->userService->getUserProfilePicture($user);
 		$titles = $this->titleService->findAll(['status_id' => $this->statusService->statusActive()]);
 		$genders = $this->genderService->findAll(['status_id' => $this->statusService->statusActive()]);
 		$roles = $this->roleService->findAll(['status_id' => $this->statusService->statusActive()]);
@@ -157,12 +158,11 @@ class UsersController extends Controller
 	 */
 	public function update(Request $request, User $user)
 	{
-		
 		try{
 			DB::beginTransaction();
-			$data = $request->all();
-			$data['updated_by'] = Auth::id();
-			$user = $this->userService->update($user, $data);
+			
+			$user = $this->userService->update($user, $request);
+			
 			if($user instanceof User) {
 				$updated = $user;
 				$status = Response::HTTP_CREATED;

@@ -66,4 +66,9 @@ class UsersController extends Controller
 		}
 	}
 	
+	public function uploadProfilePicture(User $user, Request $request)
+	{
+		$user = $this->userService->uploadProfilePicture($user, $request);
+		return redirect()->route('users.show', ['id' => $user->id]);
+	}
 }
