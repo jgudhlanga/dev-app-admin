@@ -261,8 +261,11 @@ class UserRepository implements RepositoryInterface
 	 * @param $user
 	 * @return string
 	 */
-	public function getUserProfilePicture($user)
+	public function getUserProfilePicture($user =  null)
 	{
+		if(!$user) {
+			return null;
+		}
 		/* Profile picture */
 		$profileImage = "unknown.png";
 		if(File::exists(storage_path(config('system.storage_path.users').$user->id.'/'.$user->profile_picture))) {

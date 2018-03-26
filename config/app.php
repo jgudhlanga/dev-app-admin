@@ -187,6 +187,9 @@ return [
 	    
 	    /*codecourse notify package*/
 	    Codecourse\Notify\NotifyServiceProvider::class,
+	    
+	    /*Blade: Custom Directives*/
+	    App\Providers\BladeServiceProvider::class,
     ],
 
     /*

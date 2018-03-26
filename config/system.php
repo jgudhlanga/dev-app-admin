@@ -2,8 +2,8 @@
 
 return [
 	'general_model_namespace' => "App\Models\General\\",
-    'name'              => 'Jdev Developers',
-    'version'           => 'Version: 1.0',
+	'name' => 'Jdev Developers',
+	'version' => 'Version: 1.0',
 	'uploads' => [
 		'users' => 'public/users/',
 		'members' => 'public/members/',
@@ -15,4 +15,4 @@ return [
 	'theme_background' => [
 		'users' => 'storage/images/bg.jpg'
 	]
-	];
+];

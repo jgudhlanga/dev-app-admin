@@ -1,0 +1,1 @@
+You are not allowed to view this resource please get the required rights

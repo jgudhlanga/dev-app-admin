@@ -24,23 +24,23 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- The user image in the navbar-->
 
-                        @isset(Auth::user()->id)<img src="{{ asset("storage/users/$profilePicture") }}"
-                                                     class="user-image">@endisset
-                        <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs">{{ Auth::user()->first_name }} {{Auth::user()->last_name}}</span>
+                        @auth
+                            <img src="{{ asset("storage/users/$profilePicture") }}" class="user-image">
+                            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                            <span class="hidden-xs">{{ auth()->user()->first_name }} {{auth()->user()->last_name}}</span>
+                        @endauth
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
-                            @isset(Auth::user()->id)<img src="{{ asset("storage/users/$profilePicture") }}"
-                                                         class="img-circle">@endisset
-                            <p>
-                                {{ Auth::user()->first_name }} {{Auth::user()->last_name}}
-                            </p>
+                            @auth
+                                <img src="{{ asset("storage/users/$profilePicture") }}" class="img-circle">
+                                <p>{{ auth()->user()->first_name }} {{ auth()->user()->last_name}}</p>
+                            @endauth
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            @if (Auth::guest())
+                            @if (auth()->guest())
                                 <div class="pull-left">
                                     <a href="{{ route('login') }}" class="btn btn-default btn-flat">Login</a>
                                 </div>

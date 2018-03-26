@@ -1,0 +1,17 @@
+.forbidden403 {
+	padding-top: 20px; height: 85vh;
+	background-color: lighten($red, 100%);
+	text-align: center;
+	.image {
+		height: 180px; width: 180px;
+	}
+	.code, .header {
+		font-weight: bold;
+		font-size: 110px;
+		font-family: Algerian;
+		color: darken($red, 10%);
+	}
+	.body {
+	
+	}
+}
