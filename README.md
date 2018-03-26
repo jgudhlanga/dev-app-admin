@@ -7,10 +7,6 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-# Afrisake - By ProPay
-
-Members administration management system.
-
 ## Install
 
 Remember to change the env file to your database details. 
@@ -22,6 +18,7 @@ composer install
 npm install
 php artisan migrate --seed
 php artisan storage:link
+php artisan key:generate
 npm run dev
 
 ```
@@ -47,9 +44,6 @@ public/js
 public/vendor
 public/fonts
 ```
-
-!! ROUTES CAN BE FOUND AS ANNOTATION ABOVE EACH METHOD IN THE CONTROLLERS !!
-
 ## Credits
 
 - James Gudhlanga
