@@ -13,7 +13,7 @@ Remember to change the env file to your database details.
 
 ``` bash
 git clone https://github.com/jgudhlanga/dev-app-admin.git
-chmod -R 777 /storage /bootstrap/cache
+chmod -R 777 /storage /bootstrap/cache /public
 cp .env.example .env
 composer install
 npm install
