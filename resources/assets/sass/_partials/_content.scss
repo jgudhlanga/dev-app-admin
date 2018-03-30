@@ -1,6 +1,7 @@
 .content{
   background-color: $bg-main;
   height: 78vh;
+  overflow: auto;
 }
 .content-header {
   padding: 15px !important;

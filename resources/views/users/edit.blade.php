@@ -10,10 +10,10 @@
         <div class="row">
             <div class="card hovercard col-md-12">
                 <div class="card-background">
-                    <img src="{{ asset(config('system.theme_background.users')) }}">
+                    <img src="{{ url()->asset(config('system.theme_background.users')) }}">
                 </div>
                 <div class="useravatar">
-                    <img src="{{ asset("storage/users/$user->profile_picture") }}" class="img-circle">
+                    <img src="{{ url()->asset("storage/users/$user->profile_picture") }}" class="img-circle">
                 </div>
                 <div class="card-info">
                     <div>
